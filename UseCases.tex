@@ -1,0 +1,179 @@
+\subsection{Event-List Data and Responses}
+
+
+\subsubsection{Use Case --- Search for event lists surrounding Sgr A* for morphological studies}
+
+{\em Identify all HEA event lists encompassing Sgr~A* for initial selection for subsequent morphological studies.  Since a large number (at least several hundred) of observations are expected to match this request and the focus is on morphological studies, only the event lists and not the event bundles are desired.\/}
+
+\medskip
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+  \item Target name = ``Sgr A*'' or position inside 30 arcmin from (266.4168, $-29.0078$).
+  \item dataproduct\_type = ``event-list''.
+\end{enumerate}
+
+\begin{verbatim}
+SELECT * FROM ivoa.obscore
+NATURAL JOIN  ivoa.obscore-hea 
+WHERE
+(target_name = `Sgr A*' OR
+CONTAINS(POINT(s_ra, s_dec), CIRCLE, 266.4168, -29.0078, 0.5) = 1) 
+AND (dataproduct_type EQ `event-list')
+\end{verbatim}
+
+
+\subsubsection{Use Case --- Search for event bundles that include Cas A for spectrophotometric evolution studies}
+
+{\em Identify all event bundles that include the Cas A SNR and have at least 1 million events for subsequent spectrophotometric studies of the SNR expansion.  Since only a few observations are expected to match this request and because the focus is on spectrophotometric studies, the event bundles that include the responses or the ancillary products used to make the responses are required.\/}
+
+\medskip
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+  \item Target name = ``Cas A'' or position inside 10 arcmin from (350.8584, $+58.8113$).
+  \item dataproduct\_type = ``event-bundle''.
+\end{enumerate}
+
+\begin{verbatim}
+SELECT * FROM ivoa.obscore
+NATURAL JOIN  ivoa.obscore-hea 
+WHERE
+(target_name = `Cas A' OR
+CONTAINS(POINT(s_ra, s_dec), CIRCLE, 350.8584, +58.8113, 0.16667) = 1) 
+AND (dataproduct_type EQ `event-bundle')
+AND (ev_xel >= 1000000)
+\end{verbatim}
+
+
+\subsubsection{Use Case --- Identify PSF response-functions for further analysis of previously downloaded data products}
+
+{\em Identify all Chandra Source Catalog point spread functions for source detections that fall within 2 arcmin radius of  (83.84358, $-5.43639$) in the Orion star-forming complex for Chandra observation 4374.  These PSFs will be used to analyze previously downloadedcatalog data products for the same field.\/ }
+
+\medskip
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+  \item Position inside 3 arcmin from (83.84358, $-5.43639$).
+  \item dataproduct\_type = ``response-function''.
+  \item dataproduct\_subtype = ``psf''.
+  \item obs\_id = ``4374''.
+  \item obs\_collection = ``CSC2''.
+\end{enumerate}
+
+\begin{verbatim}
+SELECT * FROM ivoa.obscore
+NATURAL JOIN  ivoa.obscore-hea 
+WHERE
+(CONTAINS(POINT(s_ra, s_dec), CIRCLE, 83.84358, -5.43639, 0.033333) = 1) 
+AND (dataproduct_type EQ `response-function')
+AND (dataproduct_subtype EQ `psf')
+AND (obs_id = `4374')
+AND (obs_collection = `CSC2')
+\end{verbatim}
+
+
+\subsubsection{Use Case --- Search for event lists that include a fully calibrated spectral axis for BL Lac for rapid spectrophotometric evaluation}
+
+{\em Identify all event lists that include the BL Lac, have a fully calibrated spectral axis (i.e., spectral responses have already been applied), and have at least 10,000 events.  These data will be used to prepare slides for a presentation.  Note that since calib\_status = 2 may not specify that the spectral axis is fully calibrated in physical units (HEA event lists are often considered ``calibrated'' even if the spectral axis is in pulse height units ) the calibration status of the spectral axis must be checked explicitly.\/}
+
+\medskip
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+  \item Target name = ``BL Lac'' or position inside 5 arcmin from (330.680338, $+42.27777$).
+  \item dataproduct\_type = ``event-list''.
+  \item calib\_level $\geq 2$.
+  \item em\_calib\_status = ``calibrated''.
+  \item ev\_xel $\geq 10000$.
+\end{enumerate}
+
+\begin{verbatim}
+SELECT * FROM ivoa.obscore
+NATURAL JOIN  ivoa.obscore-hea 
+WHERE
+(target_name = `BL Lac' OR
+CONTAINS(POINT(s_ra, s_dec), CIRCLE, 330.680338, +42.27777, 0.083333) = 1) 
+AND (dataproduct_type EQ `event-list')
+AND (calib_level >= 2)
+AND (em_calib_status = `calibrated')
+AND (ev_xel >= 10000)
+\end{verbatim}
+
+
+\subsubsection{Use Case --- Search for spatially resolved spectropolarimetric observation of the Crab with spectral resolution R > 100}
+
+{\em Identify all event bundles for observations of the Crab that intersect the 1.0--100.0 keV energy range, have calibrated spatial and time axes, are spatially resolved in 2 dimensions in equatorial coordinates, have spectral resolution $R>100$, and include polarimetry measurements.  Note that ObsCore specifies that the axes lengths --- s\_xel1, s\_xel2, em\_xel, t\_xel, pol\_xel --- should be set to $-1$ for non-pixelated data like event lists, so these quantities are not useful for this query.\/}
+
+\medskip
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+  \item Target name = ``Crab'' or position inside 5 arcmin from (83.6324, $+22.0174$).
+  \item dataproduct\_type = ``event-bundle''.
+  \item calib\_level $\geq 2$.
+\end{enumerate}
+
+\begin{verbatim}
+SELECT * FROM ivoa.obscore
+NATURAL JOIN  ivoa.obscore-hea 
+WHERE
+(target_name = `Crab' OR target_name = `M1' OR
+CONTAINS(POINT(s_ra, s_dec), CIRCLE, 83.6324, +22.0174, 0.083333) = 1) 
+AND (dataproduct_type EQ `event-bundle')
+AND (calib_level >= 2)
+AND (s_resolution > 100)
+AND (energy_min < 100000.0) AND (energy_max >= 1000.0)
+AND (o_ucd LIKE '%phys.polarization%')
+AND (o.ucd LIKE '%pos.eq%')
+\end{verbatim}
+
+
+
+\subsection{High-Level Data Products}
+
+\subsubsection{Use Case --- Search for Chandra Source Catalog position error MCMC draws for X-ray detections in the vicinity of Gaia DR3 486718823701242368}
+
+{\em Identify all Chandra Source Catalog position error MCMC draws for source detections that fall within 5 arcsec radius of  (54.036061, $+61.907633$).  The MCMC draws will be evaluated to establish whether there are potentially unresolved X-ray sources that may conincide with the white dwarf for observation planning.\/}
+
+\medskip
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+  \item Position within 5.0 arcsec from (54.036061, $+61.907633$).
+  \item dataproduct\_type = ``draws''.
+  \item dataproduct\_subtype = ``poserr''.
+  \item obs\_collection = ``CSC2''.
+\end{enumerate}
+
+\begin{verbatim}
+SELECT * FROM ivoa.obscore
+NATURAL JOIN  ivoa.obscore-hea 
+WHERE
+(CONTAINS(POINT(s_ra, s_dec), CIRCLE, 54.036061, +61.907633, 0.0013888) = 1) 
+AND (dataproduct_type EQ `draws')
+AND (dataproduct_subtype EQ `poserr')
+AND (obs_collection = `CSC2')
+\end{verbatim}
+
+
+\subsubsection{Use Case --- Search for M31 source light curves and aperture photometry probability density functions that intersect a specific time interval}
+
+{\em Identify all light curves and aperture photometry probability density functions of sources detected in the field of M31 covering the energy range 0.3--7.0 keV that include observation data in the interval MJD 56320--56325 TT during which interval a transient event was thought to have occurred.  Because the data products are expected to include extremely sparse time axes, the t\_coverage TMOC must be used for the query.\/}
+
+\medskip
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+  \item Position within 1.5 degrees from (10.6847, $+41.2688$).
+  \item dataproduct\_type = ``timeseries'' {\em or\/} ``pdf''.
+  \item calib\_level = 4.
+  \item energy\_min $\leq 0.3$ {\em and\/} energy\_max $\geq 7.0$.
+  \item t\_coverage TMOC intersects MJD 56320--56325 TT.
+\end{enumerate}
+
+
+\begin{verbatim}
+SELECT * FROM ivoa.obscore
+NATURAL JOIN  ivoa.obscore-hea 
+WHERE
+(CONTAINS(POINT(s_ra, s_dec), CIRCLE, 10.6847, +41.2688, 1.5) = 1) 
+AND ((dataproduct_type EQ `timeseries') OR (dataproduct_type EQ `pdf'))
+AND (calib_level = 4)
+AND (energy_min <= 300.0) AND (energy_max >= 7000.0)
+AND (INTERSECTS(TMOC(17, t_coverage), ...) = 1)
+\end{verbatim}
+% Can someone please update the last line?
