@@ -1,0 +1,98 @@
+Vocabulary: http://www.ivoa.net/rdf/response-type
+Author: Mireille Louys for HEIG IG <mireille.louys@unistra.fr>
+Date: 2025-11-13
+
+New Term: response-function
+Action: Addition 
+Label: response-function
+Description:  
+A data product type describing instrumental response functions for calibration and analysis. 
+
+Relationships: response-function is a top level term.
+Usually related to an event-list data product in high energy astrophysics.
+
+Used-in: Data sets made accessible via the Chandra CS2 catalog 
+
+Rationale:
+The distribution of event-list data in multi-messenger astronomy. 
+For example, Chandra primary products distributed via the Chandra
+Data Archive include around half a dozen different types of products neces-
+sary to analyse Chandra data (for example, L2 event-list, Aspect solution,
+bad pixel map, spacecraft ephemeris, V&V Report).
+For VHE gamma rays and neutrinos, the DL3 event-lists should manda-
+torily be associated to their associated IRFs files. The links between the
+event-list and these IRFs should be well defined in the event-bundle.
+----------
+New Term: Point Spread Function
+Action: Addition 
+Label: psf
+Description: A dataset that records the probability density function of 
+spatial/angular spreading of incident photons from a point source caused 
+by the instrument (detector and/or mirror and/or analysis)
+
+Relationships: narrower than #response-function
+
+Used-in: CTA example?  
+
+
+----------
+New Term: Effective Area
+Action: Addition 
+Label: aeff 
+Description: A dataset that records the “effective area” of a telescope
+and/or instrument. The effective area is the geometric area
+of the telescope and/or instrument reduced by efficiency factors 
+such as reflectivity and vignetting, among other effects
+
+Relationships: narrower than #response-function
+----------
+New Term: Ancillary Response File
+Action: Addition 
+Label: arf 
+Description: A dataset that records the
+combined telescope/instru-
+ment effective area and
+detector quantum efficiency as
+a function of energy
+
+Relationships: narrower than #response-function
+
+Used-in: XMM data products ?
+
+---------- 
+New Term: Background Rate
+Action: Addition 
+Label: bkgrate 
+Description: A dataset that models the rate of residual events that are
+not from the expected source type (e.g. for gamma-ray instrument it 
+measures residual non-gamma-ray events coming.
+
+Relationships: narrower than #response-function
+
+----------
+New Term: Energy Dispersion 
+Action: Addition 
+Label: edisp 
+Description: A dataset that records the
+probability density of detecting an event with an energy estimator given the true
+energy of the event. 
+
+Relationships: narrower than #response-function
+
+Used-in: HESS data products ? 
+
+----------
+New Term: Redistribution Matrix File 
+Action: Addition 
+Label: rmf 
+Description: A dataset that records the probability density function
+mapping from energy space into detector pulse height (or position) space
+
+Relationships: narrower than #response-function
+
+Used-in: Chandra response data products ? 
+
+Reference:
+- IVOA Note: https://github.com/ivoa/HighEnergyObsCoreExt section 5.1.5
+- IVOA Note Virtual Observatory and High Energy Astrophysics Version 1.0
+https://ivoa.net/documents/Notes/VOHE/20241112/VOHE-Note-draft_1.0.pdf
