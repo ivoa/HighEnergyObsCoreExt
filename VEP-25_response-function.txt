@@ -42,7 +42,7 @@ Label: aeff
 Description: A dataset that records the “effective area” of a telescope
 and/or instrument. The effective area is the geometric area
 of the telescope and/or instrument reduced by efficiency factors 
-such as reflectivity and vignetting, among other effects
+such as reflectivity and vignetting, cuts efficiency, among other effects
 
 Relationships: narrower than #response-function
 ----------
