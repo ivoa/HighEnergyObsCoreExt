@@ -65,7 +65,7 @@ Action: Addition
 Label: bkgrate 
 Description: A dataset that models the rate of residual events that are
 not from the expected source type (e.g. for gamma-ray instrument it 
-measures residual non-gamma-ray events coming.
+measures residual non-gamma-ray events coming).
 
 Relationships: narrower than #response-function
 
