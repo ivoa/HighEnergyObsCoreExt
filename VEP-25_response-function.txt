@@ -45,6 +45,9 @@ of the telescope and/or instrument reduced by efficiency factors
 such as reflectivity and vignetting, cuts efficiency, among other effects
 
 Relationships: narrower than #response-function
+
+Used-in: HESS test data release (https://doi.org/10.5281/zenodo.1421099)
+
 ----------
 New Term: Ancillary Response File
 Action: Addition 
