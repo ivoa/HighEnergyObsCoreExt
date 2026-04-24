@@ -97,7 +97,7 @@ WHERE
 CONTAINS(POINT(s_ra, s_dec), CIRCLE, 350.8584, +58.8113, 0.042) = 2)
 AND (dataproduct_type = 'event-bundle')
 AND (obs_collection = 'VERITAS-DR1')
-AND (access_format = ’application/fits’)
+AND (access_format = ’application/x-votable+xml;content=datalink’)
 \end{verbatim}
 
 Then, for each row of the output, we get the ``access\_url'' of the Obscore table to provide access to the data.
