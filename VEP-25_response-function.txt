@@ -79,7 +79,7 @@ energy of the event.
 
 Relationships: narrower than #response-function
 
-Used-in: HESS data products ? 
+Used-in: HESS test data release (https://doi.org/10.5281/zenodo.1421099)
 
 ----------
 New Term: Redistribution Matrix File 
