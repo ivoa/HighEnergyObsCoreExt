@@ -32,7 +32,7 @@ by the instrument (detector and/or mirror and/or analysis)
 
 Relationships: narrower than #response-function
 
-Used-in: CTA example?  
+Used-in: HESS test data release (https://doi.org/10.5281/zenodo.1421099)
 
 
 ----------
