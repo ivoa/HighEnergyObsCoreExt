@@ -69,6 +69,7 @@ measures residual non-gamma-ray events coming).
 
 Relationships: narrower than #response-function
 
+Used-in: HESS test data release (https://doi.org/10.5281/zenodo.1421099)
 ----------
 New Term: Energy Dispersion 
 Action: Addition 
