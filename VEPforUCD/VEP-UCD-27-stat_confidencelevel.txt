@@ -1,0 +1,18 @@
+Vocabulary extension proposal for UCDs / 
+
+Vocabulary: http://www.ivoa.net/rdf/datalink/core
+Author: mireille.louys@astro.unistra.fr with EST solar group 
+Date: 2026-02-11
+Nb of terms discussed together : 1
+-----------------------
+
+New Term: stat.confidenceLevel
+Action: Amendement
+Label: Level of confidence for *a statistical measure*, detection or classification process
+
+Description: statistical confidence level to assess a statistical distribution. 
+In the analysis of statistical products, the stat confidence levels is used to establish data quality. 
+ 
+Rationale: Enhance definition of term to include statistical measures  
+
+Used_in: Statistical data sets 

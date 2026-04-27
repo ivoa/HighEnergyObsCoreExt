@@ -1,0 +1,29 @@
+Vocabulary: http://www.ivoa.net/rdf/UCDlist/
+Author: mireille.louys@unistra.fr, khelifi@in2p3.fr
+Date: 2026-04-23
+Nb of terms discussed together : 1
+-----------------------
+
+New Term: obs.event
+Prefix: S
+Label: Related to a signal messenger detection (photon or particle)
+
+Description:  
+
+Rationale: 
+High energy experiences gather detections of messengers (photon or particle) as lists of events.
+An event can be recorded by various measurements like time of arrival, detector position, energy , etc. 
+An event can be categorized using properties like :  
+event identifier : as meta.id;obs.event
+event grade : as meta.code.class;obs.event. 
+( defined from a detector pixel island, for instance)
+event type: as meta.code.class;obs.event 
+(defined according to some decision in the analysis pipeline)
+
+Used-in: 
+
+Discussion: TB Discussed in HEIG and Semantics
+
+
+Decision: 
+
