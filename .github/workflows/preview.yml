@@ -7,7 +7,7 @@
 name: Update PDF Preview
 
 env:
-  doc_name   : HighEnergyObsCoreExt
+  doc_name   :
   branch_name: ${{ github.head_ref || github.ref_name }}
   tag_preview: auto-pdf-preview
 
@@ -30,14 +30,14 @@ jobs:
 
     - name: Setup dependencies
       run: |
-        sudo apt update 
+        sudo apt update
         sudo apt install texlive-latex-base texlive-latex-recommended \
                          texlive-latex-extra texlive-fonts-recommended \
                          librsvg2-bin latexmk \
                          pdftk xsltproc latexmk cm-super
 
     - name: Build the document
-      run: make biblio ${{ env.doc_name }}-draft.pdf
+      run: make ${{ env.doc_name }}-draft.pdf
 
     - name: Check the output
       run: |

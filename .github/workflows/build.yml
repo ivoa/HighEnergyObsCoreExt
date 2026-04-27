@@ -7,7 +7,7 @@
 name: Check the IVOA document
 
 env:
-  doc_name: HighEnergyObsCoreExt
+  doc_name:
 
 on:
   pull_request:
