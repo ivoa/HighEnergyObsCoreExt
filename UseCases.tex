@@ -84,7 +84,7 @@ Then, for each row of the output, we identify the nature of the data product, an
 \noindent Find all VERITAS datasets satisfying:
 \begin{enumerate}[(i)]
   \item Target name = ``Cas A'' or position inside 2.5 arcmin from (350.8584, $+58.8113$),
-  \item dataproduct\_type = ``event-bundle'',
+  \item dataproduct\_type = ``event-list'',
   \item obs\_collection = ``VERITAS-DR1'',
   \item access\_format = ``datalink''.
 \end{enumerate}
@@ -95,12 +95,12 @@ NATURAL JOIN  ivoa.obscore_hea
 WHERE
 (target_name = 'Cas A' OR
 CONTAINS(POINT(s_ra, s_dec), CIRCLE, 350.8584, +58.8113, 0.042) = 2)
-AND (dataproduct_type = 'event-bundle')
+AND (dataproduct_type = 'event-list')
 AND (obs_collection = 'VERITAS-DR1')
 AND (access_format = ’application/x-votable+xml;content=datalink’)
 \end{verbatim}
 
-Then, for each row of the output, we get the ``access\_url'' of the DataLink to provide access to the data.
+Then, for each row of the output, we get the ``access\_url'' of the Obscore table to provide access to the data.
 
 
 \subsubsection{Use Case --- Search for event bundles that include Cas A for X-ray spectrophotometric evolution studies}
@@ -128,12 +128,12 @@ AND (ev_xel >= 1000000)
 
 \subsubsection{Use Case --- Search for event lists and their \glspl{IRF} of CTAO South observations at energies above 10 TeV for blind search of PeVatrons from a data release using DataLink}
 
-{\em Identify all event bundles (event lists and their associated \glspl{IRF}) taken by CTAO South that contains events above 10 TeV. Data taken with the Small Size Telescopes or Medium Size Telescopes can be then selected. \/}
+{\em Identify all event lists and their associated \glspl{IRF} taken by CTAO South that contains events above 10 TeV. Data taken with the Small Size Telescopes or Medium Size Telescopes can be then selected. \/}
 
 \medskip
 \noindent Find all CTAO datasets satisfying:
 \begin{enumerate}[(i)]
-  \item dataproduct\_type = ``event-bundle'',
+  \item dataproduct\_type = ``event-list'',
   \item obs\_collection = ``CTAO-DR1'',
   \item access\_format = ``datalink'',
   \item instrument\_name contains ``CTAO-S'',
@@ -144,7 +144,7 @@ First, run the ObCore query:
 \begin{verbatim}
 SELECT * FROM ivoa.obscore
 NATURAL JOIN  ivoa.obscore_hea
-WHERE (dataproduct_type = 'event-bundle')
+WHERE (dataproduct_type = 'event-list')
 AND (obs_collection = 'CTAO-DR1')
 AND (access_format = 'application/x-votable+xml;content=datalink')
 AND (instrument_name LIKE 'CTAO-S')
@@ -179,6 +179,32 @@ FOR EACH ROW OF OUTPUT_VOTABLE:
     	EVENT_FILE['OBS_ID'] = GET RAW['accessURL']
 \end{verbatim}
 
+Table \ref{tab:datalink1} displays an example of the DataLink response table attached to such an event-list discovery. 
+The obs\_publisher\_did of the single discovered event-list is repeated in the ID column of the DataLink table.
+Mandatory FIELDS service\_def and error\_messsage are omitted because they are empty
+
+\begin{landscape}
+\begin{longtable}{|p{2.4cm}|p{3.3cm}|p{2.0cm}|p{2.4cm}|p{2.3cm}|p{2.4cm}|p{2.7cm}|}
+\sptablerule
+\textbf{ID}  &\textbf{\footnotesize access\_url}  &\textbf{\footnotesize semantics}&\textbf{\footnotesize description} &\textbf{\footnotesize content\_type} &\textbf{\footnotesize content\_length} &\textbf{\footnotesize content\_qualifier}\cr
+\sptablerule
+{\tiny ivo://xxx/yyy/zzz\#ttt} & {\tiny https://xxx.yyy/zzz/ttt1.ext1} & \#this & {\footnotesize event-list}  {\tiny ivo://xxx/yyy/zzz\#ttt} & text/xml & 1000000 & event-list \cr
+\sptablerule
+{\tiny ivo://xxx/yyy/zzz\#ttt} & {\tiny https://xxx.yyy/zzz/ttt2.ext2} & \#calibration & {\footnotesize Effective AREA of the telescope/instrument associated with the event-list}  {\tiny ivo://xxx/yyy/zzz\#ttt} & text/csv & 10000 & aeff \cr
+\sptablerule
+{\tiny ivo://xxx/yyy/zzz\#ttt} & {\tiny https://xxx.yyy/zzz/ttt3.ext3} & \#calibration & {\footnotesize Energy dispersion of event-list}  {\tiny ivo://xxx/yyy/zzz\#ttt} & text/csv & 10000 & edisp \cr
+\sptablerule
+{\tiny ivo://xxx/yyy/zzz\#ttt} & {\tiny https://xxx.yyy/zzz/ttt4.ext4} & \#calibration & {\footnotesize Point spread function of event-list } {\tiny ivo://xxx/yyy/zzz\#ttt} & image/fits & 50000 & psf \cr
+\sptablerule
+{\tiny ivo://xxx/yyy/zzz\#ttt} & {\tiny https://xxx.yyy/zzz/ttt5.ext5} & \#calibration & {\footnotesize Background rate of  event-list } {\tiny ivo://xxx/yyy/zzz\#ttt} & text/csv & 1000 & bkgrate \cr
+\sptablerule
+
+\caption{DataLink response table attached to an event-list  record in ObsCore.}
+
+
+\label{tab:datalink1}
+\end{longtable}
+\end{landscape}
 
 \subsubsection{Use Case --- Search for spatially resolved spectropolarimetric observations of the Crab with spectral resolution R > 100}
 
