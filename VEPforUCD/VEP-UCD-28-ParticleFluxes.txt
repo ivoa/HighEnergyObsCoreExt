@@ -1,0 +1,135 @@
+Vocabulary: http://www.ivoa.net/rdf/UCDlist/
+Author: Bruno Khelifi <khelifi@in2p3.fr>, mireille.louys@unistra.fr
+Date: 2026-04-8, updated 2026-04-22
+Nb of terms discussed together : 5
+-----------------------
+
+Proposal to add dimension equations to all definition in order to avoid any ambiguity.
+The dimensionality is given using the SI symbols of dimensions.
+It allows users to express values relative to this UCD in any unit having the same dimensionality. 
+
+New Term: phys.flux
+Action: Amendement
+Prefix: Q
+Description: Flux or flow of particles 
+( remove energy from current definition)
+Additional Property:(dimensionality: [L^-2.T^-1])
+Rationale: Define flux for any physical particle 
+
+Used_in:  present in UCDList1.6
+Discussion: 
+Do we have a normalized representation of dimensional equations ( kind of grammar) in order to have efficient algorithms for comparing these strings ? 
+For instance, T first , then L , then Mass , etc ... 
+
+Decision:
+
+-----------------------
+New Term: phys.flux.energy
+Action: Amendement
+Prefix: Q
+Description: Energy flux, heat flux or irradiance 
+
+Additional Property:(dimensionality: [M.T^-3])
+Rationale: Distinguish between flux of particles and flux of energy. 
+
+Used_in:  %todo provide an example site or file
+Discussion: 
+Decision:
+-----------------------
+New Term: phys.flux.bol
+Action: Addition
+Prefix: Q
+Description: Bolometric flux 
+Additional Property:(dimensionality: [M.T^-3])
+
+Used_in:  %todo provide an example site or file
+Rationale: phot.flux.bol is present in UCDList1.6 
+Discussion: can we use instead "phys.flux;phys.energy;em.bol" and define ?
+Decision:
+
+-----------------------
+New Term: phys.flux.density
+Action: Addition
+Prefix: Q
+Description: Flux density or spectral density or differential flux 
+Additional Property:(dimensionality: [T.M^-1.L^-4])
+
+Used_in: %todo provide an example site or file
+Rationale: 
+
+Discussion: Can we use instead "phys.flux;phys.count;em.energy / em.wl / em.freq", leading to the removal of this term of the UCD list?
+No phys.count exist in UCDList1.6
+Decision:
+
+-----------------------
+New Term: phys.flux.density.sb
+Action: Addition
+Prefix: Q
+Description: Flux density surface brightness 
+Additional Property:(dimensionality: [T.M^-1.L^-4])
+
+Used_in: %todo provide an example site or file
+Rationale: 
+
+Discussion: same as for phys.flux.density
+can we use instead "phys.flux;phys.count;em.energy;instr.sr", leading to the removal
+of this term of the UCD list? never clear whether we multiply by em.energy or divide...
+Isn't phys.flux  already per unit of surface area ? Has the same dimensionality as phys.flux.density
+
+Decision:   %todo clarify the definition  
+     
+-----------------------
+New Term: phys.flux.sb
+Action: Addition
+Prefix: Q
+Description: Flux surface brightness 
+Additional Property:(dimensionality: [L^-2.T^-1])
+
+Used_in: %todo provide an example site or file
+Rationale: 
+????
+Discussion: can we use instead "phys.flux;phys.count;instr.sr"?
+--> need to clarify / same unit equations as phys.flux ??
+Decision:          
+      
+-----------------------
+Term: phys.fluence
+Action: Amendement
+Prefix: Q
+Description: Particles per unit area 
+Additional Property:(dimensionality: [L^-2])
+
+Used_in: exists in UCDList1.6
+
+Rationale: 
+
+Discussion: suffix E exists and allows various combinations already.
+Harmonize with  UCDList1.6 definition
+
+Decision:   
+-----------------------
+New Term: phys.fluence.density
+Action: Addition
+Prefix: Q
+Description: Spectral fluence or particles per unit area per energy 
+Additional Property:(dimensionality: [M^-1.L^-4.T^2])
+
+Used_in: ?????? 
+Rationale: 
+
+Discussion: can we use instead "phys.fluence;phys.count;em.energy"? never clear whether we multiply by em.energy or divide...
+Must be refined / discussed
+Decision:   
+
+-----------------------
+New Term: phys.luminosity
+Action: Amendement
+Prefix: Q
+Description: Luminosity or total radiative power 
+Additional Property:(dimensionality: [M.L^2.T^-3])
+Used_in: 
+
+Rationale: 
+Discussion: defined in UCDList1.6 with suffix E already allowing pre/post combinations  
+Decision:  
+

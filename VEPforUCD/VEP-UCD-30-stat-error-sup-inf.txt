@@ -1,0 +1,41 @@
+Vocabulary: http://www.ivoa.net/rdf/UCDlist/
+Author: mireille.louys@unistra.fr, khelifi@in2p3.fr
+Date: 2026-03-12, revised 2026-04-13
+Nb of terms discussed together : 2
+-----------------------
+
+New Term: stat.error.negative 
+Prefix: P
+Label: Statistical error below the reference value 
+
+Description: For non symmetric error values, we want to distinguish between the upper error value and the lower error value w.r.t the reference value ( median or mean) . Here we consider the absolute value of the error below the reference value. 
+
+Rationale: 
+
+Used-in: https://www.aanda.org/articles/aa/full_html/2010/12/aa14484-10/aa14484-10.html,
+Section 5.4. Excess rms-flux correlation
+
+Discussion: TBD in semantics & HEIG
+Propose stat.error.below instead of stat.error.negative ( Mireille)
+
+Decision: 
+
+-------------------------------------------------------
+
+New Term: stat.error.positive 
+Prefix: P
+Label: Statistical error above the reference value 
+
+Description: For non symmetric error values, we want to distinguish between the upper error value and the lower error value w.r.t the reference value (median or mean) . Here we consider the absolute value of the error above the reference value. 
+
+Rationale: Useful for tracing the error bars along the data plots ---> a completer 
+
+Used-in: Used-in: https://www.aanda.org/articles/aa/full_html/2010/12/aa14484-10/aa14484-10.html,
+Section 5.4. Excess rms-flux correlation
+Here r4=0.87exp(+0.10) index(-0.24) is the correlation value with positive error limits of +0.10 and negative error limit of (-0.24). 
+
+
+Discussion:  
+Propose stat.error.above instead of stat.error.positive ( Mireille & Sebastien)
+To Be Discussed  in semantics & HEIG
+Decision: 

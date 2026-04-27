@@ -1,0 +1,57 @@
+
+\newpage
+
+\section*{Response table  proposal}
+\todo{ Check fields for this new table }
+
+This  proposal defines a specific table to list the properties of a response function data set. 
+This strategy focuses on the adequate attributes necessary to identify a response fonction file. 
+The data product type is defined in the \emph{response-type} vocabulary available at 
+\url{http://www.ivoa.net/rdf/response-type}. 
+The features selected to describe a response dfata product entail: 
+\begin{itemize}
+\item curation attributes : \emph{resp\_publisher\_did}, \emph{resp\_\_date}
+\item identification of the observation it belongs to : \emph{obs\_id}
+\item identification of the ObsCore data products it relates to : \emph{obs\_publisher\_did}
+\item access : \emph{resp\_access\_url} and \emph{resp\_access\_format}
+\item response spatial coverage
+\item response energy coverage
+\end{itemize}
+
+This clarifies what is restricted to the response file , and what belongs to the observation. 
+
+\todo{ add UCD for each field 
+}
+\begin{table}[htbp]
+%\begin{center}
+\begin{tabular}{|p{0.25\textwidth}|p{0.12\textwidth}|p{0.1\textwidth}|p{0.39\textwidth}|}
+\hline
+Column Name & Unit & Type & Description\\\hline
+%obs\_collection & unitless & String & Name of the data collection \\\hline
+% binding  a response with an observation data set
+obs\_id & unitless & String & Related Observation ID (foreign key) \\\hline
+obs\_publisher\_did & unitless & String & Related Observation ID (foreign key) \\\hline
+% copied from related observation if needed
+target\_name & unitless & String & Astronomical object observed, if any\\\hline
+facility\_name & unitless & String & Facility Name used for data products to process  \\\hline
+instrument\_name & unitless & String & Instrument Name used for data products to process \\\hline
+% response specific fields 
+resp\_product\_type & unitless & String &  Product type as defined in Response vocabulary\\\hline
+resp\_publisher\_did & unitless & String & Dataset identifier given by the publisher\\\hline
+resp\_access\_url & unitless & String & URL used to access (download) response dataset\\\hline
+resp\_access\_format & unitless & String & File content format (see in ObsCore MimeTypes )\\\hline
+% response spatial coverage
+s\_ra & deg & double & Region of interest 's  for response use ; Central right ascension, ICRS\\\hline
+s\_dec & deg & double & Region of interest 's for response use ; Central declination, ICRS\\\hline
+s\_region & unitless & String & Region of interest  for response use (expressed in ICRS frame)\\\hline
+t\_intervals & unitless& String (TMOC) & time coverage for response use \\\hline
+%response energy coverage
+energy\_min & m & double & Energy band minimal value for response use  \\\hline
+energy\_max & m & double & Energy band maximal value for response use  \\\hline
+\end{tabular}
+\caption{Mandatory fields of the Response table proposed in this HEIG ObsCore extension serialization}
+\label{tab:response_table}
+%\end{center}
+\end{table}
+
+

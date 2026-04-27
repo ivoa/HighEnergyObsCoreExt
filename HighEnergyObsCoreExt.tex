@@ -9,19 +9,19 @@
 \ivoagroup{High Energy Interest Group}
 
 \author{
-	I. Evans (SAO/CXC, \href{mailto:ievans@cfa.harvard.edu}{ievans@cfa.harvard.edu},
-	M. Servillat (LUX - Observatoire de Paris, \href{mailto:mathieu.servillat@obspm.fr}{mathieu.servillat@obspm.fr},
-	B. Khélifi (APC - Université de Paris Cité/CNRS, \href{mailto:khelifi@in2p3.fr}{khelifi@in2p3.fr}),
-	J. Evans (SAO/CXC, \href{mailto:janet@cfa.harvard.edu}{janet@cfa.harvard.edu}),
-	M. Louys (CDS and ICube - Université de Strasbourg, \href{mailto:mireille.louys@unistra.fr}{mireille.louys@unistra.fr}),
-	M. Kettenis (Joint Institute for VLBI ERIC, \href{mailto:kettenis@jive.eu}{kettenis@jive.eu}),
-	F. Bonnarel (IVOA, \href{mailto:francois.bonnarel@gmail.com}{francois.bonnarel@gmail.com}),
-	L. Michel (SSC-XMM/SVOM - Strasbourg Observatory, \href{mailto:laurent.michel@astro.unistra.fr}{laurent.michel@astro.unistra.fr}),
-	C. Boisson (LUX - Observatoire de Paris, \href{mailto:catherine.boisson@obspm.fr}{catherine.boisson@obspm.fr}),
-	M. Cresitello-Dittmar (SAO/CXC, \href{mailto:mdittmar@cfa.harvard.edu}{mdittmar@cfa.harvard.edu}),
-	O. Ates (LUX - ObsParis, \href{mailto:onur.ates@obspm.fr}{onur.ates@obspm.fr}),
-	K. Kosack (IRFU - CEA/Université Paris-Saclay, \href{mailto:karl.kosack@cea.fr}{karl.kosack@cea.fr}),
-	J. Schnabel (ECAP, \href{mailto:jutta.schnabel@fau.de}{jutta.schnabel@fau.de}),
+	I. Evans (SAO/CXC, \href{mailto:ievans@cfa.harvard.edu}{ievans@cfa.harvard.edu},\\
+	M. Servillat (LUX - Observatoire de Paris, \href{mailto:mathieu.servillat@obspm.fr}{mathieu.servillat@obspm.fr},\\
+	B. Khélifi (APC - Université de Paris Cité/CNRS, \href{mailto:khelifi@in2p3.fr}{khelifi@in2p3.fr}),\\
+	J. Evans (SAO/CXC, \href{mailto:janet@cfa.harvard.edu}{janet@cfa.harvard.edu}),\\
+	M. Louys (CDS and ICube - Université de Strasbourg, \href{mailto:mireille.louys@unistra.fr}{mireille.louys@unistra.fr}),\\
+	M. Kettenis (Joint Institute for VLBI ERIC, \href{mailto:kettenis@jive.eu}{kettenis@jive.eu}),\\
+	F. Bonnarel (IVOA, \href{mailto:francois.bonnarel@gmail.com}{francois.bonnarel@gmail.com}),\\
+	L. Michel (SSC-XMM/SVOM - Strasbourg Observatory, \href{mailto:laurent.michel@astro.unistra.fr}{laurent.michel@astro.unistra.fr}),\\
+	C. Boisson (LUX - Observatoire de Paris, \href{mailto:catherine.boisson@obspm.fr}{catherine.boisson@obspm.fr}),\\
+	M. Cresitello-Dittmar (SAO/CXC, \href{mailto:mdittmar@cfa.harvard.edu}{mdittmar@cfa.harvard.edu}),\\
+	O. Ates (LUX - ObsParis, \href{mailto:onur.ates@obspm.fr}{onur.ates@obspm.fr}),\\
+	K. Kosack (IRFU - CEA/Université Paris-Saclay, \href{mailto:karl.kosack@cea.fr}{karl.kosack@cea.fr}),\\
+	J. Schnabel (ECAP, \href{mailto:jutta.schnabel@fau.de}{jutta.schnabel@fau.de}),\\
 	S. Hallmann (DESY Zeuthen, \href{mailto:steffen.hallmann@desy.de}{steffen.hallmann@desy.de}),
 }
 
@@ -37,24 +37,27 @@
 \usepackage{lscape}
 %\usepackage{minted}
 \setlength {\marginparwidth }{2cm}
+
 \usepackage{todonotes}
 \usepackage{array}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[nopostdot,style=super,nonumberlist,toc]{glossaries}
 \usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
-\usepackage{hyperref}
 
+
+% mireille : in order to flag changes to fill 
+\newcommand{\TODO}[1]{%
+    \noindent%
+    \colorbox{todocolor}{%
+            \parbox{0.85\linewidth}{\sffamily \textbf{TODO:}\\
+            #1}
+    }%
+    \vspace{2pt}
+}
+
+
+%glossary
 \newacronym{IVOA}{IVOA}{International Virtual Observatory Alliance}
 \newacronym{VO}{VO}{Virtual Observatory}
 \newacronym{HE}{HE}{High Energy}
@@ -408,6 +411,8 @@ Some use cases require access to a bundle of datasets that includes the {\bf eve
 
 An {\bf event-bundle} might for example consist of an {\bf event-list} and the associated {\bf response-function}s used to calibrate the dataset, and may also contain provenance information, data quality time-series, and preview images or plots.
 
+
+
 \subsubsection{Advanced Data Products}
 
 In addition to data product types that focus on event data, we note that existing ObsCore definitions do not adequately span the breadth of advanced data products (typically with {\em calib\_level\/}${}\ge 3$) that may be generated from astronomical observations. The computational complexity of analyzing \gls{HEA} data robustly in the extreme Poisson regime ({\em e.g.\/}, Bayesian X-ray aperture photometry applied simultaneously to multiple overlapping detections and observations) means that data providers may choose to provide such analysis products directly to the end user.
@@ -599,48 +604,86 @@ Many \gls{HEA} FITS format data products will comply with existing MIME-types di
 \section{Proposed ivoa.obscore\_hea Table Attributes}\label{sec:ibscoreext}
 
 This section summarizes the proposal for the \gls{HEA} extension of ObsCore.  We use the term {\em ivoa.obscore\_hea\/} to described the extension here and in Appendix~\ref{sec:uc}.
+% start mireille ucd update
 
-\begin{landscape}
-\begin{center}
-%\begin{longtable}{ | m{2.5cm} | m{3em} | m{3em} | m{3em} | m{6cm} | m{2.3em} |}
-\begin{longtable}{ | p{0.125\linewidth} | p{0.075\linewidth} | p{0.075\linewidth} | p{0.075\linewidth} | p{0.6\linewidth} | p{0.05\linewidth} |}
+\begin{longtable}{ | m{2.5cm} | m{4em} | m{3em} | m{3em} | m{6cm} | m{2.3em} |}
 \hline
-{\centering \bf Column Name}     &{\centering \bf UType} &{\centering \bf Unit} &{\centering \bf Type} &{\centering \bf Description} &{\centering \bf MAN}\\
+
+{\centering \bf Column Name}     &{\centering \bf UCD} &{\centering \bf Unit} &{\centering \bf Type} &{\centering \bf Description} &{\centering \bf MAN}\\
 \hline
-{\em ev\_xel\/} & TBD &  unitless & integer & Number of events in an event list & NO \\
+ ev\_xel & \ucd{meta.number;obs.event} &  unitless & int & {\footnotesize Number of events in an event\_list }& NO \\
 \hline
-{\em s\_ref\_energy\/} & TBD & eV & double & Energy at which the ObsCore spatial characterization attributes {\em s\_fov\/}, {\em s\_region\/}, {\em s\_resolution\/} are defined & NO \\
+ s\_ref\_energy &  \ucd{meta.ref;em.energy;pos} & eV & float & {\footnotesize Energy at which the ObsCore spatial characterisation attributes s\_fov , s\_region, s\_resolution are defined} & NO \\
 \hline
-{\em em\_ref\_energy\/}  & TBD & eV & double & Energy at which the ObsCore spectral characterization attributes {\em em\_res\_power\/}, {\em em\_resolution} are defined & NO \\
+ em\_ref\_energy  & \ucd{meta.ref;em.energy;em} & eV & float & {\footnotesize Energy at which the ObsCore spatial characterisation attributes em\_res\_power, em\_resolution are defined} & NO \\
 \hline
-{\em s\_ref\_oaa\/} & TBD & deg & double & Off-axis angle ({\em i.e.\/}, the angular separation of the target or source from the telescope optical axis) at which the ObsCore spatial characterization attributes {\em s\_fov\/}, {\em s\_region\/}, {\em s\_resolution\/} are defined & NO \\
+ s\_ref\_oaa & \ucd{pos.posAng;instr.offset;pos} & deg & float & {\footnotesize Off-axis angle (i.e., the angular separation of the target or source from the telescope optical axis) at which the ObsCore spatial characterisation attributes s\_fov , s\_region, s\_resolution are defined} & NO \\
 \hline
-{\em em\_ref\_oaa\/} & TBD & deg & double & Off-axis angle ({\em i.e.\/}, the angular separation of the target or source from the telescope optical axis) at which the ObsCore spectral characterization attributes {\em em\_res\_power\/}, {\em em\_resolution\/} are defined & NO \\
+ em\_ref\_oaa & \ucd{pos.posAng;instr.offset;em} & deg & float & {\footnotesize Off-axis angle (i.e., the angular separation of the target or source from the telescope optical axis) at which the ObsCore spectral characterisation attributes em\_res\_power, em\_resolution are defined} & NO \\
 \hline
-{\em t\_intervals\/} & TBD & unitless & string & List of observation intervals or stable/good time intervals describing the exact observation time coverage as a TMOC  & NO \\
+  t\_intervals & \ucd{?? }& unitless & TMOC & {\footnotesize List of observation intervals or stable/good time intervals describing the exact observation time coverage} & NO \\
 \hline
-{\em energy\_min\/} & TBD & eV & double & Energy associated to the ObsCore attribute {\em em\_max\/}, describing the minimum energy of the dataset & NO \\
+  energy\_min & \ucd{em.energy;stat.min} & float & eV &  {\footnotesize Energy associated to the Obscore attribute em\_max, describing the minimal energy of the dataset} & NO \\
 \hline
-{\em energy\_max\/} & TBD & eV & double & Energy associated to the ObsCore attribute {\em em\_min\/}, describing the maximum energy of the dataset & NO \\
+  energy\_max & \ucd{em.energy;stat.max} & float & eV & {\footnotesize Energy associated to the Obscore attribute em\_min, describing the maximal energy of the dataset} & NO \\
 \hline
-{\em obs\_mode\/} & TBD & unitless & string &  Observation mode of an observation & NO \\
+  obs\_mode & \ucd{meta.code;obs.param} & unitless & string  &{\footnotesize Observation mode of the observation (e.g. TBU)} & NO \\
 \hline
-{\em tracking\_type\/} & TBD & unitless & string & Tracking type of an observation & NO \\
+  tracking\_mode & \ucd{meta.code;obs.param} & unitless & string & {\footnotesize Tracking mode of an observation (e.g., sidereal rate, moving target [solar system] tracking, drift scans)}  & NO \\
 \hline
-{\em scan\_mode\/} & TBD & unitless & string & Scan mode of an observation & NO \\
+  analysis\_mode & \ucd{meta.code;obs.param} & unitless & string &{\footnotesize Data reduction/analysis mode}& NO \\
 \hline
-{\em pointing\_mode\/} & TBD & unitless & string & Pointing mode of an observation & NO \\
+  event\_type & \ucd{meta.code.qual;obs.event} & unitless & string &{\footnotesize Data quality flag of the events (e.g. ``good psf'', ``good rejection'', ``Nhit (100,200)''} & NO \\
 \hline
-{\em analysis\_mode\/} & TBD & unitless & string & Data reduction/analysis mode & NO \\
-\hline
-{\em event\_type\/} & TBD & unitless & string & Event subset indicator ({\em e.g.\/}, data quality flag for the events) & NO \\
-\hline
-\caption{Attributes for the \gls{HEA} Extension of ObsCore}
-\label{tab:hea_ext_attr}
 \end{longtable}
-\end{center}
-\end{landscape}
+%\end{center}
 
+
+% end mireille ucd update 
+%\begin{landscape}
+%\begin{center}
+%%\begin{longtable}{ | m{2.5cm} | m{3em} | m{3em} | m{3em} | m{6cm} | m{2.3em} |}
+%\begin{longtable}{ | p{0.125\linewidth} | p{0.075\linewidth} | p{0.075\linewidth} | p{0.075\linewidth} | p{0.6\linewidth} | p{0.05\linewidth} |}
+%\hline
+%{\centering \bf Column Name}     &{\centering \bf UType} &{\centering \bf Unit} &{\centering \bf Type} &{\centering \bf Description} &{\centering \bf MAN}\\
+%\hline
+%{\em ev\_xel\/} & TBD &  unitless & integer & Number of events in an event list & NO \\
+%\hline
+%{\em s\_ref\_energy\/} & TBD & eV & double & Energy at which the ObsCore spatial characterization attributes {\em s\_fov\/}, {\em s\_region\/}, {\em s\_resolution\/} are defined & NO \\
+%\hline
+%{\em em\_ref\_energy\/}  & TBD & eV & double & Energy at which the ObsCore spectral characterization attributes {\em em\_res\_power\/}, {\em em\_resolution} are defined & NO \\
+%\hline
+%{\em s\_ref\_oaa\/} & TBD & deg & double & Off-axis angle ({\em i.e.\/}, the angular separation of the target or source from the telescope optical axis) at which the ObsCore spatial characterization attributes {\em s\_fov\/}, {\em s\_region\/}, {\em s\_resolution\/} are defined & NO \\
+%\hline
+%{\em em\_ref\_oaa\/} & TBD & deg & double & Off-axis angle ({\em i.e.\/}, the angular separation of the target or source from the telescope optical axis) at which the ObsCore spectral characterization attributes {\em em\_res\_power\/}, {\em em\_resolution\/} are defined & NO \\
+%\hline
+%{\em t\_intervals\/} & TBD & unitless & string & List of observation intervals or stable/good time intervals describing the exact observation time coverage as a TMOC  & NO \\
+%\hline
+%{\em energy\_min\/} & TBD & eV & double & Energy associated to the ObsCore attribute {\em em\_max\/}, describing the minimum energy of the dataset & NO \\
+%\hline
+%{\em energy\_max\/} & TBD & eV & double & Energy associated to the ObsCore attribute {\em em\_min\/}, describing the maximum energy of the dataset & NO \\
+%\hline
+%{\em obs\_mode\/} & TBD & unitless & string &  Observation mode of an observation & NO \\
+%\hline
+%{\em tracking\_type\/} & TBD & unitless & string & Tracking type of an observation & NO \\
+%\hline
+%{\em scan\_mode\/} & TBD & unitless & string & Scan mode of an observation & NO \\
+%\hline
+%{\em pointing\_mode\/} & TBD & unitless & string & Pointing mode of an observation & NO \\
+%\hline
+%{\em analysis\_mode\/} & TBD & unitless & string & Data reduction/analysis mode & NO \\
+%\hline
+%{\em event\_type\/} & TBD & unitless & string & Event subset indicator ({\em e.g.\/}, data quality flag for the events) & NO \\
+%\hline
+%\caption{Attributes for the \gls{HEA} Extension of ObsCore}
+%\label{tab:hea_ext_attr}
+%\end{longtable}
+%\end{center}
+%\end{landscape}
+
+\input{response_table.tex}
+
+%\input{analysis_dp_table.tex}
 
 \pagebreak
 %\printglossaries
