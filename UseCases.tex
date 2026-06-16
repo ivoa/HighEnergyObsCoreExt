@@ -290,14 +290,14 @@ AND (obs_id = '4374')
 AND (obs_collection = 'CTAO-DR1')
 \end{verbatim}
 
-\subsubsection{Use Case --- Search for all ANTARES neutrino events for a given dataset in the direction of a point source}
+\subsubsection{Use Case --- Search for all ANTARES data products for a given collection in the direction of a point source}
 
 {\em Using the ANTARES 2007--2017 point source data set, retrieve all events, background estimate, and detector acceptance to calculate the expected neutrino flux from a given point source, e.g. HESSJ0632+057, as in \textit{G. Illuminati for the ANTARES Collaboration, PoS(ICRC2019)920} and recalculate the significance of the neutrino flux.}
 
 \medskip
 \noindent Find all datasets satisfying
 \begin{enumerate}[(i)]
-  \item Position inside 5 degrees from (98.24, 5.81),
+  \item Source (98.24, 5.81) within detector field of view,
   \item dataproduct\_type = ``event-bundle'' or ``event-list'' or ``response-function'',
   \item obs\_collection = ``ANTARES-2017-PS''.
 \end{enumerate}
@@ -306,7 +306,7 @@ AND (obs_collection = 'CTAO-DR1')
 SELECT * FROM ivoa.obscore
 NATURAL JOIN ivoa.obscore_hea
 WHERE
-(CONTAINS(POINT(s_ra, s_dec), CIRCLE(98.24, 5.81, 5.0)) = 1)
+(CONTAINS(POINT('ICRS', 98.24, 5.81), CIRCLE('ICRS', s_ra, s_dec, s_fov)) = 1)
 AND (dataproduct_type IN ('event-bundle', 'event-list', 'response-function'))
 AND (obs_collection = 'ANTARES-2017-PS')
 \end{verbatim}
@@ -318,23 +318,25 @@ AND (obs_collection = 'ANTARES-2017-PS')
 \medskip
 \noindent Find all IRF datasets satisfying:
 \begin{enumerate}[(i)]
-  \item Position inside 5 degrees from (0.8, -45.19),
+  \item Source (0.8, -45.19) within detector field of view
   \item dataproduct\_type = ``response-function'',
-  \item instrument\_name = ``KM3NeT-ARCA'',
+  \item instrument\_name LIKE ``\%ARCA\%'',
   \item t\_min/t\_max from 2027--2030, ({\em i.e.\/}, MJD 61406--62870),
-  \item event\_type = ``track''.
+  \item event\_type = ``track'',
+  \item analysis mode optimised for pointsource searches.
 \end{enumerate}
 
 \begin{verbatim}
 SELECT * FROM ivoa.obscore
 NATURAL JOIN ivoa.obscore_hea
 WHERE
-(CONTAINS(POINT(s_ra, s_dec), CIRCLE(0.8, -45.19, 5.0)) = 1)
+(CONTAINS(POINT('ICRS', 0.8, -45.19), CIRCLE('ICRS', s_ra, s_dec, s_fov)) = 1)
 AND (dataproduct_type = 'response-function'))
-AND (instrument_name = '%ARCA%')
-AND (t_min >= 61406)
-AND (t_max <= 62870)
+AND (instrument_name LIKE '%ARCA%')
+AND (t_max >= 61406)
+AND (t_min <= 62870)
 AND (event_type = 'track')
+AND (analysis_mode = 'pointsource')
 \end{verbatim}
 
 \subsubsection{Use Case --- Study the combined neutrino flux for the Galactic plane}
@@ -344,9 +346,10 @@ AND (event_type = 'track')
 \medskip
 \noindent Find all neutrino datasets satisfying:
 \begin{enumerate}[(i)]
-  \item messenger = ``neutrino'',
   \item dataproduct\_type = ``event-bundle'',
-  \item analysis\_mode = ``diffuse''.
+  \item messenger = ``neutrino'',
+  \item analysis\_mode = ``diffuse'',
+  \item Galactic plane box within the detector field of view.
 \end{enumerate}
 % diffuse
 
@@ -355,20 +358,23 @@ SELECT * FROM ivoa.obscore
 NATURAL JOIN ivoa.obscore_hea
 WHERE
 (dataproduct_type = 'event-bundle')
-AND (messenger = '%neutrino%')
+AND (messenger = 'neutrino')
 AND (analysis_mode = 'diffuse')
+AND 1 = INTERSECTS(
+    CIRCLE('ICRS', s_ra, s_dec, 80),
+    BOX('GALACTIC', 0, 0, 30, 2))
 \end{verbatim}
 
 \subsubsection{Use Case --- Calculate the probability for a source class to be emitters of tau neutrinos}
 
-{\em Using a catalog of potential sources, calculate the probability of measuring a $\nu_{\tau}$ neutrino flux from a stacking of all sources of that type with 10 years of data taking with widely spaced, high energy detectors like ARCA.}
+{\em Using a catalog of potential sources, calculate the probability of measuring a $\nu_{\tau}$ neutrino flux from a stacking of all sources of that type with 10 years of data taking with widely spaced, high energy optical detectors like ARCA.}
 
 \medskip
 \noindent Find all neutrino datasets satisfying:
 \begin{enumerate}[(i)]
-  \item dataproduct\_type = ``response-function'',
+  \item dataproduct\_type = ``response-function'', dataproduct\_subtype = ``aeff``
   \item messenger contains ``pdgid-16'' or ``pdgid+16'',
-  \item obs\_mode = ``wide-array'',
+  \item obs\_mode = ``optical'',
   \item analysis\_mode = ``pointsource''.
 \end{enumerate}
 
@@ -377,8 +383,9 @@ SELECT * FROM ivoa.obscore
 NATURAL JOIN ivoa.obscore_hea
 WHERE
 (dataproduct_type = 'response-function')
-AND (messenger = '%pdgid-16%' OR messenger = '%pdgid+16%')
-AND (obs_mode LIKE '%wide-array%')
+AND (dataproduct_subtype = 'aeff')
+AND (messenger = 'pdgid-16' OR messenger = 'pdgid+16')
+AND (obs_mode LIKE '%optical%')
 AND (analysis_mode LIKE '%pointsource%')
 \end{verbatim}
 
