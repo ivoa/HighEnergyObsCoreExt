@@ -21,3 +21,7 @@ gitmeta.tex
 
 # OS-specific
 .DS_Store
+
+#githubworkflow
+./github/workflows/*
+

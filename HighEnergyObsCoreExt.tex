@@ -140,16 +140,16 @@ The goal is to explore elements needed to reliably discover and select \gls{HEA}
 
 \gls{HEA} data include observations obtained using photon detectors covering X-ray (from $\sim$0.1 keV to $\sim$120 keV) through gamma-ray (from 120 keV up to $\gtrsim$ PeV) energies, as well as cosmic-ray and astrophysical neutrino ($\gtrsim$ GeV) detectors, or other messengers related to \gls{HEA} phenomena. The domain is now sufficiently mature to provide open data that are science-ready and work with open analysis tools ({\em e.g.\/}, CIAO, \citealt{2006SPIE.6270E..1VF}, or Gammapy, \citealt{gammapy:2023}). The science output of the \gls{HEA} domain already includes advanced products such as images, cubes, spectra, and time series such as light curves and time-resolved spectra. Additional data products include fitted sky models with spatial, spectral, and/or temporal component(s), along with their confidence intervals or confidence limits, and covariance matrices.   Finally, multiple \gls{HEA} instruments produce source catalogs and surveys covering up to the full the sky, which include maps of photon or particle flux, exposure, sensitivity, and aperture-photometry likelihood profiles.
 
-Observations of the universe at the highest energies are based on techniques that are radically different compared to the UV through radio domains. \gls{HEA} observatories\footnote{For example, Chandra, XMM-Newton, Fermi, H.E.S.S., MAGIC, VERITAS, HAWC, LHAASO, IceCube, ANTARES, Auger, and soon CTAO, KM3NeT, and SWGO.} are generally designed to detect particles ({\em e.g.\/}, individual photons, cosmic-rays, or neutrinos) with the ability to estimate multiple observables for those particles. These detection techniques all rely on {\em event counting\/}\footnote{As opposed to signal integrating ({\em e.g.\/}, using a detector that accumulates the total photon signal during an exposure).}, where an event has some probability of being due to the interaction of a particle from an astrophysical source with the detectors, but also has some probability of being from instrumental or background effects. The data corresponding to an event are first an instrumental signal, which is then calibrated and processed to estimate physical quantities such as a time of arrival, point-of-origin on the sky, and an energy proxy associated with the event. Several other intermediate and qualifying characteristics may be associated with a detected event, depending on the detection technique. The ensemble of events detected over a given time interval and spatial field-of-view is referred to as an {\em event list\/}, which we designate an {\bf event-list} in this document.
+Observations of the universe at the highest energies are based on techniques that are radically different compared to the UV through radio domains. \gls{HEA} observatories\footnote{For example, Chandra, XMM-Newton, Fermi, H.E.S.S., MAGIC, VERITAS, HAWC, LHAASO, IceCube, ANTARES, Auger, and soon CTAO, KM3NeT, and SWGO.} are generally designed to detect particles ({\em e.g.\/}, individual photons, cosmic-rays, or neutrinos) with the ability to estimate multiple observables for those particles. These detection techniques all rely on {\em event counting\/}\footnote{As opposed to signal integrating ({\em e.g.\/}, using a detector that accumulates the total photon signal during an exposure).}, where an event has some probability of being due to the interaction of a particle from an astrophysical source with the detectors, but also has some probability of being from instrumental or background effects. The data corresponding to an event are first an instrumental signal, which is then calibrated and processed to estimate physical quantities such as a time of arrival, point-of-origin on the sky, and an energy proxy associated with the event. Several other intermediate and qualifying characteristics may be associated with a detected event, depending on the detection technique. The ensemble of events detected over a given time interval and spatial field-of-view is referred to as an {\em event list\/}, which we designate an {\bf hea-event-list} in this document.
 
-Though {\bf event-list}s {\em may\/} include estimators for calibrated physical values, they typically still have to be corrected for the photometric, spectral, spatial, and/or temporal responses of the telescope and detector combination to yield scientifically interpretable information. The mappings between physical measurements of the source properties and the observables are called Instrument Response Functions (\glspl{IRF}\footnote{We try to avoid using the term \gls{IRF} in a normative sense since historical usage across the broad \gls{HEA} community (and from facility to facility) varies. In some cases, \gls{IRF} has been used to mean specifically the product of the \gls{ARF} and \gls{RMF}, whereas in other cases \gls{IRF} has been used more generally to mean any instrumental response function regardless of type.}).  Some \glspl{IRF} are probabilistic in nature\footnote{For example, the energy matrix is a probability density function.}, and in addition may depend on the set of events selected for analysis by the end user.  They are usually not invertible, so methods such as forward-folding fitting (using source models with any combination of spectral, spatial, temporal, and/or polarization components that are estimated) are needed to estimate physical properties, such as the true flux of particles from a source arriving at the instrument, given the measured observable quantities. The \glspl{IRF} generally evolve over time with the instrument and observation characteristics, and are usually defined for a specific time interval and may be decomposed into a standard set of independent components (see \S~3.1.5 of \citealt{2024ivoa.note.heig}), such as the spatial point-spread function or the energy-migration matrix or different messenger particle types, where each component may be stored or computed separately.  Since both \glspl{IRF} and {\bf event-list}s are required to analyze \gls{HEA} data, some \gls{IVOA} standards must be modified in order to expose both of them via the \gls{VO}.
+Though {\bf hea-event-list}s {\em may\/} include estimators for calibrated physical values, they typically still have to be corrected for the photometric, spectral, spatial, and/or temporal responses of the telescope and detector combination to yield scientifically interpretable information. The mappings between physical measurements of the source properties and the observables are called Instrument Response Functions (\glspl{IRF}\footnote{We try to avoid using the term \gls{IRF} in a normative sense since historical usage across the broad \gls{HEA} community (and from facility to facility) varies. In some cases, \gls{IRF} has been used to mean specifically the product of the \gls{ARF} and \gls{RMF}, whereas in other cases \gls{IRF} has been used more generally to mean any instrumental response function regardless of type.}).  Some \glspl{IRF} are probabilistic in nature\footnote{For example, the energy matrix is a probability density function.}, and in addition may depend on the set of events selected for analysis by the end user.  They are usually not invertible, so methods such as forward-folding fitting (using source models with any combination of spectral, spatial, temporal, and/or polarization components that are estimated) are needed to estimate physical properties, such as the true flux of particles from a source arriving at the instrument, given the measured observable quantities. The \glspl{IRF} generally evolve over time with the instrument and observation characteristics, and are usually defined for a specific time interval and may be decomposed into a standard set of independent components (see \S~3.1.5 of \citealt{2024ivoa.note.heig}), such as the spatial point-spread function or the energy-migration matrix or different messenger particle types, where each component may be stored or computed separately.  Since both \glspl{IRF} and {\bf hea-event-list}s are required to analyze \gls{HEA} data, some \gls{IVOA} standards must be modified to expose both of them via the \gls{VO}.
 
 In the following, the current ObsCore standard will be discussed in \S~\ref{sec:obscore}, focusing on attributes that need to be modified. Then, we propose the creation of a \gls{HEA} extension of ObsCore in \S~\ref{sec:obscoreext}, as some attributes are very specific to our domain. In these two sections, the discussion focuses on the attribute definitions rather on the attribute values. In \S~\ref{sec:voc}, enhancement of vocabulary is proposed for some ObsCore attributes, DataLink semantics, UCDs, and MIME-types.
 
 \section{ObsCore Attribute Definitions for High Energy Astrophysics Data}
 \label{sec:obscore}
 
-The ObsCore representation of any \gls{HEA} \textbf{event-list} data products is described in terms of curation, coverage, and access. However, given the \gls{HEA} data specificities, several properties, including resolutions, observable axis descriptions, and polarization states would be simply set to ``NULL'', and data axis lengths set to ``$-1$''. Therefore, for these data products and associated \glspl{IRF}, the definitions of some ObsCore attributes should be adjusted so that they better represent the content of the data from the perspective of data discovery. We note that many properties, including spatial and spectral coverage and resolution can vary strongly with energy and off-axis angle. These adjustments will also typically apply to advanced, high-level data products derived from \textbf{event-list} data.
+The ObsCore representation of any \gls{HEA} \textbf{hea-event-list} data products is described in terms of curation, coverage, and access. However, given the \gls{HEA} data specificities, several properties, including resolutions, observable axis descriptions, and polarization states would be simply set to ``NULL'', and data axis lengths set to ``$-1$''. Therefore, for these data products and associated \glspl{IRF}, the definitions of some ObsCore attributes should be adjusted so that they better represent the content of the data from the perspective of data discovery. We note that many properties, including spatial and spectral coverage and resolution can vary strongly with energy and off-axis angle. These adjustments will also typically apply to advanced, high-level data products derived from \textbf{hea-event-list} data.
 
 Currently, some ObsCore attributes ({\em dataproduct\_type\/} and {\em calib\_level\/}) are formally defined in the ObsCore Recommendation Version 1.1 \citep{2017ivoa.spec.0509L} and also in the vocabularies documents \citep{2023ivoa.spec.0206D, 2021ivoa.spec.0525D}\footnote{Primarily the Data Product Type Vocabulary, \url{https://www.ivoa.net/rdf/product_type}.}, which may be referenced in future versions of the ObsCore Recommendation.  For completeness, we are proposing in this document modifications to both the existing ObsCore Recommendation and IVOA vocabularies.
 
@@ -166,18 +166,14 @@ The ObsCore Recommendation Version 1.1 \citep{2017ivoa.spec.0509L} defines an {\
 {\bf event}: an event-counting ({\em e.g.\/}, X-ray or other high energy) dataset of some sort. Typically this is instrumental data, {\em i.e.\/}, ``event data''.  An event dataset is often a complex object containing multiple files or other substructures. An event dataset may contain data with spatial, spectral, and time information for each measured event, although the spectral resolution (energy) is sometimes limited. Event data may be used to produce higher level data products such as images or spectra.
 \end{quote}
 
-We propose to add the following {\em dataproduct\_type\/} terms to ObsCore to better define a \gls{HEA} {\bf event-list} and an {\bf event-bundle} that includes the {\bf event-list} and associated data:
-
+We propose to add the following {\em dataproduct\_type\/} terms to ObsCore to better define a \gls{HEA} {\bf he-event-list} and an {\bf he-event-bundle} that includes the {\bf hea-event-list} and associated data:
 \begin{quote}
-{\bf event-list}: a dataset that records a collection of observed particle-detection events, such as incoming high-energy particles, where an event is typically characterized by a spatial position, a time, and a spectral value ({\em e.g.\/}, an energy, a channel, a pulse height).
+{\bf hea-event-list}: a dataset that records a collection of observed particle-detection events, such as incoming high-energy particles, where an event is typically characterized by a spatial position, a time, and a spectral value ({\em e.g.\/}, an energy, a channel, a pulse height).
 
-{\bf event-bundle}: a compounded dataset containing an {\bf event-list} and multiple files or other substructures that are products necessary to analyze the event-list. Data in an {\bf event-bundle} may thus be used to produce higher level data products calibrated in physical units when containing \glspl{IRF} or other data products that can be used to construct \glspl{IRF}.
+{\bf hea-event-bundle}: a compounded dataset containing an {\bf hea-event-list} and multiple files or other substructures that are products necessary to analyze the hea-event-list. Data in an {\bf hea-event-bundle} may thus be used to produce higher level data products calibrated in physical units when containing \glspl{IRF} or other data products that can be used to construct \glspl{IRF}.
 \end{quote}
 
-We note that the term {\bf event} has caused confusion in the past, since ``event'' may also used to describe notifications ({\em e.g.\/}, as in ``VOEvent'') of astrophysical events such as supernova explosions.  Such ``events'' are quite different from the particle detection events being described herein. Using {\bf event-list} will help to resolve this ambiguity.
-
-%An {\bf event-bundle} might for example consist of an {\bf event-list} and the associated {\bf response-functions} (see below) used to calibrate the dataset; alternatively an {\bf event-bundle} may include the {\bf event-list} and associated  data products necessary for the user to create the {\bf response-functions} (for those X-ray cases where detailed knowledge of the scientific use case — for example, the user’s selection of events — may be required to compute the responses).\\
-%particle-detection
+We note that the term {\bf event} has caused confusion in the past, since ``event'' may also used to describe notifications ({\em e.g.\/}, as in ``VOEvent'') of astrophysical events such as supernova explosions.  Such ``events'' are quite different from the particle detection events being described herein. Using {\bf hea-event-list} will help to resolve this ambiguity.
 
 In addition to {\em dataproduct\_type\/} terms that focus on event data, we note that existing ObsCore definitions do not adequately span the breadth of ``advanced data products'' (typically with {\em calib\_level\/} $\ge$ 3) that may be generated from astronomical observations by users or observatories. The computational complexity of analyzing \gls{HEA} data robustly in the extreme Poisson regime ({\em e.g.\/}, Bayesian X-ray aperture photometry applied simultaneously to multiple overlapping detections and observations, or Frequentist adjustment of models of electron populations for multi-wavelength data spanning from X-rays to PeV gamma rays) means that data providers may choose to provide such analysis products directly to the end user. For example, the Chandra Source Catalog includes 38 types of advanced data products (for a total of $\sim\!90$ million files) and $\sim\!50$\% of these data product types are not well represented by a  {\em dataproduct\_type\/} value that allows for meaningful data discovery. Users will certainly want to discover these data products independently from the associated progenitor observation data (and many of these data products combine data from multiple observations). We therefore propose the following additional {\em dataproduct\_type\/} (or {\em dataproduct\_subtype\/}) terms for these advanced data products, and note that these terms will certainly be useful independent of waveband ({\em i.e.\/}, they can be equally applicable to UV/optical, IR, and radio datasets):
 
@@ -188,7 +184,7 @@ In addition to {\em dataproduct\_type\/} terms that focus on event data, we note
 
 {\bf region}: a dataset that includes an encoding of (one or more) regions of parameter space, for example a spatial region or a region of phase space covered by a dataset. The set of dimensions represented by the region can be arbitrary.\footnote{One possible encoding is a \gls{MOC}; however the vast majority of pre-existing region data products in \gls{HEA} data archives currently use other encodings.}
 
-{\bf response-function}: a dataset that records a mapping from a physical quantity to an observable quantity. For \gls{HEA}, this may be the components of the composite \gls{IRF} such as an Auxiliary Response File ({\bf arf}), Redistribution Matrix File ({\bf rmf}), Effective Area ({\bf aeff}), Energy Dispersion ({\bf edisp}), the Background Rate ({\bf bkgrate}). The Point Spread Function ({\bf psf}) is a response function that is generally applicable across multiple wavebands. While these datasets may generally be represented as an N-dimensional data cube, designating them as {\bf response-functions} enhances data discovery for very common types of \gls{HEA} dataset (see the use cases in Appendix~\ref{sec:uc}).
+{\bf response-function}: a dataset that records a mapping from a physical quantity to an observable quantity. For \gls{HEA}, this may be the components of the composite \gls{IRF} such as an Auxiliary Response File ({\bf arf}), Redistribution Matrix File ({\bf rmf}), Effective Area ({\bf aeff}), Energy Dispersion ({\bf edisp}), the Background Rate ({\bf bkgrate}). The Point Spread Function ({\bf psf}) is a response function that is generally applicable across multiple wavebands. While these datasets may generally be represented as an N-dimensional data cube, designating them as {\bf response-function}s enhances data discovery for very common types of \gls{HEA} dataset (see the use cases in Appendix~\ref{sec:uc}).
 \end{quote}
 
 The {\bf measurements} {\em dataproduct\_type\/} is quite useful for many different types of advanced data products (which may be derived from multiple observations). But users of those products often may not be interested in the progenitor datasets, especially as multiple advanced data products may be extracted from the same single progenitor or a few progenitors ({\em e.g.\/}, measurements associated with multiple sources detected in a single observation field). We propose to delete the caveat associated with {\em dataproduct\_type\/} = ``measurements'' in the ObsCore IVOA Recommendation (\S~4.1.1) that requires the derived data products be exposed ``{\bf together} with the progenitor observation dataset''.  The recovery of progenitor observation datasets may be achieved using provenance information, if desired.
@@ -201,15 +197,15 @@ The optional attribute {\em dataproduct\_subtype} may be used by the data provid
 
 ObsCore defines calibration {\bf Level 1} as ``Instrumental data in a standard format (FITS, VOTable, SDFITS, ASDM, etc.) which could be manipulated with standard astronomical packages.'' and {\bf Level 2} as ``Calibrated, science ready data with the instrument signature removed.''
 
-However, some \gls{HEA} {\bf event-list}s include spatial and time axes that are calibrated physical quantities, but the spectral axis is instrumental and requires application of the IRFs to remove this signature. This is typically done because the {\bf response-function}s can depend on the choice of region (spatial/time) from which the events are extracted (especially for telescope/detector combinations where the telescope position dithers on the sky during the exposure), which depends on the specific science case and therefore cannot be determined {\em a priori\/}.  Such {\bf event-list}s fall ``between'' {\em calib\_level\/} 1 and 2.
+However, some \gls{HEA} {\bf hea-event-list}s include spatial and time axes that are calibrated physical quantities, but the spectral axis is instrumental and requires application of the IRFs to remove this signature. This is typically done because the {\bf response-function}s can depend on the choice of region (spatial/time) from which the events are extracted (especially for telescope/detector combinations where the telescope position dithers on the sky during the exposure), which depends on the specific science case and therefore cannot be determined {\em a priori\/}.  Such {\bf hea-event-list}s fall ``between'' {\em calib\_level\/} 1 and 2.
 
-On the other hand, other {\bf event-list}s may not have any calibrated axes or may have all axes calibrated, and it is important to be able to differentiate between these for data discovery.  While the value for {\em calib\_level\/} for any data product is left for the data provider to determine, we suggest that individual data providers set {\em calib\_level\/} = 1 if an {\bf event-list} is considered to be ``uncalibrated'' according to normal usage for their data products, and set {\em calib\_level\/} = 2 if an {\bf event-list} is considered to be ``calibrated'' according to normal usage for their data products.
+On the other hand, other {\bf hea-event-list}s may not have any calibrated axes or may have all axes calibrated, and it is important to be able to differentiate between these for data discovery.  While the value for {\em calib\_level\/} for any data product is left for the data provider to determine, we suggest that individual data providers set {\em calib\_level\/} = 1 if an {\bf hea-event-list} is considered to be ``uncalibrated'' according to normal usage for their data products, and set {\em calib\_level\/} = 2 if an {\bf hea-event-list} is considered to be ``calibrated'' according to normal usage for their data products.
 
 Also, we propose that the calibration status of the spatial/spectral/time data axes be identified using the appropriate axis ObsCore {\em calib\_status\/} keyword ({\em s\_calib\_status\/} for the spatial axes, {\em em\_calib\_status\/} for the spectral axis, and {\em t\_calib\_status\/} for the time axis).
 
 \subsection{{\em access\_url}}
 
-Given the complexity and number of \gls{HEA} data products, the {\em access\_url\/} may point either directly to a file ({\em e.g.\/}, to the {\bf event-list} or an {\bf event-bundle}), or to a DataLink service that will provide links to the data and to associated data ({\em e.g.\/}, {\bf response-function}s).
+Given the complexity and number of \gls{HEA} data products, the {\em access\_url\/} may point either directly to a file ({\em e.g.\/}, to the {\bf hea-event-list} or an {\bf hea-event-bundle}), or to a DataLink service that will provide links to the data and to associated data ({\em e.g.\/}, {\bf response-function}s).
 
 If a DataLink is provided, {\em access\_format\/} should be set to ``application/x-votable+xml;content=datalink'' to indicate that the URL points to a Data\-Link service.
 
@@ -217,7 +213,7 @@ If the {\em access\_url\/} points to a bundle, the detailed content of the bundl
 
 \subsection{{\em access\_format}}
 
-The {\em access\_format\/} attribute specifies the format of the data product when downloaded as a file from the {\em access\_url\/}.  The analysis of \gls{HEA} data often requires use of multiple, related data products, for example an {\bf event-list} combined with associated \glspl{IRF} or ancillary files that can be employed by the user to create \glspl{IRF}\null.  These associated products are often bundled together with the {\bf event-list} and we propose in \S~\ref{sec:dataproduct_type} to assign such bundles {\em dataproduct\_type\/} = {\bf event-bundle}.  While these bundles are typically not standardized across different projects, knowledge of the bundle content is useful for client applications to properly handle the bundles (for example to send the data to an appropriate visualization tool).  This is readily achieved by encoding an appropriate MIME-type using the {\em access\_format\/} attribute.  In Section~\ref{sec:mimetypes} we propose additional MIME-types for some common {\bf event-bundle}s.
+The {\em access\_format\/} attribute specifies the format of the data product when downloaded as a file from the {\em access\_url\/}.  The analysis of \gls{HEA} data often requires use of multiple, related data products, for example an {\bf hea-event-list} combined with associated \glspl{IRF} or ancillary files that can be employed by the user to create \glspl{IRF}\null.  These associated products are often bundled together with the {\bf hea-event-list} and we propose in \S~\ref{sec:dataproduct_type} to assign such bundles {\em dataproduct\_type\/} = {\bf hea-event-bundle}.  While these bundles are typically not standardized across different projects, knowledge of the bundle content is useful for client applications to properly handle the bundles (for example to send the data to an appropriate visualization tool).  This is readily achieved by encoding an appropriate MIME-type using the {\em access\_format\/} attribute.  In Section~\ref{sec:mimetypes} we propose additional MIME-types for some common {\bf hea-event-bundle}s.
 
 \subsection{{\em s\_ra\/}/{\em s\_dec}}
 
@@ -227,46 +223,46 @@ For non-pointing instruments (which may include all-sky instruments such as KM3N
 
 \subsection{{\em s\_calib\_status}}
 
-We propose that {\em s\_calib\_status\/} encode the calibration status of an {\bf event-list} dataset's spatial axes. Where multiple spatial axes are included in a dataset ({\em e.g.\/}, physical detector pixel coordinates, virtual detector coordinates corrected for distortions, world coordinates), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated spatial axes) to define {\em s\_calib\_status\/}.
+We propose that {\em s\_calib\_status\/} encode the calibration status of an {\bf hea-event-list} dataset's spatial axes. Where multiple spatial axes are included in a dataset ({\em e.g.\/}, physical detector pixel coordinates, virtual detector coordinates corrected for distortions, world coordinates), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated spatial axes) to define {\em s\_calib\_status\/}.
 
-Under the (reasonable) assumption that an end-user searching for {\bf event-bundle} datasets is typically querying based on the properties of the primary {\bf event-list}, we suggest that those values also be used for the {\bf event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf event-bundle} dataset.
+Under the (reasonable) assumption that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
 
 For dataset types that do not encode sky coordinates or observations without dedicated spatial axes like non-pointing observatories, we suggest setting this value to ``NULL''.
 
 \subsection{{\em t\_calib\_status}}
 
-We propose that {\em t\_calib\_status\/} encode the calibration status of an {\bf event-list} dataset's time axis.  Where multiple time axes are included in a dataset ({\em e.g.\/}, instrument counter, absolute time), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated time axis) to define {\em t\_calib\_sta\-tus\/}.
+We propose that {\em t\_calib\_status\/} encode the calibration status of an {\bf hea-event-list} dataset's time axis.  Where multiple time axes are included in a dataset ({\em e.g.\/}, instrument counter, absolute time), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated time axis) to define {\em t\_calib\_sta\-tus\/}.
 
-Under the (reasonable) assumption that an end-user searching for {\bf event-bundle} datasets is typically querying based on the properties of the primary {\bf event-list}, we suggest that those values also be used for the {\bf event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf event-bundle} dataset.
+Under the (reasonable) assumption that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
 
 For dataset types that do not encode time coordinates, we suggest setting this value to ``NULL''.
 
 \subsection{{\em em\_calib\_status}}
 
-We propose that {\em em\_calib\_status\/} encode the calibration status of an {\bf event-list} dataset's spectral axis.  Where multiple spectral axes are included in a dataset ({\em e.g.\/}, PHA, PI, energy), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated spectral axis) to define {\em em\_calib\_status\/}.
+We propose that {\em em\_calib\_status\/} encode the calibration status of an {\bf hea-event-list} dataset's spectral axis.  Where multiple spectral axes are included in a dataset ({\em e.g.\/}, PHA, PI, energy), we recommend that the data provider use the coordinate system that is most likely to be preferred by the end user (typically the most fully calibrated spectral axis) to define {\em em\_calib\_status\/}.
 
-Under the (reasonable) assumption that an end-user searching for {\bf event-bundle} datasets is typically querying based on the properties of the primary {\bf event-list}, we suggest that those values also be used for the {\bf event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf event-bundle} dataset.
+Under the (reasonable) assumption that an end-user searching for {\bf hea-event-bundle} datasets is typically querying based on the properties of the primary {\bf hea-event-list}, we suggest that those values also be used for the {\bf hea-event-bundle}.  However, the data provider should ultimately decide which value best describes their {\bf hea-event-bundle} dataset.
 
 For dataset types that do not encode spectral coordinates, we suggest setting this value to ``NULL''.
 
 \subsection{{\em o\_ucd}}
 
-For an {\bf event-list}, we can consider that all measures stored in column values are observables. This is {\em the\/} fundamental difference between \gls{HEA} {\bf event-list}s and typical pixelated datasets. The current ObsCore Recommendation suggests that {\em o\_ucd\/} be set to ``NULL'' for event lists. However this significantly hampers data discovery for \gls{HEA} datasets. Since the data content of {\bf event-list}s may vary significantly from facility to facility, meaningful discovery of \gls{HEA} datasets {\em requires\/} the user be able to query the UCDs of the set of observables included in an {\bf event-list}.
+For an {\bf hea-event-list}, we can consider that all measures stored in column values are observables. This is {\em the\/} fundamental difference between \gls{HEA} {\bf hea-event-list}s and typical pixelated datasets. The current ObsCore Recommendation suggests that {\em o\_ucd\/} be set to ``NULL'' for event lists. However this significantly hampers data discovery for \gls{HEA} datasets. Since the data content of {\bf hea-event-list}s may vary significantly from facility to facility, meaningful discovery of \gls{HEA} datasets {\em requires\/} the user be able to query the UCDs of the set of observables included in an {\bf hea-event-list}.
 
-A natural way of doing this that is consistent with current usage would be to extend {\em o\_ucd\/} to allow specification of {\em multiple\/} observables for {\bf event-list}s (and {\bf event-bundle}s), for example, {\em o\_ucd\/} = {\em `pos.eq\#time\#instr.event.pulse\-Height'\/}.  We propose using the {\em hash symbol\/} (`\#') to separate UCDs for the multiple observables to distinguish from the case where multiple UCD words separated by semicolons may be needed to define the UCD for a single observable.  This follows a suggestion from the EPN-TAP Recommendation \citep{2022ivoa.spec.0822E} to use the hash symbol as a separator.  Doing so can simplify ADQL queries since ADQL includes a {\tt ivo\_hashlist\_has} IVOA-standardized user defined function that can be used to validate if a particular UCD is included.  One can also perform an ADQL query similar to ``o\_ucd LIKE `\%string\%'\null'' if all that is desired is to verify the presence of a specific UCD `string'.
+A natural way of doing this that is consistent with current usage would be to extend {\em o\_ucd\/} to allow specification of {\em multiple\/} observables for {\bf hea-event-list}s (and {\bf hea-event-bundle}s), for example, {\em o\_ucd\/} = \newline {\em `pos.eq\#time\#instr.pulse;arith.sum'\/}.  We propose using the {\em hash symbol\/} (`\#') to separate UCDs for the multiple observables to distinguish from the case where multiple UCD words separated by semicolons may be needed to define the UCD for a single observable.  This follows a suggestion from the EPN-TAP Recommendation \citep{2022ivoa.spec.0822E} to use the hash symbol as a separator. Doing so can simplify ADQL queries since ADQL includes a {\tt ivo\_hashlist\_has} IVOA-standardized user defined function that can be used to validate if a particular UCD is included.  One can also perform an ADQL query similar to ``o\_ucd LIKE `\%string\%'\null'' if all that is desired is to verify the presence of a specific UCD `string'.
 
 We note that extending {\em o\_ucd\/} to allow specification of multiple observables would require similar adjustments to the other observable axis attributes {\em o\_unit\/}, {\em o\_calib\_status\/}, and {\em o\_stat\_err\/}.
 
-Note that real {\bf event-list}s may include an extensive set of columns ({\em e.g.\/}, a Chandra ACIS Level~1 {\bf event-list} includes $\sim\!20$ columns, depending on observing mode) and several columns may represent similar (but not identical) observables ({\em e.g.\/}, event position in detector pixel coordinates, projected onto the focal surface, corrected for geometric distortions, corrected for spacecraft dither motion, mapped to world coordinates).  Currently defined UCDs are not sufficiently fine-grained to be able to differentiate between these various cases. But that is very likely not necessary, since for data discovery purposes the user is typically interested in the ``most calibrated'' properties in each of the spatial/spectral/time(/polarization) axes ({\em e.g.\/}, world coordinates in the above example).
+Note that real {\bf hea-event-list}s may include an extensive set of columns ({\em e.g.\/}, a Chandra ACIS Level~1 {\bf hea-event-list} includes $\sim\!20$ columns, depending on observing mode) and several columns may represent similar (but not identical) observables ({\em e.g.\/}, event position in detector pixel coordinates, projected onto the focal surface, corrected for geometric distortions, corrected for spacecraft dither motion, mapped to world coordinates).  Currently defined UCDs are not sufficiently fine-grained to be able to differentiate between these various cases. But that is very likely not necessary, since for data discovery purposes the user is typically interested in the ``most calibrated'' properties in each of the spatial/spectral/time(/polarization) axes ({\em e.g.\/}, world coordinates in the above example).
 
-In the example {\em o\_ucd\/} above, the UCD {\em instr.event.pulseHeight\/} is used to represent the detector Pulse Height Amplitude (PHA)\null. There is currently no UCD defined for a raw measure like PHA, but we propose the addition of {\em instr.event.pulseHeight\/} to the UCDs list vocabulary, together with other UCDs that are relevant for \gls{HEA} data, in \S~\ref{sec:UCDs}.  Several additional UCDs, including electromagnetic spectrum, physical quantities, and statistical parameters UCDs, are also proposed in \S~\ref{sec:UCDs} that are relevant for \gls{HEA} data products but could also be of use for other domains such as cosmology.
+In the example {\em o\_ucd\/} above, the UCD {\em instr.pulse;arith.sum\/} is used to represent the detector Pulse Height Amplitude (PHA)\null. There is currently no UCD defined for a raw measure like PHA, but we propose the addition of {\em instr.pulse\/} to the UCDs list vocabulary, together with other UCDs that are relevant for \gls{HEA} data, in \S~\ref{sec:UCDs}.  Several additional UCDs, including electromagnetic spectrum, physical quantities, and statistical parameters UCDs, are also proposed in \S~\ref{sec:UCDs} that are relevant for \gls{HEA} data products but could also be of use for other domains such as cosmology.
 
 Advanced data products may similarly record multiple observables that can only be differentiated through their UCDs. For example, a Chandra Source Catalog {\bf pdf} dataset for a detection may include multiple marginalized probability density functions computed using a Bayesian X-ray aperture photometry algorithm in units of net counts, net count rates, photon fluxes, and energy fluxes in multiple apertures.  The observables recorded in the different MPDFs may be distinguished by their UCDs which then become relevant for data discovery when a user is searching for specific aperture photometry datasets.
 
 
 \subsection{{\em proposal\_id}}
 
-To support advanced data products that may be constructed using data from multiple progenitor observations, we propose to modify the ObsCore Recommendation for {\em proposal\_id\/} to allow multiple values, similar to {\em facility\_name\/} and {\em instrument\_name\/}.
+To support advanced data products that may be constructed using data from multiple progenitor observations, we propose to modify the ObsCore Recommendation for {\em proposal\_id\/} to allow multiple values, similar to {\em facility\_name\/} and {\em instrument\_name\/}. We propose using the {\em hash symbol\/} (`\#') to separate the different values, like in the {\em o\_ucd\/} field.
 
 
 \section{Extensions to ObsCore Specific to High Energy Astrophysics Data}
@@ -274,7 +270,7 @@ To support advanced data products that may be constructed using data from multip
 
 \subsection{{\em ev\_xel}}
 
-The lengths of each data axis (spatial, spectral, time, polarization) captured in attributes {\em s\_xel1\/}, {\em s\_xel2\/}, {\em em\_xel\/}, {\em t\_xel\/}, {\em pol\_xel\/} do not apply non-pixelated data including {\bf event-list}s, and ObsCore recommends that these attributes be set to $-1$.  However, the dimensionality of an event list is an important property for data discovery, as the number of events often scales with signal-to-noise (and also data volume scales with number of events).  We propose to add a new, optional attribute {\em ev\_xel\/} that records the number of events in an {\bf event-list} (effectively, the length of the ``events'' axis in the {\bf event-list}'s table).
+The lengths of each data axis (spatial, spectral, time, polarization) captured in attributes {\em s\_xel1\/}, {\em s\_xel2\/}, {\em em\_xel\/}, {\em t\_xel\/}, {\em pol\_xel\/} do not apply non-pixelated data including {\bf hea-event-list}s, and ObsCore recommends that these attributes be set to $-1$.  However, the dimensionality of an event list is an important property for data discovery, as the number of events often scales with signal-to-noise (and also data volume scales with number of events).  We propose to add a new, optional attribute {\em ev\_xel\/} that records the number of events in an {\bf hea-event-list} (effectively, the length of the ``events'' axis in the {\bf hea-event-list}'s table).
 
 \subsection{{\em s\_ref\_energy\/}/{\em em\_ref\_energy\/}/{\em s\_ref\_oaa\/}/{\em em\_ref\_oaa}}
 
@@ -296,7 +292,7 @@ The value of $hc$ used to compute $\lambda = hc/E$ is $1.239841984332\times10^{-
 
 \subsection{{\em obs\_mode}}
 
-Many \gls{HEA} instruments may be configured using multiple observing modes and these observing modes may significantly impact the structure and characteristics ({\em e.g.\/}, calibration accuracy) of the resulting observation datasets. For example, the Chandra ACIS instrument typically produces {\bf event-list}s with 2-dimensional spatial coordinates ({\em i.e.\/}, imaging) but has an observation mode that continuously reads-out the detector, effectively producing an {\bf event-list} with a single spatial dimension (the other spatial dimension is collapsed); users looking only for imaging data may want to restrict their queries to exclude the latter observing mode.
+Many \gls{HEA} instruments may be configured using multiple observing modes and these observing modes may significantly impact the structure and characteristics ({\em e.g.\/}, calibration accuracy) of the resulting observation datasets. For example, the Chandra ACIS instrument typically produces {\bf hea-event-list}s with 2-dimensional spatial coordinates ({\em i.e.\/}, imaging) but has an observation mode that continuously reads-out the detector, effectively producing an {\bf hea-event-list} with a single spatial dimension (the other spatial dimension is collapsed); users looking only for imaging data may want to restrict their queries to exclude the latter observing mode.
 
 We propose to add an optional attribute {\em obs\_mode\/} that allows the data provider to specify the observation mode for an observation.  Constraints on observation mode can provide a simple way to discover data sets for a specific facility/instrument combination.  We note that permissible {\em obs\_mode\/} values will vary from facility to facility and from instrument to instrument.
 
@@ -340,7 +336,7 @@ The optional suffix ``[-ang]'' specifies a reference angle for a convergent or d
 
 \subsection{{\em analysis\_mode}}
 
-Most \gls{HEA} instruments employ significant software processing to transform raw data into the {\bf event-bundle} data exposed to users, including algorithms for calibration and event property reconstruction. The way in which this processing is configured therefore has a potentially large impact the content of the reduced datasets; indeed the same observation processed with two different configurations may result in different scientific performance. In some cases, multiple processing configurations within the same observation collection are used to provide users with a wider range of scientific coverage.
+Most \gls{HEA} instruments employ significant software processing to transform raw data into the {\bf hea-event-bundle} data exposed to users, including algorithms for calibration and event property reconstruction. The way in which this processing is configured therefore has a potentially large impact the content of the reduced datasets; indeed the same observation processed with two different configurations may result in different scientific performance. In some cases, multiple processing configurations within the same observation collection are used to provide users with a wider range of scientific coverage.
 
 We propose to add an optional attribute {\bf analysis\_mode} that allows the data provider to specify the data reduction/analysis mode for an observation, in case more than one is applied. Constraints on analysis mode can provide a simple way to discover data sets for a specific facility/instrument combination. We note that permissible {\bf analysis\_mode} values may vary from facility to facility and from instrument to instrument.
 
@@ -367,7 +363,7 @@ We propose to add an optional attribute {\em messenger\/} that specifies the mes
 	\item \texttt{proton}: the messenger is a proton or anti-proton;
 	\item \texttt{pdgid{\em $\pm$nn\/}}: the messenger is a particle whose PDG ID\footnote{Particle Data Group Identifier, see \url{https://www.phy.bnl.gov/twister/bee/particles/}} is {\em $\pm$nn\/}.
 \end{itemize}
-The value ``pdgid{\em $\pm$nn\/}'' (where the sign is mandatory) allows a messenger particle not listed in the table to be specified by reporting the particle's Particle Data Group Identifier as {\em $\pm$nn\/}.  For example, a muon, $\mu^{-}$, may be specified as ``pdgid+13''.   We note that permissible {\em messenger\/} values will vary from facility to facility and from instrument to instrument.
+The value ``pdgid{\em $\pm$nn\/}'' (where the sign is mandatory) allows a messenger particle not listed in the table to be specified by reporting the particle's Particle Data Group Identifier as {\em $\pm$nn\/}.  For example, a muon, $\mu^{-}$, may be specified as ``pdgid+13''. We note that permissible {\em messenger\/} values will vary from facility to facility and from instrument to instrument.
 
 \subsection{Additional Columns}
 
@@ -381,15 +377,15 @@ Similar to the ObsCore Recommendation, service providers may include additional 
 
 The \gls{IVOA} Data Product Type Vocabulary\footnote{See \url{http://www.ivoa.net/rdf/product-type}.} provides terms, labels, and descriptions for many types of astronomical data products. However, there are some additions and changes that are appropriate to better support \gls{HEA} datasets.
 
-We propose to add vocabulary entries for the new data product types outlined in \S~\ref{sec:dataproduct_type} and also propose to slightly modify the existing definition of {\bf event-list} so that it aligns more accurately with the definition in that section.  Additionally, we propose to add several more specific entries to the data product type vocabulary that specialize these types (especially {\bf response-function}).
+We propose to add vocabulary entries for the new data product types outlined in \S~\ref{sec:dataproduct_type} and also propose to slightly modify the existing definition of {\bf hea-event-list} so that it aligns more accurately with the definition in that section.  Additionally, we propose to add several more specific entries to the data product type vocabulary that specialize these types (especially {\bf response-function}).
 
 
 \subsubsection{Event List}
 
-We first propose to more precisely define an {\bf event-list}:
+We first propose to more precisely define an {\bf hea-event-list}:
 
 \begin{quote}
-{\bf event-list}: A dataset that records a collection of observed particle-detection events, such as incoming high-energy particles, where an event is typically characterized by a spatial position, a time, and a spectral value ({\em e.g.\/}, an energy, a channel, a pulse height).
+{\bf hea-event-list}: A dataset that records a collection of observed particle-detection events, such as incoming high-energy particles, where an event is typically characterized by a spatial position, a time, and a spectral value ({\em e.g.\/}, an energy, a channel, a pulse height).
 \end{quote}
 
 \subsubsection{Response Functions}
@@ -419,13 +415,13 @@ The following data product types specialize {\bf response function}.  Note that 
 
 \subsubsection{Event Bundle}
 
-Some use cases require access to a bundle of datasets that includes the {\bf event-list} and associated data products.  We define an {\bf event-bundle}:
+Some use cases require access to a bundle of datasets that includes the {\bf hea-event-list} and associated data products.  We define an {\bf hea-event-bundle}:
 
 \begin{quote}
-{\bf event-bundle}: A compounded dataset containing an {\bf event-list} and multiple files or other substructures that are products necessary to analyze the event-list. Data in an {\bf event-bundle} may thus be used to produce higher level data products calibrated in physical units when containing \glspl{IRF} or other data products that can be used to construct \glspl{IRF}.
+{\bf hea-event-bundle}: A compounded dataset containing an {\bf hea-event-list} and multiple files or other substructures that are products necessary to analyze the hea-event-list. Data in an {\bf hea-event-bundle} may thus be used to produce higher level data products calibrated in physical units when containing \glspl{IRF} or other data products that can be used to construct \glspl{IRF}.
 \end{quote}
 
-An {\bf event-bundle} might for example consist of an {\bf event-list} and the associated {\bf response-function}s used to calibrate the dataset, and may also contain provenance information, data quality time-series, and preview images or plots.
+An {\bf hea-event-bundle} might for example consist of an {\bf hea-event-list} and the associated {\bf response-function}s used to calibrate the dataset, and may also contain provenance information, data quality time-series, and preview images or plots.
 
 
 
@@ -459,8 +455,8 @@ The proposed vocabulary entries are listed in Table~\ref{tab:dp_vocabulary} with
 {\bf bkgrate} & Background Rate & A dataset that models the rate of residual events that are not from the expected source type ({\em e.g.\/}, for gamma-ray instrument {\bf bkgrate} measures residual non-gamma-ray events coming from charged cosmic rays) & \#response-function \cr
 {\bf draws} & Draws & A dataset that records statistical draws computed from a probability distribution, for example Markov chain Monte Carlo (MCMC) draws used when computing the Bayesian marginal probability density function for a random variable & \#measurements \cr
 {\bf edisp} & Energy Dispersion & A dataset that records the probability density of detecting an event with an energy estimator (proxy) given the true energy of the event & \#response-function, \#pdf \cr
-{\bf event-bundle} & Event Bundle & A compounded dataset containing containing an {\bf event-list} and multiple files or other substructures that are products necessary to analyze the {\bf event-list} & \cr
-{\bf event-list} & Event list & A dataset that records a collection of observed particle-detection events, such as incoming high-energy particles, where an event is typically characterized by a spatial position, a time, and a spectral value ({\em e.g.\/}, an energy, a channel, a pulse height) & \#temporally-resolved-dataset \cr
+{\bf hea-event-bundle} & Event Bundle & A compounded dataset containing containing an {\bf hea-event-list} and multiple files or other substructures that are products necessary to analyze the {\bf hea-event-list} & \cr
+{\bf hea-event-list} & Event list & A dataset that records a collection of observed particle-detection events, such as incoming high-energy particles, where an event is typically characterized by a spatial position, a time, and a spectral value ({\em e.g.\/}, an energy, a channel, a pulse height) & \#temporally-resolved-dataset \cr
 {\bf pdf} &\raggedright Probability Density Function & A dataset that records the probability density function of a quantity, for example the Bayesian marginal probability density function for a random variable & \#measurements \cr
 {\bf psf} &\raggedright Point Spread Function & A dataset that records the probability density function of spatial/angular spreading of incident particles from a point source caused by the instrument (detector and/or mirror and/or analysis) & \#response-function, \#pdf  \cr
 {\bf region} & Region & A dataset that encodes (one or more) regions of parameter space, for example a spatial region or a region of phase space covered by a dataset. The set of dimensions represented by the region can be arbitrary & \#measurements \cr
@@ -513,39 +509,54 @@ We propose correcting and extending the current list of UCD gamma-ray domain def
 
 \subsubsection{Instrument-related Quantities}
 
-We propose to add a new UCD {\em instr.event\/} as the base of the hierarchy to describe instrument-related properties of particle events detected by \gls{HEA} detectors.  Initially, we propose a small set of event-related UCDs that identify key properties that are particularly important for \gls{HEA} data analysis.
+We propose to add a new UCD {\em instr.detection\/} as the base of the hierarchy to describe instrument-related properties of particle events detected by \gls{HEA} detectors.  To be more precise, an event in the event list will be tagged as {\em instr.detection;phys.particle\/}. Initially, we propose a small set of event-related UCDs that identify key properties that are particularly important for \gls{HEA} data analysis.
 
 \paragraph{Event Grade}
 
-For imaging X-ray instruments (especially those based on CCD detectors), detected events typically deposit charge into more than a single detector pixel.  The events are assigned a ``grade'' based on how charge is deposited into the central pixel and surrounding pixels, and the grade information is essential for data analysis since typically only a subset of grades will correspond to valid events.  We propose to add a new UCD {\em instr.event.grade\/} that identifies event grades.
+For imaging X-ray instruments (especially those based on CCD detectors), detected events typically deposit charge into more than a single detector pixel.  The events are assigned a ``grade'' based on how charge is deposited into the central pixel and surrounding pixels, and the grade information is essential for data analysis since typically only a subset of grades will correspond to valid events.  We propose to use these combined UCD terms {\em meta.code.class;instr.detection;phys.particle\/} to provide the UCD string for the {\bf event\_grade} column.
 
 \paragraph{Pulse Height}
 
 For many X-ray and gamma-ray instruments, the signal observed in a given detector spectral channel is the result of event counting and would typically be recorded as a Pulse Height Amplitude (PHA), or perhaps a Pulse Invariant (PI) value that is calculated from PHA by applying an appropriate gain calibration.  The PHA (or PI) can be related to the incident particle energy by applying the appropriate {\bf response-function}, and higher data calibration level products may replace or augment these values with quantities such as energy, or perhaps particle or energy flux.
 
-There is currently no UCD defined for a raw pulse height amplitude measure like PHA (or PI). PHA is such an important quantity to \gls{HEA} datasets that we propose adding a new UCD {\em instr.event.pulseHeight\/} for these raw data values.  We note that the background signal (both of instrumental and cosmological origin) may be significant for many \gls{HEA} detectors and so the detected events may be unrelated to any observed source on the sky.  For Cherenkov neutrino detectors, this quantity might refer to the number of observed photon hits from secondary particle photon generation.
+There is currently no UCD defined for a raw pulse height amplitude measure like PHA (or PI). PHA is such an important quantity to \gls{HEA} datasets that we propose adding a new UCD {\em instr.pulse\/} for these raw data values. {\em instr.pulse\/} can be combined with more general UCD terms to describe pulse parameters recorded by the pulse height analyzer electronics. Typically, PHA corresponds to the integrated signal detected by the electronics, which could therefore be described using the UCD {\em instr.pulse;arith.sum}. For some detectors, additional pulse parameters such as the peak pulse height or pulse width are important, and could be described by UCDs {\em instr.pulse;stat.max} and {\em instr.pulse;stat.fwmh}, respectively, and so on. We note that the background signal (both of instrumental and cosmological origin) may be significant for many \gls{HEA} detectors and so the detected events may be unrelated to any observed source on the sky. For Cherenkov neutrino detectors, this quantity might refer to the number of observed photon hits from secondary particle photon generation.
 
-One previously proposed solution suggested using the combination of existing UCDs {\em src.var.amplitude;src.var.pulse;stat.uncalib\/} for PHA, but this is not appropriate since the connection to {\em src\/} (``observed source viewed on the sky'') is misleading and {\em src.var.amplitude\/} is defined as the ``amplitude of variation'' of the source which is a completely separate concept from an astronomical perspective.
 
 \paragraph{Event Type}
 
-For \gls{VHE} (and GeV) gamma-ray data, there is the notion of event type (see \S~\ref{sec:evttype}) that can be mandatory for some data releases.  We propose to add a new UCD {\em instr.event.type\/} that identifies these data values.
+For \gls{VHE} (and GeV) gamma-ray data, there is the notion of event type (see \S~\ref{sec:evttype}) that can be mandatory for some data releases.  We propose to use a combined UCD {\em meta.code.qual;instr.detection;phys.particle\/} to tag the proposed {\bf event\_type} parameter.
 
 \subsubsection{Physical Quantities}
 
 The messengers for \gls{HEA} observations may include particles other than the ones currently described in the UCD list.  Because some instruments can now distinguish electrons from positrons\footnote{For example, the Fermi-LAT instrument.}, as well antiprotons from protons\footnote{For example, the AMS-2 experiment.}, we also propose to add {\em phys.particle.positron\/} and {\em phys.particle.antiproton\/}, as well as {\em phys.particle.cosmicray\/} and unify them all under the {\em phys.particle\/} UCD hierarchy.
 
-For particle detectors, a wide range of different particles might have to be described. As is customary in particle physics, we propose to facilitate the use of the Particle Data Group Identifier\footnote{see \url{https://www.phy.bnl.gov/twister/bee/particles/}} as reference for any particle, describing {\em e.g.\/}, $\nu_{\tau}$ and $\bar{\nu}_{\tau}$ as {\em phys.particle.pdgid+16\/} and {\em phys.particle.\hbox{pdgid-16}\/} respectively.
+%Mireille clarify the usage of pdgid , as a value in the messenger column. 
+For particle detectors, a wide range of different particles might have to be described. As is customary in particle physics, we propose to facilitate the use of the Particle Data Group Identifier\footnote{see \url{https://www.phy.bnl.gov/twister/bee/particles/}} as reference for any particle. For instance, we can populate the {\em messenger\/} column describing {\em e.g.\/}, $\nu_{\tau}$ and $\bar{\nu}_{\tau}$  with {\em pdgid+16\/} and {\em \hbox{pdgid-16}\/} respectively.
+% $\nu_{\tau}$ and $\bar{\nu}_{\tau}$ as {\em pdgid+16\/} and {\em \hbox{pdgid-16}\/}
 
-One should note that electrons are denoted by the UCD {\em phys.electron\/} in the current version of the UCD list \citep{2024ivoa.spec.1218C} and are inappropriately not grouped under the {\em phys.particle\/} hierarchy.  This causes some inconsistencies that could be solved by marking {\em phys.electron\/} (and {\em phys.electron.degen\/}) as obsolete or not recommended, and adding the term  {\em phys.particle.electron\/} to the UCD list.
+One should note that electrons are denoted by the UCD {\em phys.electron\/} in the current version of the UCD list \citep{2024ivoa.spec.1218C} and are not grouped under the {\em phys.particle\/} hierarchy.
+Marking {\em phys.electron\/} (and {\em phys.electron.degen\/}) as obsolete or not recommended and adding the term  {\em phys.particle.electron\/} to the UCD list would improve the consistency of the {\em phys.particle\/} branch.
+However, as many data sets in the IVOA projects may already be tagged with {\em phys.electron\/} this may incur maintenance costs that should be evaluated. 
+The IVOA should therefore evaluate the benefit/cost ratio of such a change. 
+%The UCD term {\em phys.electron\/} is available anyway and can be used to tag an event related to electron particles.
 
 Finally, we propose to add the most commonly used astronomical messenger to the UCD list as {\em phys.particle.photon\/}.
 
 \subsubsection{Statistical Parameters}
 
-Since statistical lower and upper limits play a significant role in \gls{HEA} data analysis, we propose adding new UCDs {\em stat.lowerlimit\/} and {\em stat.upperlimit\/} to explicitly identify data quantities as lower or upper limits.  We suggest that the existing UCDs {\em stat.min\/} and {\em stat.max\/} be restricted to meaning the minimum and maximum statistic, rather than the current definitions ``Minimum or lowest limit'' and ``Maximum or upper limit'', which blend statistical confidence intervals and limits into a  single UCD\null.  A specification of a confidence level is necessary for the user to interpret both confidence intervals and lower/upper limits meaningfully, and this level can be described by the existing UCD {\em stat.confidenceLevel\/}, providing we change the syntax code of the latter from `P' to `Q' so that the UCD can be attached as a secondary word to existing UCD {\em stat.error\/} or the proposed UCDs {\em stat.error.negative\/}, {\em stat.error.positive\/}, {\em stat.lowerlimit\/}, and {\em stat.upperlimit\/}.
+Since statistical lower and upper limits play a significant role in \gls{HEA} data analysis, we propose adding new UCDs {\em stat.lowerlimit\/} and {\em stat.upperlimit\/} to explicitly identify data quantities as lower or upper limits.  We suggest that the existing UCDs {\em stat.min\/} and {\em stat.max\/} be restricted to meaning the minimum and maximum statistic, rather than the current definitions ``Minimum or lowest limit'' and ``Maximum or upper limit'', which blend statistical confidence intervals and limits into a  single UCD\null. 
+We also propose new UCD terms {\em stat.error.minus\/} and {\em stat.error.plus\/} to identify the more negative and more positive statistical errors to handle the common case of asymmetric errors.
+ A specification of a confidence level is necessary for the user to interpret both confidence intervals and lower/upper limits meaningfully, and this level can be described by the existing UCD {\em stat.confidenceLevel\/}, providing we change the syntax code of the latter from `P' to `Q' so that the UCD can be attached as a secondary word to existing UCD {\em stat.error\/}, and the newly proposed UCDs {\em stat.error.minus\/}, {\em stat.error.plus\/}, {\em stat.lowerlimit\/}, and {\em stat.upperlimit\/}.
+ 
+% mireille  We should use here the terms that have been recently discussed and approved by the semantics group . I would like the semantics discussions that happened to appear  in this note. 
+
 
 The shape of any statistical distribution is an essential quantity for interpreting the meaning of any statistical properties.  Too often a Gaussian distribution or a distribution that can be characterized by a simple set of moments ({\em e.g.\/}, mean, variance, skewness, kurtosis) are assumed, but in the extreme Poisson regime common in \gls{HEA} these assumptions are often invalid.  We propose adding a UCD {\em stat.distribution\/} to identify a quantity that defines the distribution of a statistical variable such as  a likelihood profile.
+% mireille This assumes that a column will contain a full set of data values. Is this ? 
+%In fact it would make the UCD work as a term compatible to a data product type , so ambiguous in terms of role . 
+% in the  case we want to mention the kind of distribution this parameter describes , then the UCD for that would be : meta.name;stat.distribution and a new UCD ' stat.distribution' is needed to cover the idea of a statistical distribution.
+%This would be 
+%. S& {\em stat.distribution\/} & Related to a statistical distribution  \cr as inserted below 
 
 \subsubsection{Evolution of UCD list}
 
@@ -558,10 +569,10 @@ The proposed new UCD entries are listed in Table~\ref{tab:he_ucds} with their de
 S & {\em em.gamma.he\/}   & High-Energy gamma ray (100 MeV -- 10 GeV)  \cr
 S & {\em em.gamma.vhe\/}  & Very-High-Energy gamma ray (10 GeV -- 100 TeV)  \cr
 S & {\em em.gamma.uhe\/}  & Ultra-High-Energy gamma ray ($>100$ TeV)  \cr
-Q & {\em instr.event\/} & Particle event detection \cr
-Q & {\em instr.event.grade\/} & Particle event grade \cr
-Q & {\em instr.pulseHeight\/} & Pulse height amplitude measure  \cr
-Q & {\em instr.event.type\/} & Particle event type \cr
+Q & {\em instr.detection\/} & Particle event detection \cr
+%Q & {\em instr.event.grade\/} & Particle event grade \cr 
+Q & {\em instr.pulse\/} & Pulse height amplitude measure  \cr
+%Q & {\em instr.event.type\/} & Particle event type \cr
 E & {\em phot.count.density\/} & Count flux density (dimensionality: $\rm [L^{-2}\,T^{-1}\,E^{-1}]$)  \cr
 E & {\em phot.count.density.sb\/} & Count flux density surface brightness (dimensionality: $\rm [L^{-2}\,T^{-1}\,E^{-1}\,\hbox{sr}^{-1}]$)  \cr
 E & {\em phot.count.radiance\/} & Count flux radiance (dimensionality: $\rm [L^{-2}\,T^{-1}\,\hbox{sr}^{-1}]$)  \cr
@@ -580,13 +591,16 @@ S & {\em phys.particle.cosmicray\/} & Related to cosmic rays particles  \cr
 S & {\em phys.particle.electron\/} & Related to electron  \cr
 S & {\em phys.particle.photon\/} & Related to photon  \cr
 S & {\em phys.particle.positron\/} & Related to positron  \cr
+% Mireille we cannot have these terms in the UCD tree ; that would imply importing all possible encoding of any kind 
 S & {\em phys.particle.pdgid\/} & Particle Data Group Identifier \cr
-S & {\em phys.particle.pdgid$\pm$XX\/} & Related to a particle with PDG ID $\pm$XX  \cr
-P & {\em stat.distribution\/} & Type or shape of statistical distribution  \cr
-P & {\em stat.error.negative\/} & Negative statistical error  \cr
-P & {\em stat.error.positive\/}  & Positive statistical error  \cr
-P & {\em stat.lowerlimit\/}  & Lower limit \cr
-P & {\em stat.upperlimit\/}  & Upper limit \cr
+%S & {\em phys.particle.pdgid$\pm$XX\/} & Related to a particle with PDG ID $\pm$XX  \cr
+%mireille
+S& {\em stat.distribution\/} & Related to a statistical distribution  \cr
+%mireille update to latest discussed term 
+P & {\em stat.error.minus\/} & Negative statistical error  \cr
+P & {\em stat.error.plus\/}  & Positive statistical error  \cr
+P & {\em stat.lowerlimit\/}  & Lower limit value \cr
+P & {\em stat.upperlimit\/}  & Upper limit  value \cr
 \sptablerule
 \caption{Proposed New UCD Entries}
 \label{tab:he_ucds}
@@ -602,6 +616,7 @@ E & {\em phot.count\/} & Count flux (dimensionality: $\rm [L^{-2}\,T^{-1}]$)  \c
 E & {\em phot.fluence\/} & Radiant photon energy received by a surface per unit area or irradiance of a surface integrated over time of irradiation (dimensionality: $\rm [L^{-2}]$)  \cr
 Q & {\em phot.flux.bol\/} & Bolometric flux (dimensionality: $\rm [M\,T^{-3}]$)  \cr
 E & {\em phot.radiance\/} & Radiance as energy flux per solid angle (dimensionality: $\rm  [M\,T^{-3}\,\hbox{sr}^{-1}]$)  \cr
+%mir the case of electron would be in a VEP to discuss the backward compatibility of this change 
 S & {\em phys.electron\/} & Electron (not recommended/deprecate) \cr
 S & {\em stat.min\/}  & Minimum value \cr
 S & {\em stat.max\/}  & Maximum value \cr
@@ -609,6 +624,10 @@ S & {\em stat.max\/}  & Maximum value \cr
 \caption{Proposed Revised UCD Entries}
 \label{tab:upgrade_he_ucds}
 \end{longtable}
+
+Note that the introduction of dimensional equation in the definition of UCD terms is a useful feature 
+to compare quantities across various spectral domains. 
+
 
 \subsection{MIME-type Enhancements}\label{sec:mimetypes}
 
@@ -627,13 +646,12 @@ This section summarizes the proposal for the \gls{HEA} extension of ObsCore.  We
 
 \begin{landscape}
 \begin{center}
-%start mireille ucd update
 \begin{longtable}{ | m{0.15\linewidth} | m{0.23\linewidth} | m{0.07\linewidth} | m{0.07\linewidth} | m{0.4\linewidth} | m{0.05\linewidth} |}
 \hline
 
 {\centering \bf Column Name}     &{\centering \bf UCD} &{\centering \bf Unit} &{\centering \bf Type} &{\centering \bf Description} &{\centering \bf MAN}\\
 \hline
- ev\_xel & \ucd{meta.number;obs.event} &  unitless & int & {Number of events in an event\_list }& NO \\
+ ev\_xel & \ucd{meta.number;instr.detection;phys.particle} &  unitless & int & {Number of events in an {\bf hea-event-list}}& NO \\
 \hline
  s\_ref\_energy &  \ucd{meta.ref;em.energy;pos} & eV & float & {Energy at which the ObsCore spatial characterization attributes s\_fov , s\_region, s\_resolution are defined} & NO \\
 \hline
@@ -655,56 +673,14 @@ This section summarizes the proposal for the \gls{HEA} extension of ObsCore.  We
 \hline
   analysis\_mode & \ucd{meta.code;obs.param} & unitless & string &{Data reduction/analysis mode}& NO \\
 \hline
-  event\_type & \ucd{meta.code.qual;obs.event} & unitless & string &{Data quality flag of the events ({\em e.g.\/}, ``good psf'', ``good rejection'', ``Nhit (100,200)''} & NO \\
+  event\_type & \ucd{meta.code.qual;instr.detection;phys.particle} & unitless & string &{Data quality flag of the events ({\em e.g.\/}, ``good psf'', ``good rejection'', ``Nhit (100,200)''} & NO \\
 \hline
-  messenger & \ucd{TBD} & unitless & string &{Messenger particle type ({\em e.g.\/}, ``photon'', ``cosmic-ray'', ``neutrino'', ``pdgid-13'')} & NO \\
+ messenger & \ucd{meta.name;phys.particle} & unitless & string &{Messenger particle type ({\em e.g.\/}, ``photon'', ``cosmic-ray'', ``neutrino'', ``pdgid-13'')} & NO \\
 \hline
 \end{longtable}
 %\end{center}
-% end mireille ucd update
 \end{center}
 \end{landscape}
-
-%\begin{landscape}
-%\begin{center}
-%%\begin{longtable}{ | m{2.5cm} | m{3em} | m{3em} | m{3em} | m{6cm} | m{2.3em} |}
-%\begin{longtable}{ | p{0.125\linewidth} | p{0.075\linewidth} | p{0.075\linewidth} | p{0.075\linewidth} | p{0.6\linewidth} | p{0.05\linewidth} |}
-%\hline
-%{\centering \bf Column Name}     &{\centering \bf UType} &{\centering \bf Unit} &{\centering \bf Type} &{\centering \bf Description} &{\centering \bf MAN}\\
-%\hline
-%{\em ev\_xel\/} & TBD &  unitless & integer & Number of events in an event list & NO \\
-%\hline
-%{\em s\_ref\_energy\/} & TBD & eV & double & Energy at which the ObsCore spatial characterization attributes {\em s\_fov\/}, {\em s\_region\/}, {\em s\_resolution\/} are defined & NO \\
-%\hline
-%{\em em\_ref\_energy\/}  & TBD & eV & double & Energy at which the ObsCore spectral characterization attributes {\em em\_res\_power\/}, {\em em\_resolution} are defined & NO \\
-%\hline
-%{\em s\_ref\_oaa\/} & TBD & deg & double & Off-axis angle ({\em i.e.\/}, the angular separation of the target or source from the telescope optical axis) at which the ObsCore spatial characterization attributes {\em s\_fov\/}, {\em s\_region\/}, {\em s\_resolution\/} are defined & NO \\
-%\hline
-%{\em em\_ref\_oaa\/} & TBD & deg & double & Off-axis angle ({\em i.e.\/}, the angular separation of the target or source from the telescope optical axis) at which the ObsCore spectral characterization attributes {\em em\_res\_power\/}, {\em em\_resolution\/} are defined & NO \\
-%\hline
-%{\em t\_intervals\/} & TBD & unitless & string & List of observation intervals or stable/good time intervals describing the exact observation time coverage as a TMOC  & NO \\
-%\hline
-%{\em energy\_min\/} & TBD & eV & double & Energy associated to the ObsCore attribute {\em em\_max\/}, describing the minimum energy of the dataset & NO \\
-%\hline
-%{\em energy\_max\/} & TBD & eV & double & Energy associated to the ObsCore attribute {\em em\_min\/}, describing the maximum energy of the dataset & NO \\
-%\hline
-%{\em obs\_mode\/} & TBD & unitless & string &  Observation mode of an observation & NO \\
-%\hline
-%{\em tracking\_type\/} & TBD & unitless & string & Tracking type of an observation & NO \\
-%\hline
-%{\em scan\_mode\/} & TBD & unitless & string & Scan mode of an observation & NO \\
-%\hline
-%{\em pointing\_mode\/} & TBD & unitless & string & Pointing mode of an observation & NO \\
-%\hline
-%{\em analysis\_mode\/} & TBD & unitless & string & Data reduction/analysis mode & NO \\
-%\hline
-%{\em event\_type\/} & TBD & unitless & string & Event subset indicator ({\em e.g.\/}, data quality flag for the events) & NO \\
-%\hline
-%\caption{Attributes for the \gls{HEA} Extension of ObsCore}
-%\label{tab:hea_ext_attr}
-%\end{longtable}
-%\end{center}
-%\end{landscape}
 
 \pagebreak
 %\printglossaries
