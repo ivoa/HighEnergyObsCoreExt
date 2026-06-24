@@ -272,7 +272,7 @@ AND (obs_id = '4374')
 AND (obs_collection = 'CTAO-DR1')
 \end{verbatim}
 
-\subsubsection{Use Case --- Search for all ANTARES data products for a given collection in the direction of a point source}
+\subsubsection{Use Case --- Search for all ANTARES neutrino data products for a given collection in the direction of a point source}
 
 {\em Using the ANTARES 2007--2017 point source data set, retrieve all events, background estimate, and detector acceptance to calculate the expected neutrino flux from a given point source, e.g. HESSJ0632+057, as in \textit{G. Illuminati for the ANTARES Collaboration, PoS(ICRC2019)920} and recalculate the significance of the neutrino flux.}
 
@@ -352,14 +352,14 @@ AND 1 = INTERSECTS(
 
 \subsubsection{Use Case --- Calculate the probability for a source class to be emitters of tau neutrinos}
 
-{\em Using a catalog of potential sources, calculate the probability of measuring a $\nu_{\tau}$ neutrino flux from a stacking of all sources of that type with 10 years of data taking with widely spaced, high energy optical detectors like ARCA.}
+{\em Using a catalog of potential sources, calculate the probability of measuring a $\nu_{\tau}$ neutrino flux from a stacking of all sources of that type with 10 years of data taking with widely spaced, high energy optical detectors like KM3NeT/ARCA.}
 
 \medskip
 \noindent Find all neutrino datasets satisfying:
 \begin{enumerate}[(i)]
   \item dataproduct\_type = ``response-function'', dataproduct\_subtype = ``aeff``
   \item messenger contains ``pdgid-16'' or ``pdgid+16'',
-  \item obs\_mode = ``optical'',
+  \item obs\_mode = ``wide-array'',
   \item analysis\_mode = ``pointsource''.
 \end{enumerate}
 
@@ -370,7 +370,7 @@ WHERE
 (dataproduct_type = 'response-function')
 AND (dataproduct_subtype = 'aeff')
 AND (messenger = 'pdgid-16' OR messenger = 'pdgid+16')
-AND (obs_mode LIKE '%optical%')
+AND (obs_mode LIKE '%wide-array%')
 AND (analysis_mode LIKE '%pointsource%')
 \end{verbatim}
 
