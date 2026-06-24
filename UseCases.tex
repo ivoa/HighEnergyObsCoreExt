@@ -302,7 +302,7 @@ AND (obs_collection = 'ANTARES-2017-PS')
 \begin{enumerate}[(i)]
   \item Source (0.8, -45.19) within detector field of view
   \item dataproduct\_type = ``response-function'',
-  \item instrument\_name LIKE ``\%ARCA\%'',
+  \item dataproducts from the ``ARCA'' instrument of the ``KM3NeT'' facility,
   \item t\_min/t\_max from 2027--2030, ({\em i.e.\/}, MJD 61406--62870),
   \item event\_type = ``track'',
   \item analysis mode optimised for pointsource searches.
@@ -314,6 +314,7 @@ NATURAL JOIN ivoa.obscore_hea
 WHERE
 (CONTAINS(POINT('ICRS', 0.8, -45.19), CIRCLE('ICRS', s_ra, s_dec, s_fov)) = 1)
 AND (dataproduct_type = 'response-function'))
+AND (facility_name = 'KM3NeT')
 AND (instrument_name LIKE '%ARCA%')
 AND (t_max >= 61406)
 AND (t_min <= 62870)
