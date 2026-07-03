@@ -289,7 +289,8 @@ SELECT * FROM ivoa.obscore
 NATURAL JOIN ivoa.obscore_hea
 WHERE
 (CONTAINS(POINT('ICRS', 98.24, 5.81), CIRCLE('ICRS', s_ra, s_dec, s_fov)) = 1)
-AND (dataproduct_type IN ('hea-event-bundle', 'hea-event-list', 'response-function'))
+AND (dataproduct_type IN ('hea-event-bundle', 'hea-event-list', 
+'response-function'))
 AND (obs_collection = 'ANTARES-2017-PS')
 \end{verbatim}
 
@@ -358,7 +359,7 @@ AND 1 = INTERSECTS(
 \noindent Find all neutrino datasets satisfying:
 \begin{enumerate}[(i)]
   \item dataproduct\_type = ``response-function'', dataproduct\_subtype = ``aeff``
-  \item messenger contains ``pdgid-16'' or ``pdgid+16'',
+  \item messenger\_pdgid contains ``$-16$'' or ``$+16$'',
   \item obs\_mode = ``wide-array'',
   \item analysis\_mode = ``pointsource''.
 \end{enumerate}
@@ -369,7 +370,7 @@ NATURAL JOIN ivoa.obscore_hea
 WHERE
 (dataproduct_type = 'response-function')
 AND (dataproduct_subtype = 'aeff')
-AND (messenger = 'pdgid-16' OR messenger = 'pdgid+16')
+AND (messenger_pdgid = '-16' OR messenger_pdgid = '+16')
 AND (obs_mode LIKE '%wide-array%')
 AND (analysis_mode LIKE '%pointsource%')
 \end{verbatim}
@@ -457,7 +458,7 @@ WHERE
 AND ((dataproduct_type = 'light-curve') OR (dataproduct_type = 'pdf'))
 AND (calib_level = 4)
 AND (energy_min <= 300.0) AND (energy_max >= 7000.0)
-AND (INTERSECTS(TMOC(17, t_intervals), TMOC(17, 56320.0, 56325.0)) = 1)
+AND (INTERSECTS(TMOC(27, t_intervals), TMOC(27, 56320.0, 56325.0)) = 1)
 \end{verbatim}
 
 \subsubsection{Use Case --- Search for the CTAO flux light curves of PKS 2155-304 in 2030}
