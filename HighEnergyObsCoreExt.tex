@@ -146,14 +146,16 @@ Observations of the universe at the highest energies are based on techniques tha
 
 Though {\bf hea-event-list}s {\em may\/} include estimators for calibrated physical values, they typically still have to be corrected for the photometric, spectral, spatial, and/or temporal responses of the telescope and detector combination to yield scientifically interpretable information. The mappings between physical measurements of the source properties and the observables are called \glspl{IRF}\footnote{We try to avoid using the term \gls{IRF} in a normative sense since historical usage across the broad \gls{HEA} community (and from facility to facility) varies. In some cases, \gls{IRF} has been used to mean specifically the product of the \gls{ARF} and \gls{RMF}, whereas in other cases \gls{IRF} has been used more generally to mean any instrumental response function regardless of type.}.  Some \glspl{IRF} are probabilistic in nature\footnote{For example, the energy redistribution matrix is a probability density function.}, and in addition may depend on the set of events selected for analysis by the end user.  They are usually not invertible, so methods such as forward-folding fitting (using source models with any combination of spectral, spatial, temporal, and/or polarization components that are estimated) are needed to estimate physical properties, such as the true flux of particles from a source arriving at the instrument, given the measured observable quantities. The \glspl{IRF} generally evolve over time with the instrument and observation characteristics, and are usually defined for a specific time interval and may be decomposed into a standard set of independent components (see \S~3.1.5 of \citealt{2024ivoa.note.heig}), such as the spatial point-spread function or the energy-migration matrix or different messenger particle types, where each component may be stored or computed separately.  Since both \glspl{IRF} and {\bf hea-event-list}s are required to analyze \gls{HEA} data, some \gls{IVOA} standards must be modified to expose both of them via the \gls{VO}.
 
-In the following, the current ObsCore standard will be discussed in \S~\ref{sec:obscore}, focusing on attributes that need to be modified. Then, we propose the creation of a \gls{HEA} extension of ObsCore in \S~\ref{sec:obscoreext}, as some attributes are very specific to our domain. In these two sections, the discussion focuses on the attribute definitions rather than on the attribute values. In \S~\ref{sec:voc}, vocabulary enhancements are proposed for some ObsCore attributes, DataLink semantics, UCDs, and MIME-types. Finally, in \S~\ref{sec:accessoptions} we discuss various options for accessing \gls{HEA} data products using ObsTAP services.
+In the following, the current ObsCore standard will be discussed in \S~\ref{sec:obscore}, focusing on attributes that need to be modified. Then, we propose the creation of a \gls{HEA} extension of ObsCore in \S~\ref{sec:obscoreext}, as some attributes are very specific to our domain. In these two sections, the discussion focuses on the attribute definitions rather than on the attribute values. In \S~\ref{sec:voc}, vocabulary enhancements are proposed for some ObsCore attributes, DataLink semantics, UCDs, and MIME-types. Appendix~\ref{sec:uc} provides a list of use case examples drawn from the X-ray, Gamma Ray, Cherenkov, and particle astrophysics communities. Finally, in Appendix~\ref{sec:accessoptions} we discuss various options for accessing \gls{HEA} data products using ObsTAP services.
 
 \section{ObsCore Attribute Definitions for High Energy Astrophysics Data}
 \label{sec:obscore}
 
 The ObsCore representation of any \gls{HEA} \textbf{hea-event-list} data products is described in terms of curation, coverage, and access. However, given the \gls{HEA} data specificities, several properties, including resolutions, observable axis descriptions, and polarization states would be simply set to ``NULL'', and data axis lengths set to ``$-1$''. Therefore, for these data products and associated \glspl{IRF}, the definitions of some ObsCore attributes should be adjusted so that they better represent the content of the data from the perspective of data discovery. We note that many properties, including spatial and spectral coverage and resolution can vary strongly with energy and off-axis angle. These adjustments will also typically apply to higher-level advanced data products derived from \textbf{hea-event-list} datasets.
 
-Currently, some ObsCore attributes ({\em dataproduct\_type\/} and {\em calib\_level\/}) are formally defined in the ObsCore Recommendation Version 1.1 \citep{2017ivoa.spec.0509L} and also in the vocabularies documents \citep{2023ivoa.spec.0206D, 2021ivoa.spec.0525D}\footnote{Primarily the Data Product Type Vocabulary, \url{https://www.ivoa.net/rdf/product_type}.}, which may be referenced in future versions of the ObsCore Recommendation.  For completeness, we are proposing in this document modifications to both the existing ObsCore Recommendation and IVOA vocabularies.
+% Currently, some ObsCore attributes ({\em dataproduct\_type\/} and {\em calib\_level\/}) are formally defined in the ObsCore Recommendation Version 1.1 \citep{2017ivoa.spec.0509L} and also in the vocabularies documents \citep{2023ivoa.spec.0206D, 2021ivoa.spec.0525D}\footnote{Primarily the Data Product Type Vocabulary, \url{https://www.ivoa.net/rdf/product_type}.}, which may be referenced in future versions of the ObsCore Recommendation.  For completeness, we are proposing in this document modifications to both the existing ObsCore Recommendation and IVOA vocabularies.
+
+ObsCore attributes are defined explicitly in the ObsCore Recommendation Version 1.1 \citep{2017ivoa.spec.0509L}, which is the current \gls{IVOA} approved document that defines the ObsCore standard.  This document proposes both \gls{HEA}-specific extensions to ObsCore, as well as some adjustments to the ObsCore standard. While we recognize that there are ongoing discussions within the \gls{IVOA} that will eventually lead to future versions of the ObsCore Recommendation, this document primarily uses the ObsCore Recommendation Version 1.1 as a basis as there is currently no referenceable document that captures proposed changes that will be included in next version of the ObsCore Recommendation. Once an updated ObsCore Recommendation becomes available, this document should be updated for consistency. We are aware that some of this work is focused on use of vocabularies documents \citep{2023ivoa.spec.0206D, 2021ivoa.spec.0525D}\footnote{Primarily the Data Product Type Vocabulary, \url{https://www.ivoa.net/rdf/product_type}.} for some ObsCore attributes ({\em e.g.\/}, {\em dataproduct\_type\/} and {\em calib\_level\/}) rather than defining those values explicitly in the ObsCore Recommendation. For completeness, we are proposing in this document modifications to both the existing ObsCore Recommendation and the IVOA vocabularies where appropriate.
 
 \subsection{{\em dataproduct\_type}}
 \label{sec:dataproduct_type}
@@ -192,11 +194,17 @@ In addition to {\em dataproduct\_type\/} terms that focus on event data, we note
 %\TODO{ mireille: Rewrite this paragraph to avoid measurements: no agreement exist for this term among ObsCore Implementors in practice.  }
 %%% There is no way to rewrite this paragraph without referring to measurements.  The term "measurements" is defined in the ObsCore Recommendation and this recommendation modifies the wording of that definition somewhat.  The measurements concept is actually quite important as it's use avoids having to dramatically increase the the number of data product type terms one would otherwise require (some of which may be facility dependent).
 
-The {\bf measurements} {\em dataproduct\_type\/} is quite useful for many different types of advanced data products (which may be derived from multiple observations). But users of those products often may not be interested in the progenitor datasets, especially as multiple advanced data products may be extracted from the same single progenitor or a few progenitors ({\em e.g.\/}, measurements associated with multiple sources detected in a single observation field). We propose to delete the caveat associated with {\em dataproduct\_type\/} = ``measurements'' in the ObsCore IVOA Recommendation (\S~4.1.1) that requires the derived data products be exposed ``{\bf together} with the progenitor observation dataset''.  The recovery of progenitor observation datasets may be achieved using provenance information, if desired.
+Many different types of data products are served by \gls{HEA} facilities, including datasets that consist of generic tabular data (an {\bf hea-event-list} is in fact a {\em specific type\/} of tabular data).  Some \gls{HEA} facilities require a {\em dataproduct\_type\/} that represents such generic tabular data.  We note in passing that such a {\em dataproduct\_type} actually falls at the same level as ({\em e.g.\/}) the {\bf image} {\em dataproduct\_type\/}: an {\bf image} has two spatial axes, but the observable axis is not defined; while commonly the observable axis for an {\bf image} is flux, it could easily be ({\em e.g.\/}) color, spectral-index, significance, and so on, and additional refinement such as {\em dataproduct\_subtype\/} may be required to more precisely specify the nature of a data product.  Some of these data products are essential for further data analysis or important in their own right, but may be uncommon across multiple facilities possibly because of the way the observations are obtained.  
+
+In the ObsCore Recommendation Version 1.1, the {\em dataproduct\_type\/} {\bf measurements} is adequate for such generic tabular datasets. However, users of those products often may not be interested in the progenitor datasets, especially as some advanced data products may be derived from multiple observations, or multiple advanced data products may be extracted from the same single progenitor or a few progenitors ({\em e.g.\/}, advanced data products associated with multiple sources detected in a single observation field). Referring to the ObsCore Recommendation Version 1.1, we propose to delete the caveat associated with {\em dataproduct\_type\/} = ``measurements'' in the ObsCore IVOA Recommendation (\S~4.1.1) that requires the derived data products be exposed ``{\bf together} with the progenitor observation dataset''.  The recovery of progenitor observation datasets may be achieved using provenance information, if desired.
+
+In the \gls{IVOA} Data Product Type Vocabulary\footnote{\url{https://www.ivoa.net/rdf/product_type}.}, the term {\bf measurements} is described as ``Generic tabular data not fitting any of the other terms'' and that similarly matches what is needed here.  While the description goes on to state ``Because of its lack of specificity, this term should generally be avoided, and new, more precise terms should be introduced instead.'', as indicated above there are circumstances under which doing so does not make sense.  We are aware that there is currently a proposal to eliminate the {\bf measurements} data product type given it's previous loose definition.  If that is done, then we would need a replacement, such as {\bf tabledata\/}, that can be used to represent generic tabular data, as there is no other data product type to represent this type of dataset.
 
 \subsection{{\em dataproduct\_subtype}}
 
 The optional attribute {\em dataproduct\_subtype} may be used by the data provider to specify more precisely the scientific nature of a data product.  Although no vocabulary is defined for {\em dataproduct\_subtype\/}, we recommend that data providers formulate and use a standardized vocabulary for this attribute for data products that are commonly used in \gls{HEA}\null.  We have proposed several terms in \S~5 for commonly used \gls{HEA} {\bf response-function} types ({\em e.g.\/}, {\bf aeff}, {\bf edisp}, {\bf psf}), but additional terms could be standardized for other common data products.  For example, standardizing using {\bf exposure-map} for an exposure map would enable queries such as  ({\em dataproduct\_type\/} = {\bf image}) AND ({\em dataproduct\_subtype\/} = {\bf exposure-map}) to work across multiple facilities.  Other possible terms could include (but are not limited to) {\bf significance-map} for a significance map, {\bf probability-map} for a probability map, and {\bf exclusion-map} for an exclusion map ({\em e.g.\/}, as used to adjust TeV background models).
+
+We note in passing that {\bf response-function}s for some facilities and instruments may not be separable into distinct components such as {\bf aeff}, {\bf edisp}, {\bf psf}.
 
 % \TODO{ Propose a small table of definitions for all these maps : could be added in the analysis-product vocabulary}
 %%% Commented out for the submitted document.
@@ -381,7 +389,7 @@ We propose to add an optional attribute {\em messenger\_pdgid\/} that specifies 
 
 The difference between {\em messenger\/} and {\em messenger\_pdgid} is that ({\em e.g.\/}) a data discovery query that includes {\tt messenger = `neutrino'} would enable the user to identify datasets with a neutrino (any kind) messenger particle, whereas a data discovery query that includes {\tt messenger\_pdgid = `+16' OR messenger\_pdgid = `-16'} would restrict the search to include only $\tau$ neutrinos ($\nu_\tau$) or antineutrinos ($\nu_\tau^{-}$).
 
-The downside of {\em messenger\_pdgid} is that PDG ID very unlikely to be recognized outside of the particle astrophysics and high energy particle physics communities.  We choose to include both {\em messenger\/} and {\em messenger\_pdgid} because the majority of astrophysicists --- even experienced high-energy astrophysicists --- are unlikely to recognize PDG ID\null.  While any astrophysicist is likely to be able to write a query such as {\tt messenger = `photon'}, very few would be able to write that query as {\tt messenger\_pdgid = `+22'} from memory.
+The downside of {\em messenger\_pdgid} is that PDG ID very unlikely to be recognized outside of the particle astrophysics and high energy particle physics communities.  We choose to include both {\em messenger\/} and {\em messenger\_pdgid} because the majority of astrophysicists --- even experienced high-energy astrophysicists --- are unlikely to recognize PDG ID\null.  While any astrophysicist is likely to be able to write a query such as {\tt messenger = `photon'}, very few would be able to cast that query as {\tt messenger\_pdgid = `+22'} from memory.
 
 We note that permissible {\em messenger\_pdgid\/} values will vary from facility to facility and from instrument to instrument.
 
@@ -477,7 +485,7 @@ We then propose to add the following data product type to define response functi
  {\bf response-function}: A dataset that records a mapping from a physical quantity to an observable quantity.  Narrower terms are preferred to indicate more precisely the type of {\bf response-function}.
  \end{quote}
 
-The following data product types specialize {\bf response function}.  Note that while most of these are primarily used in \gls{HEA}, the point spread function ({\bf psf}) is a {\bf response-function} that is generally applicable across multiple wavebands.
+The following data product types specialize {\bf response function}.  Note that while most of these are primarily used in \gls{HEA}, the point spread function ({\bf psf}) is a {\bf response-function} that is generally applicable across multiple wavebands.  We again note that {\bf response-function}s for some facilities and instruments may not be separable into these distinct components.
 
 \begin{quote}
 {\bf aeff}: A dataset that records the ``effective area'' of a telescope and/or instrument.  The effective area is the geometric area of the telescope and/or instrument reduced by efficiency factors such as reflectivity and vignetting, among other effects \citep{deil_2022_7304668}.
@@ -682,12 +690,10 @@ Many data collections distributed for instance at HEASARC adopted the OGIP forma
 The gamma-ray community has developed two additional data format standards, so we propose to add the following MIME-types:
 
 \begin{itemize}
-\item {\bf x-fits-OGIP}: OGIP specialized format based on FITS and used in legacy high energy surveys at HEASARC for instance \citep{ogip_Fits_event}.  
+\item {\bf x-fits-ogip}: OGIP specialized format based on FITS and used in legacy high energy surveys at HEASARC for instance \citep{ogip_Fits_event}.  
 \item {\bf x-fits-gadf}: for FITS files following the Gamma-Astro-Data-Format (GADF) specification \citep{deil_2022_7304668},
 \item {\bf x-fits-vodf}: for FITS files following the Very-high-energy Open Data Format (VODF) specification \citep{2023arXiv230813385K}.
 \end{itemize}
-
-\input{extendedAccessTonewtypesOfproducts.tex}
 
 
 \pagebreak
@@ -698,17 +704,25 @@ The gamma-ray community has developed two additional data format standards, so w
 \appendix
 
 
+\pagebreak
 \section{Detailed Science Use Cases for ObsCore}
 \label{sec:uc}
 
 \input{UseCases.tex}
 
 
+\pagebreak
+\section{\gls{HEA} Data Product Access Using ObsTAP Services}\label{sec:accessoptions}
+
+\input{extendedAccessTonewtypesOfproducts.tex}
+
+
+\pagebreak
 \section{Changes from Previous Versions}
 
 No previous versions yet.
 
-
+\pagebreak
 \section{Contributions to the Note}
 
 The authors of this Note contributed to the content and structure the text. However, the note was initiated and elaborated in several dedicated workshops, Interop meetings, and in specific \gls{IVOA} \gls{HEIG} group meetings, involving more people. The \gls{IVOA} \gls{HEIG} group keeps track of its activities on an \gls{IVOA} web page: \url{https://wiki.ivoa.net/twiki/bin/view/IVOA/HEGroup}.

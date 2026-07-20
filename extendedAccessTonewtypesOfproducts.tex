@@ -3,7 +3,7 @@
 \newcommand{\blinks}{\{links\}}
 % François Version 2: 
 %\section{Extending access to new types of data products  in ObsTAP services}\label{sec:accessoptions}
-\section{Possible Approaches for Accessing \gls{HEA} Data Products Using ObsTAP Services}\label{sec:accessoptions}
+%\section{Possible Approaches for Accessing \gls{HEA} Data Products Using ObsTAP Services}\label{sec:accessoptions}
 %\section{Access methods for data related to sky datasets discovered with ObsTAP}
 %(Various implementation strategies for data access)
 
@@ -13,22 +13,22 @@
 
 As discussed previously, \gls{HEA} data distribution requires special focus on event lists and their associated \glspl{IRF}, as well as on advanced data products.  In most cases, corresponding \glspl{IRF} are required to enable physical interpretation of event list data, at least for some physical axes.  That is one reason why data providers may prefer to package an {\bf hea-event-list} together with the associated {\bf response-function}s, or with other ancillary data products that enable end-users to construct appropriate \glspl{IRF}, in a single package.  We have proposed an {\bf hea-event-bundle} data product type to represent such packages, which may be recorded in a specific format such as OGIP FITS, GADF FITS, or VODF FITS, or may simply consist of a set of data products in a common archive file format such as a tarball.
 
-In other cases, recognizing the computation complexity of analyzing \gls{HEA} data robustly in the extreme Poisson regime, \gls{HEA} data providers may choose to provide advanced data products, such as probability density functions or statistical draws, directly to the user community.  In most cases, these advanced data products have spatial, spectral, and/or temporal coverage that can be directly described using standard ObsCore attributes, and therefore these data products can be discovered directly.  In other cases, these data products may not be describable using standard ObsCore parameters ({\em e.g.\/}, if they depend on non-sky based parameters such as telescope altitude and azimuth).
+In other cases, recognizing the computation complexity of analyzing \gls{HEA} data robustly in the extreme Poisson regime, \gls{HEA} data providers may choose to provide advanced data products, such as probability density functions or statistical draws, directly to the user community.  In most cases, these advanced data products have spatial, spectral, and/or temporal coverage that can be directly described using standard ObsCore attributes, and therefore these data products can be discovered directly.  In other cases, these data products may not be describable using standard ObsCore parameters, either due to the richness and complexity of their parameters or because they depend on non-sky based parameters ({\em e.g.\/}, telescope altitude and azimuth).
 %%-  Access to this category of data may be managed similarly to {\bf response-function}s in some cases, as proposed in section \ref{sec:analysis-dp}.
 
-In this section, we first discuss direct access to individual \gls{HEA} data products (including an {\bf hea-event-bundle}), and then focus on several possible approaches that use DataLink \citep{2023ivoa.spec.1215B} to facilitate access to additional datasets that may be associated with a primary datasets ({\em e.g.\/}, {\bf response-function}s associated with a primary {\bf hea-event-list}).
+In this section, we first discuss direct access to individual \gls{HEA} data products (including an {\bf hea-event-bundle}), and then focus on several possible approaches that use DataLink \citep{2023ivoa.spec.1215B} to facilitate access to additional datasets that may be associated with a primary datasets ({\em e.g.\/}, {\bf response-function}s associated with a primary {\bf hea-event-list}). Finally, we discuss the use of one or more additional tables joined with the {\tt ivoa.obscore} table as a means to access certain types of data products.
 
 The choice of access method is entirely up to the data provider.
 
 If a data collection consists primarily of individual observations, each with a small set of associated data products such as \glspl{IRF} that are required for further data analysis (this is a very common use case), then either direct access to the {\bf hea-event-bundle}s or access via DataLink is very likely preferable.
 
-However, if the data collection includes data products such as spectra, light-curves, or advanced data products ({\em e.g.\/}, aperture photometry probability density functions) that are extracted from the primary {\bf hea-event-list} and that can be used independently of the primary dataset, then direct access to these products is likely preferable from the user's perspective.  Since \gls{HEA} event lists typically simulateously encode spatial, spectral, and temporal information, a very large amount of data may be associated with a single {\bf hea-event-list}.  For example, roughly 4,600 individual detectable X-ray sources are located in a single Chandra observation field of view centered on the Galactic center.  Using DataLink to the primary {\bf hea-event-list} to access these spectra, light-curves, and advanced data products would be unwieldy, especially when only a small subset of the products are required.
+However, if the data collection includes data products such as spectra, light-curves, or advanced data products ({\em e.g.\/}, aperture photometry probability density functions) that are extracted from the primary {\bf hea-event-list} and that can be used independently of the primary dataset, then direct access to these products is likely preferable from the user's perspective.  Since \gls{HEA} event lists typically simultaneously encode spatial, spectral, and temporal information, a very large amount of data may be associated with a single {\bf hea-event-list}.  For example, roughly 4,600 individual detectable X-ray sources are located in a single deep Chandra observation field of view centered on the Galactic center.  Using DataLink to the primary {\bf hea-event-list} to access these spectra, light-curves, and advanced data products would be unwieldy, especially when only a small subset of the products are required.
 
 
 \subsection{Direct Access to a Data Product or {\bf hea-event-bundle}}
 % The simplest method to access hea-event-list and associated response function is to provide a link to an hea-event-bundle package; this can be done by providing an URL to the package in the {\em access\_url \/} FIELD of the ObsCore (or ObsCore + extension) table. The {\em access\_format \/} FIELD will contain the appropriate MIME type for the bundle package (for example x-fits-ogip, x-fits-gadf, or x-fits-vodf). Table~\ref{tab:bundle} shows an excerpt of an ObsCore result and illustrates this method. This method  can be combined with methods described below in~\ref{sec:datalink} for a common access to the bundle and other resources such as previews or some specific analysis data products.
 
-The simplest method to directly access any data product is to simply provide a direct link to the data product.  This can be done by providing a URL to the product in the {\em access\_url\/} attribute of the ObsCore table. The {\em access\_format\/} attribute will contain the appropriate MIME type for the data product ({\em e.g.\/}, {\tt x-fits-bintable}).  In the case of an {\bf hea-event-list} together with associated data products such as \glspl{IRF}, a link to an {\bf hea-event-bundle} package may be provided.  In this case, the {\em access\_format \/} FIELD will contain the appropriate MIME type for the bundle package ({\em e.g.\/}, {\tt x-fits-ogip}, {\tt x-fits-gadf\/}, {\tt x-fits-vodf}, {\tt application/x-tar}). Table~\ref{tab:bundle} shows an excerpt of an ObsCore result and illustrates this method. This method  can be combined with methods described below in~\ref{sec:datalink} for a common access to the bundle and other resources such as previews or some specific advanced data products.
+The simplest method to directly access any data product is to provide a direct link to the data product.  This can be done by providing a URL to the product in the {\em access\_url\/} attribute of the ObsCore table. The {\em access\_format\/} attribute will contain the appropriate MIME type for the data product ({\em e.g.\/}, {\tt x-fits-bintable}).  In the case of an {\bf hea-event-list} together with associated data products such as \glspl{IRF}, a link to an {\bf hea-event-bundle} package may be provided.  In this case, the {\em access\_format \/} attribute will contain the appropriate MIME type for the bundle package ({\em e.g.\/}, {\tt x-fits-ogip}, {\tt x-fits-gadf\/}, {\tt x-fits-vodf}, {\tt application/x-tar}). Table~\ref{tab:bundle} shows an excerpt of an ObsCore result that illustrates this approach. This method  can be combined with methods described below in \S~\ref{sec:datalink} for common access to the bundle and other resources such as previews or some specific advanced data products.
 
 %\begin{landscape}
 \begin{longtable}{|m{0.22\linewidth}|m{0.34\linewidth}|m{0.34\linewidth}|}
@@ -40,8 +40,8 @@ The simplest method to directly access any data product is to simply provide a d
 \hline
 %{\em dataproduct\_subtype\/}&{\tt GADF DL3}&{\tt GADF DL3}\\
 %\hline
-%{\em calib\_level\/}& 2&2\\
-%\hline
+{\em calib\_level\/}& 2&2\\
+\hline
 {\em obs\_collection\/}& HESS-DL3-DR1&HESS-DL3-DR1\\
 \hline
 {\em obs\_id\/}&20136&20317\\
@@ -50,7 +50,8 @@ The simplest method to directly access any data product is to simply provide a d
 \hline
 {\em access\_format\/}&x-fits-gadf&x-fits-gadf\\
 \hline
-%{\em access\_estsize\/}&414720&216000\\
+{\em access\_estsize\/}&414720&216000\\
+\hline
 \caption{Excerpt of the ObsCore Response for {\bf hea-event-bundle}s (Inspired by the \gls{HESS} ObsTAP Prototype at Paris Observatory).}
 \label{tab:bundle}
 \end{longtable}
@@ -70,7 +71,7 @@ There are at least three ways to implement this standard for {\bf hea-event-list
 	 
 \subsubsection{From an {\bf hea-event-list} in ObsCore: DataLink to Access the Event List and Response Functions via {\em access\_url\/}}
 \label{sec:datalinkinobs}
-The {\em dataproduct\_type\/} exposed in ObsCore is {\bf hea-event-list} and the Data\-Link \blinks\ endpoint response  points to the event list and to the various {\bf response-function}s individually. This solution allows retrieval of data with explicit access to the various  components  of a ``bundle,'' which doesn't need to be packaged in that case. In addition to \glspl{IRF}, additional data products, including advanced data products can also be linked to the {\bf hea-event-list} this way.
+The {\em dataproduct\_type\/} exposed in ObsCore is {\bf hea-event-list} and the Data\-Link \blinks\ endpoint response  points to the event list and to the various {\bf response-function}s individually. This solution allows retrieval of data with explicit access to the various  components  of a ``bundle,'' which doesn't need to be packaged in that case. In addition to \glspl{IRF}, additional data products, including advanced data products, can also be linked to the {\bf hea-event-list} this way.
 % Figure~\ref{fig:obscoretodl} shows an ObsCore response where the selected record points to a \blinks\ endpoint response illustrating this method.
 Table~\ref{tab:datalink} provides example DataLink response content to a query for \gls{HESS} Data Level 3 Public Test Data.
 %\begin{figure}
@@ -111,7 +112,7 @@ Table~\ref{tab:datalink} provides example DataLink response content to a query f
 
 \subsubsection{Datalink Access Using a Service Descriptor}
 \label{sec:datalinksd}
-To avoid preventing a direct access to the {\bf hea-event-list} while keeping the explicit access to the various response functions, it is possible to add a ``DataLink'' service descriptor in the ObsTAP result as can be seen in the example below.
+To avoid preventing a direct access to the {\bf hea-event-list} while keeping the explicit access to the various response functions, one can add a ``DataLink'' service descriptor in the ObsTAP result as shown in the example below.
 
 {\small
 \begin{verbatim}
@@ -123,27 +124,28 @@ To avoid preventing a direct access to the {\bf hea-event-list} while keeping th
    	value="http:/provider.org/dataservice/datalink"/>
 <GROUP name="inputParams">
 <PARAM name="ID" datatype="char" arraysize="*" value=""
-   	ref="referred_ID_FIELD"/></GROUP>
+   	ref="referenced_ID_FIELD"/></GROUP>
 <PARAM arraysize="*" datatype="char" name="contentType"
    	value="application/x-votable+xml;content=datalink"/>
 </RESOURCE>
 \end{verbatim}
 }
 
-In this case the service descriptor provides the root URL to the DataLink \blinks\ endpoint. The full \blinks\ endpoint URL for a specific row (or group of rows) is built by adding the content of the referred ID FIELD  this way:
+In this case the service descriptor provides the root URL to the DataLink \blinks\ endpoint. The full \blinks\ endpoint URL for a specific row (or group of rows) is built by adding the content of the referenced ID field this way:
 
-\noindent http://provider.org/dataservice/datalink?ID={\em referred\_ID\_FIELD\_content}.
+\noindent {\tt http://provider.org/dataservice/datalink?ID={referenced\_ID\_field}}.
 
-\noindent Note that the {\it referred\_ID\_FIELD} is not required to be  {\em obs\_publisher\_did/}. It can be  {\em obs\_id}, or any free identifier FIELD allowing grouping of several rows together. For example, referring to {\em obs\_id} will allow all the datasets belonging to the same observation to be bound to the same \blinks\ endpoint response.
+\noindent Note that the referenced ID field is not required to be  {\em obs\_publisher\_did\/}. It can be  {\em obs\_id\/}, or any free identifier attribute, allowing grouping of several rows together. For example, referencing {\em obs\_id\/} will allow all the datasets belonging to the same observation to be bound to the same \blinks\ endpoint response.
       	
-This method is implemented in many archive services such as ESO, CADC, GAVO, HEASARC and even VizieR.    
+This method is implemented in many archive services such as CADC, ESO, GAVO, HEASARC, and VizieR.    
 	
  \subsubsection{Datalink Table in a TAP  Service / Join with ObsCore Table}
  \label{sec:datalinktap}
 
-The \blinks\ endpoint table can also be implemented as a TAP table of its own. This table will contain  columns describing  all the links ({\bf hea-event-list}, {\bf response-function}s, additional data products) desirable for any dataset record in the {\tt ivoa.obscore} table of ObsTAP service.
-A direct access to the ObsCore record and the links provided by the \blinks\ endpoint response table is then possible. An identifier column must be present in both the ObsCore table and the DataLink table to be used as a key reference. Suppose we have  {\em dataproduct\_type} = `hea-event-list' in the {\tt ivoa.obscore} table, and we name this DataLink table ``datalink.response''. we can then query the TAP service this way in order to access directly to the {\bf hea-event-list} data product:
+The \blinks\ endpoint table can also be implemented as a TAP service table of its own. This table will contain  columns describing  all the links ({\bf hea-event-list}, {\bf response-function}s, additional data products) desirable for any dataset record in the {\tt ivoa.obscore} table of ObsTAP service.
+Direct access to the ObsCore record and the links provided by the \blinks\ endpoint response table is then possible. An identifier column must be present in both the ObsCore table and the DataLink table to be used as a key reference. Suppose we have  {\em dataproduct\_type} = `hea-event-list' in the {\tt ivoa.obscore} table, and we name this DataLink table {\tt datalink.response}\null. We can then query the TAP service this way in order to access directly to the {\bf hea-event-list} data product:
 
+\smallskip
 {\small
 \begin{verbatim}
 SELECT * FROM ivoa.obscore
@@ -152,11 +154,11 @@ SELECT * FROM ivoa.obscore
  ivoa.obscore.obs_publisher_did = datalink.response.ID
  WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
  AND (dataproduct_type = `hea-event-list')
- AND  semantics = `#this')
+ AND semantics = `#this')
 \end{verbatim}
 }
 
-\noindent while to access directly the associated psf we can select this way :
+\noindent while to access directly an associated {\bf psf} we can do:
 
 {\small
 \begin{verbatim}
@@ -171,7 +173,7 @@ SELECT * FROM ivoa.obscore
 \end{verbatim}
 }
 
-\noindent and to  access directly a background image :
+\noindent and to  access directly a background image:
 
 {\small
 \begin{verbatim}
@@ -186,122 +188,114 @@ SELECT * FROM ivoa.obscore
 \end{verbatim}
 }
 
-One caveat: if response functions and other associated data are common to a full observation (instead of dataset) or even worse to several observations, then the DataLink-like table will repeat the information several times. %To avoid that it's possible to create an additional index column (for example  {\em dl\_association\_id\/} or whatever appropriate term) and modify the first query this way (for others it would be similar of course):
-%
-%%%
-%%% THIS DOESN'T SEEM TO MATCH THE TEXT
-%%%
-%{\small
-%\begin{verbatim}
-%SELECT * FROM ivoa.obscore
-% NATURAL JOIN ivoa.obscore_hea
-% JOIN datalink.response ON
-% ivoa.obscore.response_id = datalink.response.ID
-% WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
-% AND (dataproduct_type = ’hea-event-list’)
-% AND (semantics = '#this')
-%\end{verbatim}
-%}
+One caveat: if response functions and other associated data are common to a full observation (instead of dataset) or even worse to several observations, then the DataLink-like table will repeat the information several times. To avoid that it's possible to create an additional index column (for example  {\tt dl\_association\_id} or other appropriate term) and modify the first query this way (for others it would be similar of course):
 
-%%- \subsection{Accessing {\bf response-function} Datasets via a Specific Table Joined with the {\tt ivoa.obscore} Table}\label{sec:respaccess}
-%%- 
-%%- \begin{center}
-%%- \begin{tabular}{|m{0.9\linewidth}|}
-%%- \hline
-%%- \center{\bf Note} \cr
-%%- \vspace{6pt}
-%%- This section describes work-in-progress that has been proposed as a conceptual general approach that may be appropriate for facilitating access to {\bf response-function}s, but that requires further consideration by the \gls{IVOA} \gls{HEIG}.  This section is included to highlight a possible approach that the \gls{HEIG} may endorse in the future. \cr
-%%- \hline
-%%- \end{tabular}
-%%- \end{center}
-%%- 
-%%- %For the discovery of response data products, the use cases recorded show that selection criteria are based on  1) the type of response 2) the observed data set properties, and on the observation, like the observing position and field of view, the observing date and time, the energy  and time bounds. However, the cardinality of the relationship  between a response dataset and an hea-event-list dataset varies according to projects and may be 1 to 1, like in CTAO project, or 1 to N, N to 1 or N to N.
-%%- 
-%%- %Compared to the \texttt{ivoa.obscore} table, it can happen that less attributes are needed to select a response file. The response details could be into the response files, in the metadata encoded according to the file format (OGIP, GADF, VODF, etc). In this case, response data products can be described by a specific response table, with a short list of attributes as proposed in Tab. \ref{tab:response_table}.
-%%- 
-%%- %In order to handle the various cardinality between response and observation datasets, the foreign keys are defined in the response table and will allow JOIN operations between the \texttt{ivoa.obscore} and \texttt{ivoa.response} table.
-%%- 
-%%- For the discovery of {\bf response-function} data products, the use cases record\-ed in Appendix~\ref{sec:uc} include selection criteria that are based on the type of {\bf response-function}, the observation data set properties, and on the observation properties such as the observing position and field-of-view, the observation date and time, the energy, and time bounds. 
-%%- 
-%%- Compared to the set of queryable attributes included in {\tt ivoa.obscore} table, more or fewer attributes may be required to select an appropriate {\bf response-function} dataset. In such a case, {\bf response-function} data products could be described by a specific {\tt ivoa.response} table.  One possible definition of such a table is presented in Table~\ref{tab:response_table}.
-%%- 
-%%- Additonally, the cardinality of the relationship between a {\bf response-function} dataset and an {\bf hea-event-list} dataset will vary according to the facility and may be $1:1$, as is the case for the CTAO project, or $1:N$, $N:1$, or $N:N$.
-%%- 
-%%- In order to handle the various possible cardinality relationships between {\bf response-function} and {\bf hea-event-list}  datasets, foreign keys must be defined in the {\tt ivoa.response} table that will allow JOIN operations between that table and the {\tt ivoa.obscore} table.
-%%- 
-%%- \subsection*{Response Table  Concept}
-%%- %\TODO{ check fields for this new table }
-%%- %\begin{table}[htbp]
-%%- %\begin{center}
-%%- {\small
-%%-   \begin{longtable}{|m{0.25\linewidth}|m{0.1\linewidth}|m{0.10\linewidth}|m{0.41\linewidth}|}
-%%- \hline
-%%- {\bf Column Name} & {\bf Unit} & {\bf Type} & {\bf Description}\\\hline
-%%- %obs\_collection & unitless & String & Name of the data collection \\\hline
-%%- % to bind a response with an observation data set
-%%- {\em obs\_id} & unitless & String & Related observation ID (foreign key) \\\hline
-%%- {\em obs\_publisher\_did} & unitless & String & Related dataset ID (foreign key) \\\hline
-%%- % copied from related observation if needed
-%%- {\em target\_name} & unitless & String & Astronomical object observed, if any\\\hline
-%%- {\em facility\_name} & unitless & String & Facility name used for observed data products \\\hline
-%%- {\em instrument\_name} & unitless & String & Instrument name used for observed data products \\\hline
-%%- % response specific fields 
-%%- {\em resp\_product\_type} & unitless & String &  Product type as defined in the response-type vocabulary\\\hline
-%%- {\em resp\_publisher\_did} & unitless & String & Dataset identifier given by the publisher\\\hline
-%%- {\em resp\_access\_url} & unitless & String & URL used to access (download) the response dataset\\\hline
-%%- {\em resp\_access\_format} & unitless & String & File content format (see in Obs\-Core MIME Types)\\\hline
-%%- % response spatial coverage
-%%- {\em resp\_s\_ra} & deg & double &  ICRS reference right ascension, for the region where the response-product applies \\\hline
-%%- {\em resp\_s\_dec} & deg & double & ICRS reference declination, for the region where the response-product applies\\\hline
-%%- {\em resp\_s\_region} & unitless & String & Region of interest for response use (expressed in ICRS frame)\\\hline
-%%- {\em resp\_t\_intervals} & unitless& String (TMOC) & Time coverage for response use \\\hline
-%%- %response energy coverage
-%%- {\em resp\_energy\_min} & eV & double & Energy band minimal value for response use  \\\hline
-%%- {\em resp\_energy\_max} & eV & double & Energy band maximal value for response use  \\\hline
-%%- 
-%%- \caption{Possible Mandatory Fields of the Response Table Concept.}
-%%- \label{tab:response_table}
-%%- \end{longtable}
-%%- }
-%%- %\end{center}
-%%- %\end{table}
-%%- 
-%%- \noindent Implementing an {\tt ivoa.response} table similar to this would allow queries such as the following: \\
-%%- 
-%%- \noindent Find all datasets satisfying:
-%%- \begin{enumerate}[(i)]
-%%-   \item Position inside 3 arcmin from (83.6324, $+22.0174$)
-%%-   \item Response product\_type = ``psf''
-%%-   \item obs\_id = ``1527''
-%%-   \item obs\_collection = ``HESS''
-%%- \end{enumerate}
-%%- 
-%%-  When using the response table defined in Table \ref{tab:response_table}, we can join the {\tt ivoa.obscore} table with the {\tt ivoa.response} table on 
-%%-  the two keys  {\em obs\_id\/} and {\em obs\_publisher\_did\/} for instance, as in: 
-%%- \begin{verbatim}
-%%-  SELECT obs_publisher_did, s_ra, s_dec, s_fov, t_min, t_max, 
-%%-  energy_min, energy_max, access_url, access_format, 
-%%-  resp_publisher_did, resp_access_url, resp_access_format, 
-%%-  resp_energy_max, resp_energy_min
-%%-  FROM ivoa.obscore 
-%%-  NATURAL JOIN  ivoa.response
-%%-  WHERE
-%%-  (target_name = ’Crab’ OR target_name = ’M1’ OR
-%%-  CONTAINS(POINT(s_ra, s_dec), CIRCLE, 83.6324, +22.0174, 0.083333) = 1)
-%%-  AND (resp_product_type = 'psf')
-%%-  AND (obs_id = '1527')
-%%-  AND (obs_collection = 'HESS')
-%%- \end{verbatim}
-%%- 
-%%-  If additional constraints are required, then we can use ({\em e.g.\/}) {\em resp\_t\_min\/}, and {\em resp\_t\_max\/} and constrain the time interval by adding a clause like: 
-%%- \begin{verbatim}
-%%-  AND (resp_t_min > 56000.0 and resp_t_max < 56001.5) 
-%%- \end{verbatim}
-%%- 
-%%- \subsection*{Querying for Advanced Data products}
-%%- \label{sec:analysis-dp}
-%%- 
-%%-  A similar strategy to \S~\ref{sec:respaccess} {\em could\/} also apply for discovering advanced data products for an observation or for a {\bf hea-event-list} data product, using a dedicated {\tt ivoa.obscore.adp} table.  This might allow more specific properties of these data products to be listed in optional table columns, without overloading the main {\tt ivoa.obscore} table.   
-%%- 
-%%- 
-%%- 
+{\small
+\begin{verbatim}
+SELECT * FROM ivoa.obscore
+ NATURAL JOIN ivoa.obscore_hea
+ JOIN datalink.response ON
+ ivoa.obscore.response_id = datalink.response.dl_association_id
+ WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
+ AND (dataproduct_type = ’hea-event-list’)
+ AND (semantics = '#this')
+\end{verbatim}
+}
+
+\subsection{Accessing Datasets via an Alternate Table Joined with the {\tt ivoa.obscore} Table}\label{sec:respaccess}
+
+%For the discovery of response data products, the use cases recorded show that selection criteria are based on  1) the type of response 2) the observed data set properties, and on the observation, like the observing position and field of view, the observing date and time, the energy  and time bounds. However, the cardinality of the relationship  between a response dataset and an hea-event-list dataset varies according to projects and may be 1 to 1, like in CTAO project, or 1 to N, N to 1 or N to N.
+
+%Compared to the \texttt{ivoa.obscore} table, it can happen that less attributes are needed to select a response file. The response details could be into the response files, in the metadata encoded according to the file format (OGIP, GADF, VODF, etc). In this case, response data products can be described by a specific response table, with a short list of attributes as proposed in Tab. \ref{tab:response_table}.
+
+%In order to handle the various cardinality between response and observation datasets, the foreign keys are defined in the response table and will allow JOIN operations between the \texttt{ivoa.obscore} and \texttt{ivoa.response} table.
+
+While most data products can be discovered directly using the {\tt ivoa.obscore} table, there can be circumstances where use of an alternate table joined with the {\tt ivoa.obscore} table may be a better choice.  Some data products may not be describable (or may not be optimally described) using the standard ObsCore spatial/spectral/temporal parameters, while other data products may not be observation based and therefore are not appropriately recorded in the  {\tt ivoa.obscore} table.  {\bf response-function} data products will typically fall into the latter category.
+
+An extensive set of parameter values is often required to construct many types of  {\bf response-function} data products, for example depending on the assumed spatial, spectral, and temporal models of the observed astrophysical source as well as multiple instrumental properties.  Given the wide range of possibilities, most facilities deliberately choose to limit the set of {\bf response-function} datasets that they make available to the end user, for example by choosing a single spectral model, such as a power-law spectrum, with predefined parameters.  Often these {\bf response-function}s will have been used when calibrating the associated {\bf hea-event-list} or will have been created based on some of the assumptions used during the data processing steps ({\em e.g.\/}, based on {\em analysis\_mode\/}, {\em event\_type\/}, and so on).  This is evident in the use cases recorded in Appendix~\ref{sec:uc} where typically a single {\bf response-function} of a given type is associated with a single {\bf hea-event-list} and so the selection criteria are simply based on the type of {\bf response-function}, the observation dataset properties, and on the observation properties such as the observing position and field-of-view, the observation date and time, the energy, and time bounds.
+
+More generally, the cardinality of the relationship between a {\bf response-function} dataset and an {\bf hea-event-list} dataset will vary according to the facility and may be one-to-one, one-to-many, many-to-one, or even many-to-many.  Compared to the set of queryable attributes included in {\tt ivoa.obscore} table, typically more but occasionally fewer attributes will be required to select an appropriate {\bf response-function} dataset of a given type.  The set of attributes required to identify an appropriate {\bf response-function} dataset will typically depend on the type of {\bf response-function}.
+
+Using this approach, {\bf response-function} data products could be described by one or more alternate {\tt ivoa.response$\{$\_xxx$\}$} tables, where {\tt $\{$\_xxx$\}$} is optional and would depend on the type of {\bf response-function} in the case that different sets of queryable attributes are required for different types of {\bf response-function}s.  One possible example of such a table is presented in Table~\ref{tab:response_table}.
+
+In order to handle the various possible cardinality relationships between {\bf response-function} and {\bf hea-event-list}  datasets, foreign keys must be defined in the {\tt ivoa.responsee$\{$\_xxx$\}$} tables that will allow {\tt  JOIN} operations between those tables and the {\tt ivoa.obscore} table.
+
+\subsection*{Example Response Table}
+%\TODO{ check fields for this new table }
+%\begin{table}[htbp]
+%\begin{center}
+{\small
+ \begin{longtable}{|m{0.25\linewidth}|m{0.1\linewidth}|m{0.10\linewidth}|m{0.41\linewidth}|}
+\hline
+{\bf Column Name} & {\bf Unit} & {\bf Type} & {\bf Description}\\\hline
+%obs\_collection & unitless & String & Name of the data collection \\\hline
+% to bind a response with an observation data set
+{\em obs\_id} & unitless & String & Related observation ID (foreign key) \\\hline
+{\em obs\_publisher\_did} & unitless & String & Related dataset ID (foreign key) \\\hline
+% copied from related observation if needed
+{\em target\_name} & unitless & String & Astronomical object observed, if any\\\hline
+{\em facility\_name} & unitless & String & Facility name used for observed data products \\\hline
+{\em instrument\_name} & unitless & String & Instrument name used for observed data products \\\hline
+% response specific fields 
+{\em resp\_product\_type} & unitless & String &  Product type as defined in the response-type vocabulary\\\hline
+{\em resp\_publisher\_did} & unitless & String & Dataset identifier given by the publisher\\\hline
+{\em resp\_access\_url} & unitless & String & URL used to access (download) the response dataset\\\hline
+{\em resp\_access\_format} & unitless & String & File content format (see in Obs\-Core MIME Types)\\\hline
+% response spatial coverage
+{\em resp\_s\_ra} & deg & double &  ICRS reference right ascension, for the region where the response-product applies \\\hline
+{\em resp\_s\_dec} & deg & double & ICRS reference declination, for the region where the response-product applies\\\hline
+{\em resp\_s\_region} & unitless & String & Region of interest for response use (expressed in ICRS frame)\\\hline
+{\em resp\_t\_intervals} & unitless& String (TMOC) & Time coverage for response use \\\hline
+%response energy coverage
+{\em resp\_energy\_min} & eV & double & Energy band minimal value for response use  \\\hline
+{\em resp\_energy\_max} & eV & double & Energy band maximal value for response use  \\\hline
+
+\caption{Example Response Table.  With further scientific input from \gls{HEIG} domain experts, the columns identified herein could form the basis for a recommended base set of columns for any {\tt ivoa.response$\{$\_xxx$\}$} table.}
+\label{tab:response_table}
+\end{longtable}
+}
+%\end{center}
+%\end{table}
+
+\noindent Implementing an {\tt ivoa.response$\{$\_xxx$\}$} table similar to this would allow queries such as the following: \\
+
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+ \item Position inside 3 arcmin from (83.6324, $+22.0174$),
+ \item Response product\_type = ``psf'',
+ \item obs\_id = ``1527'',
+ \item obs\_collection = ``HESS''.
+\end{enumerate}
+
+When using the response table defined in Table \ref{tab:response_table}, we can join the {\tt ivoa.obscore} table with the {\tt ivoa.response\_psf} table on 
+the two keys  {\em obs\_id\/} and {\em obs\_publisher\_did\/} for instance, as in: 
+{\small
+\begin{verbatim}
+SELECT obs_publisher_did, s_ra, s_dec, s_fov, t_min, t_max, 
+energy_min, energy_max, access_url, access_format, 
+resp_publisher_did, resp_access_url, resp_access_format, 
+resp_energy_max, resp_energy_min
+FROM ivoa.obscore 
+NATURAL JOIN  ivoa.response_psf
+WHERE
+(target_name = ’Crab’ OR target_name = ’M1’ OR
+CONTAINS(POINT(s_ra, s_dec), CIRCLE, 83.6324, +22.0174, 0.083333) = 1)
+AND (resp_product_type = 'psf')
+AND (obs_id = '1527')
+AND (obs_collection = 'HESS')
+\end{verbatim}
+}
+
+If additional constraints are required, then we can use ({\em e.g.\/}) {\em resp\_t\_min\/}, and {\em resp\_t\_max\/} and constrain the time interval by adding a clause like:
+{\small
+\begin{verbatim}
+AND (resp_t_min > 56000.0 and resp_t_max < 56001.5) 
+\end{verbatim}
+}
+
+%\subsection*{Querying for Advanced Data products}
+%\label{sec:analysis-dp}
+
+A similar strategy could apply for discovering data products for an observation that are associated with an {\bf hea-event-list} data product if those data products require a set of queryable attributes that is not present in the {\tt ivoa.obscore} table.  A dedicated table would allow more specific properties of these data products to be listed in optional table columns ({\em e.g.\/}, if certain data products have dependencies on telescope altitude and azimuth, or off-axis and azimuthal angles).  Of course, this approach would preclude them from being directly queryable in the {\tt ivoa.obscore} table, which may be undesirable from the user perspective.
+
+
