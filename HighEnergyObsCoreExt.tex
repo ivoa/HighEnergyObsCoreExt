@@ -131,6 +131,7 @@ The \href{https://www.ivoa.net}{International Virtual Observatory Alliance (IVOA
 % Glossary entry expansion should restart in full at this point
 \glsresetall
 
+\pagebreak
 \section{Introduction}
 
 The \gls{IVOA} \gls{HEIG} was formed in the Fall of 2024, and developed an \gls{IVOA} Note \citep{2024ivoa.note.heig} that explores the connections between the \gls{VO} and \gls{HEA}\null. \gls{HEA} covers experiments and observatories from the X-ray range up to the PeV range and beyond, as well as astrophysical neutrinos above the TeV range.  These regimes are referred to here as the \gls{HEA} domain. The \gls{HEIG} Note includes an outline of several important topics that have formed a roadmap for the group. An ObsCore \citep{2017ivoa.spec.0509L} extension for \gls{HEA} data is the first priority in order to meet the needs of \gls{HEA}, and to coincide with similar work being carried out by the Radio Interest Group, Time Domain Interest Group, and discussions on DataModel standards, such that current and future \gls{HEA} experiments and observatories are able to release data through the \gls{VO}.
@@ -138,6 +139,7 @@ The \gls{IVOA} \gls{HEIG} was formed in the Fall of 2024, and developed an \gls{
 The goal is to explore elements needed to reliably discover and select \gls{HEA} data through \gls{IVOA} interfaces. This requires defining an extension to ObsCore with the possibility to use the DataLink mechanism and to enhance vocabularies of keywords for ObsCore and DataLink. We suggest that if an attribute is unique to \gls{HEA} data, then that element should appear in an \gls{HEA} ObsCore extension. Whereas, if an attribute makes sense for more than one domain and can be shared across those domains, then that element should be added to the base ObsCore model. This note proposes recommendations in both of these categories. We also discuss enhancements to the vocabulary of data\/ products, DataLink semantics, Unified Content Descriptors (UCDs), and MIME-types to correctly represent \gls{HEA} data. Topics related to the Registry are currently outlined in the proposed Radio extension document and are not discussed here.
 
 
+\pagebreak
 \section{High Energy Astrophysics Data}
 
 \gls{HEA} data include observations obtained using photon detectors covering X-ray (from $\sim$0.1 keV to $\sim$120 keV) through gamma-ray (from 120 keV up to $\gtrsim$ PeV) energies, as well as cosmic-ray and astrophysical neutrino ($\gtrsim$ GeV) detectors, or other messengers related to \gls{HEA} phenomena. The domain is now sufficiently mature to provide open data that are science-ready and work with open analysis tools ({\em e.g.\/}, CIAO, \citealt{2026ApJ..1005..116F}, or Gammapy, \citealt{gammapy:2023}). The science output of the \gls{HEA} domain already includes advanced products such as images, cubes, spectra, and time series such as light curves and time-resolved spectra. Additional data products include fitted sky models with spatial, spectral, and/or temporal component(s), along with their confidence intervals or confidence limits, and covariance matrices.   Finally, multiple \gls{HEA} instruments produce source catalogs and surveys covering up to the full the sky, which include maps of photon or particle flux, exposure, sensitivity, and aperture-photometry likelihood profiles.
@@ -146,8 +148,9 @@ Observations of the universe at the highest energies are based on techniques tha
 
 Though {\bf hea-event-list}s {\em may\/} include estimators for calibrated physical values, they typically still have to be corrected for the photometric, spectral, spatial, and/or temporal responses of the telescope and detector combination to yield scientifically interpretable information. The mappings between physical measurements of the source properties and the observables are called \glspl{IRF}\footnote{We try to avoid using the term \gls{IRF} in a normative sense since historical usage across the broad \gls{HEA} community (and from facility to facility) varies. In some cases, \gls{IRF} has been used to mean specifically the product of the \gls{ARF} and \gls{RMF}, whereas in other cases \gls{IRF} has been used more generally to mean any instrumental response function regardless of type.}.  Some \glspl{IRF} are probabilistic in nature\footnote{For example, the energy redistribution matrix is a probability density function.}, and in addition may depend on the set of events selected for analysis by the end user.  They are usually not invertible, so methods such as forward-folding fitting (using source models with any combination of spectral, spatial, temporal, and/or polarization components that are estimated) are needed to estimate physical properties, such as the true flux of particles from a source arriving at the instrument, given the measured observable quantities. The \glspl{IRF} generally evolve over time with the instrument and observation characteristics, and are usually defined for a specific time interval and may be decomposed into a standard set of independent components (see \S~3.1.5 of \citealt{2024ivoa.note.heig}), such as the spatial point-spread function or the energy-migration matrix or different messenger particle types, where each component may be stored or computed separately.  Since both \glspl{IRF} and {\bf hea-event-list}s are required to analyze \gls{HEA} data, some \gls{IVOA} standards must be modified to expose both of them via the \gls{VO}.
 
-In the following, the current ObsCore standard will be discussed in \S~\ref{sec:obscore}, focusing on attributes that need to be modified. Then, we propose the creation of a \gls{HEA} extension of ObsCore in \S~\ref{sec:obscoreext}, as some attributes are very specific to our domain. In these two sections, the discussion focuses on the attribute definitions rather than on the attribute values. In \S~\ref{sec:voc}, vocabulary enhancements are proposed for some ObsCore attributes, DataLink semantics, UCDs, and MIME-types. Appendix~\ref{sec:uc} provides a list of use case examples drawn from the X-ray, Gamma Ray, Cherenkov, and particle astrophysics communities. Finally, in Appendix~\ref{sec:accessoptions} we discuss various options for accessing \gls{HEA} data products using ObsTAP services.
+In sections 3--5 of this document, we discuss enhancements to current \gls{IVOA} standards that are needed to support meaningful discovery of \gls{HEA} data, and make rationale and well-considered proposals for these enhancements based on our \gls {HEA} domain knowledge.  The current ObsCore standard will be discussed in \S~\ref{sec:obscore}, focusing on attributes that need to be modified. Then, we propose the creation of a \gls{HEA} extension of ObsCore in \S~\ref{sec:obscoreext}, as some attributes are very specific to our domain. In these two sections, the discussion focuses on the attribute definitions rather than on the attribute values. In \S~\ref{sec:voc}, vocabulary enhancements are proposed for some ObsCore attributes, DataLink semantics, UCDs, and MIME-types. Finally, in \S~\ref{sec:accessoptions} we discuss various options for accessing \gls{HEA} data products using ObsTAP services. Appendix~\ref{sec:uc} provides a list of use case examples drawn from the X-ray, Gamma Ray, Cherenkov, and particle astrophysics communities. 
 
+\pagebreak
 \section{ObsCore Attribute Definitions for High Energy Astrophysics Data}
 \label{sec:obscore}
 
@@ -179,7 +182,7 @@ We propose to add the following {\em dataproduct\_type\/} terms to ObsCore to be
 
 We note that the term {\bf event} has caused confusion in the past, since ``event'' may also be used to describe notifications ({\em e.g.\/}, as in ``VOEvent'') of astrophysical events such as supernova explosions.  Such ``events'' are quite different from the particle detection events being described herein.  Use of the terms {\bf hea-event-list} and {\bf hea-event-bundle}  will help to resolve this ambiguity.
 
-In addition to {\em dataproduct\_type\/} terms that focus on event data, we note that existing ObsCore definitions do not adequately span the breadth of ``advanced data products'' (typically with {\em calib\_level\/} $\ge$ 3) that may be generated from astronomical observations by users or observatories. The computational complexity of analyzing \gls{HEA} data robustly in the extreme Poisson regime ({\em e.g.\/}, Bayesian X-ray aperture photometry applied simultaneously to multiple overlapping detections and observations, or frequentist adjustment of models of electron populations for multi-wavelength data spanning from X-rays to PeV gamma rays) means that data providers may choose to provide such advanced data products\footnote{We choose to use the term ``advanced data products'' for these types of data products because that is the term for such data products, such as {\bf sed}, used in the ObsCore Recommendation document.} directly to the end user. For example, the Chandra Source Catalog includes 38 types of advanced data products (for a total of $\sim\!90$ million files) and $\sim\!50$\% of these data product types are not well represented by a  {\em dataproduct\_type\/} value that allows for meaningful data discovery. Users will certainly want to discover these data products independently from the associated progenitor observation data (and many of these data products combine data from multiple observations). We therefore propose the following additional {\em dataproduct\_type\/} (or {\em dataproduct\_subtype\/}) terms for these advanced data products, and note that these terms will certainly be useful independent of waveband ({\em i.e.\/}, they can be equally applicable to UV/optical, IR, and radio datasets):
+In addition to {\em dataproduct\_type\/} terms that focus on event data, we note that existing ObsCore definitions do not adequately span the breadth of ``advanced data products'' (typically with {\em calib\_level\/} $\ge$ 3) that may be generated from astronomical observations by users or observatories. The computational complexity of analyzing \gls{HEA} data robustly in the extreme Poisson regime ({\em e.g.\/}, Bayesian X-ray aperture photometry applied simultaneously to multiple overlapping detections and observations, or frequentist adjustment of models of electron populations for multi-wavelength data spanning from X-rays to PeV gamma rays) means that data providers may choose to provide such advanced data products\footnote{We choose to use the term ``advanced data products'' for these types of data products because that is the term for such data products, for example {\bf sed}, used in the ObsCore Recommendation document Version 1.1 ({\em e.g.\/}, \S~3.3.1).  The Recommendation (\S~3.3.2) seems to imply that ``Enhanced Data Products'' have $\hbox{\em calib\_level\/} = 3$ and ``Analysis Data Products'' have $\hbox{\em calib\_level\/} = 4$, while ``Advanced Data Products'' may correspond to either {\em calib\_level\/} (\S~4.4).} directly to the end user. For example, the Chandra Source Catalog includes 38 types of advanced data products (for a total of $\sim\!90$ million files) and $\sim\!50$\% of these data product types are not well represented by a  {\em dataproduct\_type\/} value that allows for meaningful data discovery. Users will certainly want to discover these data products independently from the associated progenitor observation data (and many of these data products combine data from multiple observations). We therefore propose the following additional {\em dataproduct\_type\/} (or {\em dataproduct\_subtype\/}) terms for these advanced data products, and note that these terms will certainly be useful independent of waveband ({\em i.e.\/}, they can be equally applicable to UV/optical, IR, and radio datasets):
 
 \begin{quote}
 {\bf draws}: a dataset that records statistical draws computed from a probability distribution or a sample population, for example Markov chain Monte Carlo (MCMC) draws used when computing the Bayesian marginal probability density function for a random variable, or the DeltaTS associated with a quantity from a frequentist analysis. The draws can be interpreted to provide a robust estimation of the probability distribution of variable, and correlations between the draws provide information about how well the draws converge to the parent probability distribution.\footnote{As an example, within the standard $\Lambda CDM$ cosmological model, estimates of the cosmological density parameters $\Omega M$ and $\Omega\Lambda$ can be derived from the intersection of confidence contours from Hubble diagram of quasars with those from the Type Ia supernovae \citep{2019adds.book..283C}.  These contours are {\bf draws}.}
@@ -282,6 +285,7 @@ Advanced data products may similarly record multiple observables that can only b
 To support advanced data products that may be constructed using data from multiple progenitor observations, we propose to modify the ObsCore Recommendation for {\em proposal\_id\/} to allow multiple values using a list of comma separated strings, or the word ``Many'', similar to the specifications for the {\em facility\_name\/} and {\em instrument\_name\/} provenance keywords. 
 
 
+\pagebreak
 \section{Extensions to ObsCore Specific to High Energy Astrophysics Data}
 \label{sec:obscoreext}
 
@@ -365,12 +369,12 @@ Some \gls{HEA} instruments allow particle events to be partitioned into separate
 We propose to add an optional attribute {\em event\_type\/} that specifies the data quality flag for an observation. This attribute will allow the data provider to split the event list into several event lists labelled by an unique {\em event\_type\/} for a given observation, and if appropriate to distribute their associated \glspl{IRF}. Constraints on event type can provide a simple way to discover data sets for a specific facility/instrument combination and to reduce the downloaded data volume. We note that permissible {\em event\_type\/} values may vary from facility to facility and from instrument to instrument.
 
 
-\subsection{{\em messenger}}
+\subsection{{\em messenger\_name}}
 \label{sec:messenger}
 
 While many \gls{HEA} facilities detect photons ({\em e.g.\/}, most space-based X-ray and gamma-ray facilities), other facilities can detect alternate messenger particles, such as cosmic-rays, neutrinos, or massive particles.  The end user will therefore need the ability to select the messenger when querying for data products using ObsCore.
 
-We propose to add an optional attribute {\em messenger\/} that specifies the {\em name} of the messenger type for an observation.  Constraints on {\em messenger\/} can provide a simple way to discover data sets for a specific messenger.  While the entries in the IVOA Messengers Vocabulary\footnote{\url{https://www.ivoa.net/rdf/messenger}} provide a useful starting point for populating this attribute, we propose that the predefined {\em messenger\/} values for \gls{HEA} data include at least the following:
+We propose to add an optional attribute {\em messenger\_name\/} that specifies the {\em name} of the messenger type for an observation.  Constraints on {\em messenger\_name\/} can provide a simple way to discover data sets for a specific messenger.  While the entries in the IVOA Messengers Vocabulary\footnote{\url{https://www.ivoa.net/rdf/messenger}} provide a useful starting point for populating this attribute, we propose that the predefined {\em messenger\_name\/} values for \gls{HEA} data include at least the following:
 \begin{itemize}
 	\item \texttt{cosmic-ray}: the messenger is a cosmic-ray;
 	\item \texttt{muon}: the messenger is a muon;
@@ -378,18 +382,18 @@ We propose to add an optional attribute {\em messenger\/} that specifies the {\e
 	\item \texttt{photon}: the messenger is a photon;
 	\item \texttt{proton}: the messenger is a proton or anti-proton.
 \end{itemize}
-We note that permissible {\em messenger\/} values will vary from facility to facility and from instrument to instrument.
+We note that permissible {\em messenger\_name\/} values will vary from facility to facility and from instrument to instrument.
 
 \subsection{{\em messenger\_pdgid}}
 \label{sec:messenger_pdgid}
 
-The optional attribute {\em messenger\/} encodes the {\em name\/} of the detected messenger particle.  More generally, the particle astrophysics community, like the high energy particle physics community,  use the Particle Data Group Identifier (PDG ID)\footnote{See \url{https://www.phy.bnl.gov/twister/bee/particles/}} to identify the precise messenger particle that is detected.  
+The optional attribute {\em messenger\_name\/} encodes the {\em name\/} of the detected messenger particle.  More generally, the particle astrophysics community, like the high energy particle physics community,  use the Particle Data Group Identifier (PDG ID)\footnote{See \url{https://www.phy.bnl.gov/twister/bee/particles/}} to identify the precise messenger particle that is detected.  
 
-We propose to add an optional attribute {\em messenger\_pdgid\/} that specifies the PDG ID of the messenger type for an observation.  Constraints on {\em messenger\_pdgid\/} can provide a simple way to discover data sets for a specific messenger with a finer granularity than is possible with the {\em messenger} attribute alone.  The value should be a string that specifies the messenger particle's PDG ID as `{\em $\pm$nn\/}' (where the sign is mandatory).  For example, a muon, $\mu^{-}$, may be specified as `+13'. 
+We propose to add an optional attribute {\em messenger\_pdgid\/} that specifies the PDG ID of the messenger type for an observation.  Constraints on {\em messenger\_pdgid\/} can provide a simple way to discover data sets for a specific messenger with a finer granularity than is possible with the {\em messenger\_name\/} attribute alone.  The value should be a string that specifies the messenger particle's PDG ID as `{\em $\pm$nn\/}' (where the sign is mandatory).  For example, a muon, $\mu^{-}$, may be specified as `+13'. 
 
-The difference between {\em messenger\/} and {\em messenger\_pdgid} is that ({\em e.g.\/}) a data discovery query that includes {\tt messenger = `neutrino'} would enable the user to identify datasets with a neutrino (any kind) messenger particle, whereas a data discovery query that includes {\tt messenger\_pdgid = `+16' OR messenger\_pdgid = `-16'} would restrict the search to include only $\tau$ neutrinos ($\nu_\tau$) or antineutrinos ($\nu_\tau^{-}$).
+The difference between {\em messenger\_name\/} and {\em messenger\_pdgid} is that ({\em e.g.\/}) a data discovery query that includes {\tt messenger\_name = `neutrino'} would enable the user to identify datasets with a neutrino (any kind) messenger particle, whereas a data discovery query that includes {\tt messenger\_pdgid = `+16' OR messenger\_pdgid = `-16'} would restrict the search to include only $\tau$ neutrinos ($\nu_\tau$) or antineutrinos ($\nu_\tau^{-}$).
 
-The downside of {\em messenger\_pdgid} is that PDG ID very unlikely to be recognized outside of the particle astrophysics and high energy particle physics communities.  We choose to include both {\em messenger\/} and {\em messenger\_pdgid} because the majority of astrophysicists --- even experienced high-energy astrophysicists --- are unlikely to recognize PDG ID\null.  While any astrophysicist is likely to be able to write a query such as {\tt messenger = `photon'}, very few would be able to cast that query as {\tt messenger\_pdgid = `+22'} from memory.
+The downside of {\em messenger\_pdgid} is that PDG ID very unlikely to be recognized outside of the particle astrophysics and high energy particle physics communities.  We choose to include both {\em messenger\_name\/} and {\em messenger\_pdgid} because the majority of astrophysicists --- even experienced high-energy astrophysicists --- are unlikely to recognize PDG ID\null.  While any astrophysicist is likely to be able to write a query such as {\tt messenger\_name = `photon'}, very few would be able to cast that query as {\tt messenger\_pdgid = `+22'} from memory.
 
 We note that permissible {\em messenger\_pdgid\/} values will vary from facility to facility and from instrument to instrument.
 
@@ -428,11 +432,15 @@ Table~\ref{tab:obscore_hea} summarizes the proposal for the \gls{HEA} extension 
 \hline
 {\em tracking\_mode\/} & \ucd{meta.code;obs.param} & unitless & string & {Tracking mode of an observation ({\em e.g.\/}, sidereal rate, moving target [solar system] tracking, drift scans)}  & NO \\
 \hline
+{\em scan\_mode\/} & \ucd{meta.code;obs.param} & unitless & string &{Scan mode of an observation for pointing instruments ({\em e.g.\/}, on-sources, on-off, raster-map, on-the-fly-cross-scan, on-the-fly-cross-map, slew)} & NO \\
+\hline
+{\em pointing\_mode\/} & \ucd{meta.code;obs.param} & unitless & string &{Pointing mode of an observation for pointing instruments ({\em e.g.\/}, parallel, convergent[-ang], divergent[-ang])} & NO \\
+\hline
 {\em analysis\_mode\/} & \ucd{meta.code;obs.param} & unitless & string &{Data reduction/analysis mode}& NO \\
 \hline
 {\em event\_type\/} & \ucd{meta.code.qual;instr.detection;phys.particle} & unitless & string &{Data quality flag of the events ({\em e.g.\/}, ``good psf'', ``good rejection'', ``Nhit (100,200)''} & NO \\
 \hline
-{\em messenger\/} & \ucd{meta.id;phys.particle} & unitless & string &{Messenger particle type ({\em e.g.\/}, ``photon'', ``cosmic-ray'', ``neutrino'')} & NO \\
+{\em messenger\_name\/} & \ucd{meta.id;phys.particle} & unitless & string &{Messenger particle type ({\em e.g.\/}, ``photon'', ``cosmic-ray'', ``neutrino'')} & NO \\
 \hline
 {\em messenger\_pdgid\/} & \ucd{meta.ref.pdgid;phys.particle} & unitless & string &{Messenger particle PDG ID ({\em e.g.\/}, ``+13'')} & NO \\
 \hline
@@ -443,6 +451,7 @@ Table~\ref{tab:obscore_hea} summarizes the proposal for the \gls{HEA} extension 
 \end{center}
 \end{landscape}
 
+\pagebreak
 \section{Vocabulary Enhancements}
 \label{sec:voc}
 
@@ -697,6 +706,12 @@ The gamma-ray community has developed two additional data format standards, so w
 
 
 \pagebreak
+\section{\gls{HEA} Data Product Access Using ObsTAP Services}\label{sec:accessoptions}
+
+\input{extendedAccessTonewtypesOfproducts.tex}
+
+
+\pagebreak
 %\printglossaries
 
 \bibliography{ivoatex/docrepo, ivoatex/ivoabib, HighEnergyObsCoreExt}
@@ -712,9 +727,9 @@ The gamma-ray community has developed two additional data format standards, so w
 
 
 \pagebreak
-\section{\gls{HEA} Data Product Access Using ObsTAP Services}\label{sec:accessoptions}
+\section{Response Function Table Concept}\label{sec:accessoptionsappendix}
 
-\input{extendedAccessTonewtypesOfproducts.tex}
+\input{extendedAccessTonewtypesOfproductsAppendix.tex}
 
 
 \pagebreak

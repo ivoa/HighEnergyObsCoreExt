@@ -1,0 +1,76 @@
+In this appendix we further illustrate the possible use of an alternate table joined with the {\tt ivoa.obscore} table as a method for accessing {\bf response-function}s and data products that require queryable attributes that are not present in the {\tt ivoa.obscore} table,  as discussed in \S~\ref{sec:respaccess}. Further scientific input from \gls{HEIG} domain experts, developed from additional use cases that focus on exploring the appropriate set of attributes needed to support such queries, will be needed to further explore and generalize this solution.
+
+In order to handle the various possible cardinality relationships between {\bf response-function} and {\bf hea-event-list}  datasets, foreign keys must be defined in the {\tt ivoa.response$\{$\_xxx$\}$} tables that will allow {\tt  JOIN} operations between those tables and the {\tt ivoa.obscore} table.
+
+\subsection*{Example Response Table}
+%\TODO{ check fields for this new table }
+%\begin{table}[htbp]
+%\begin{center}
+{\small
+ \begin{longtable}{|m{0.25\linewidth}|m{0.1\linewidth}|m{0.10\linewidth}|m{0.41\linewidth}|}
+\hline
+{\bf Column Name} & {\bf Unit} & {\bf Type} & {\bf Description}\\\hline
+%obs\_collection & unitless & String & Name of the data collection \\\hline
+% to bind a response with an observation data set
+{\em obs\_id} & unitless & String & Related observation ID (foreign key) \\\hline
+{\em obs\_publisher\_did} & unitless & String & Related dataset ID (foreign key) \\\hline
+% copied from related observation if needed
+{\em target\_name} & unitless & String & Astronomical object observed, if any\\\hline
+{\em facility\_name} & unitless & String & Facility name used for observed data products \\\hline
+{\em instrument\_name} & unitless & String & Instrument name used for observed data products \\\hline
+% response specific fields 
+{\em resp\_product\_type} & unitless & String &  Product type as defined in the response-type vocabulary\\\hline
+{\em resp\_publisher\_did} & unitless & String & Dataset identifier given by the publisher\\\hline
+{\em resp\_access\_url} & unitless & String & URL used to access (download) the response dataset\\\hline
+{\em resp\_access\_format} & unitless & String & File content format (see in Obs\-Core MIME Types)\\\hline
+% response spatial coverage
+{\em resp\_s\_ra} & deg & double &  ICRS reference right ascension, for the region where the response-product applies \\\hline
+{\em resp\_s\_dec} & deg & double & ICRS reference declination, for the region where the response-product applies\\\hline
+{\em resp\_s\_region} & unitless & String & Region of interest for response use (expressed in ICRS frame)\\\hline
+{\em resp\_t\_intervals} & unitless& String (TMOC) & Time coverage for response use \\\hline
+%response energy coverage
+{\em resp\_energy\_min} & eV & double & Energy band minimal value for response use  \\\hline
+{\em resp\_energy\_max} & eV & double & Energy band maximal value for response use  \\\hline
+
+\caption{Example Response Table.  With appropriate further study the columns identified herein could form the basis for a recommended base set of columns for any {\tt ivoa.response$\{$\_xxx$\}$} table.}
+\label{tab:response_table}
+\end{longtable}
+}
+%\end{center}
+%\end{table}
+
+\noindent Implementing an {\tt ivoa.response$\{$\_xxx$\}$} table similar to this would allow queries such as the following: \\
+
+\noindent Find all datasets satisfying:
+\begin{enumerate}[(i)]
+ \item Position inside 3 arcmin from (83.6324, $+22.0174$),
+ \item Response product\_type = ``psf'',
+ \item obs\_id = ``1527'',
+ \item obs\_collection = ``HESS''.
+\end{enumerate}
+
+When using the response table defined in Table \ref{tab:response_table}, we can join the {\tt ivoa.obscore} table with the {\tt ivoa.response\_psf} table on 
+the two keys  {\em obs\_id\/} and {\em obs\_publisher\_did\/} for instance, as in: 
+{\small
+\begin{verbatim}
+SELECT obs_publisher_did, s_ra, s_dec, s_fov, t_min, t_max, 
+energy_min, energy_max, access_url, access_format, 
+resp_publisher_did, resp_access_url, resp_access_format, 
+resp_energy_max, resp_energy_min
+FROM ivoa.obscore 
+NATURAL JOIN  ivoa.response_psf
+WHERE
+(target_name = ’Crab’ OR target_name = ’M1’ OR
+CONTAINS(POINT(s_ra, s_dec), CIRCLE, 83.6324, +22.0174, 0.083333) = 1)
+AND (resp_product_type = 'psf')
+AND (obs_id = '1527')
+AND (obs_collection = 'HESS')
+\end{verbatim}
+}
+
+If additional constraints are required, then we can use ({\em e.g.\/}) {\em resp\_t\_min\/}, and {\em resp\_t\_max\/} and constrain the time interval by adding a clause like:
+{\small
+\begin{verbatim}
+AND (resp_t_min > 56000.0 and resp_t_max < 56001.5) 
+\end{verbatim}
+}
