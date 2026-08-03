@@ -196,7 +196,7 @@ One caveat: if response functions and other associated data are common to a full
 SELECT * FROM ivoa.obscore
  NATURAL JOIN ivoa.obscore_hea
  JOIN datalink.response ON
- ivoa.obscore.response_id = datalink.response.dl_association_id
+ ivoa.obscore.dl_association_id = datalink.response.dl_association_id
  WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
  AND (dataproduct_type = ’hea-event-list’)
  AND (semantics = '#this')
