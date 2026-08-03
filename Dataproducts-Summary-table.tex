@@ -10,20 +10,28 @@ The proposed vocabulary entries are listed in Table~\ref{tab:dp_vocabulary} with
 \sptablerule
 \textbf{Term}  &  \textbf{Label} & \textbf{Description} &\textbf{Parent}\cr
 \sptablerule
-\multicolumn{4}{|r|}{\bf Added to \emph{product-type} Vocabulary  \url{https://www.ivoa.net/rdf/product-type/}} \\ \hline
+\noalign{\vspace{8pt}}
+\hline
+\multicolumn{4}{|r|}{\bf Added to the IVOA Data Product Type Vocabulary} (\url{https://www.ivoa.net/rdf/product-type/}) \\ \hline
+\noalign{\vspace{2pt}}
 {\bf hea-event-bundle} & Event Bundle & A compounded dataset containing containing an {\bf hea-event-list} and multiple files or other substructures that are products necessary to analyze the {\bf hea-event-list} & none \cr
-{\bf hea-event-list} & Event list & A dataset that records a collection of observed particle-detection events, such as incoming high-energy particles, where an event is typically characterized by a spatial position, a time, and a spectral value ({\em e.g.\/}, an energy, a channel, a pulse height) & none \cr
- \hline
-\multicolumn{4}{|r|}{\bf Added to \emph{response-type} vocabulary  \url{https://www.ivoa.net/rdf/response-type/} } \\ \hline
-{\bf response-function} & Response Function & A dataset that maps a physical quantity to an observable quantitiy. This term is mainly intended for retrieval. To annotate datasets, use a narrower term Narrower terms are preferred to indicate more precisely the type of {\bf response-function} & \cr
-{\bf rmf} &\raggedright Redistribution Matrix File & A dataset that records the probability density function mapping from energy space into detector pulse height (or position) space & \#response-function \cr
+{\bf hea-event-list} & Event List & A dataset that records a collection of observed particle-detection events, such as incoming high-energy particles, where an event is typically characterized by a spatial position, a time, and a spectral value ({\em e.g.\/}, an energy, a channel, a pulse height) & \#temporally-resolved-dataset \cr
+\noalign{\vspace{8pt}}
+\hline
+\multicolumn{4}{|r|}{\bf Added to the IVOA Response Function Types Vocabulary} (\url{https://www.ivoa.net/rdf/response-type/}) \\ \hline
+\noalign{\vspace{2pt}}
+{\bf response-function} & Response Function & A dataset that records the mapping from a physical quantity to an observable quantitiy. Narrower terms are preferred to indicate more precisely the type of {\bf response-function} & \cr
+{\bf rmf} &\raggedright Redistribution Matrix File & A dataset that records the probability density function mapping from energy space into detector pulse height (or position) space & \#response-function, \#pdf \cr
 {\bf aeff} & Effective Area & A dataset that records the ``effective area'' of a telescope and/or instrument.  The effective area is the geometric area of the telescope and/or instrument reduced by efficiency factors such as reflectivity and vignetting, among other effects & \#response-function \cr
 {\bf arf} &\raggedright Ancillary Response File & A dataset that records the combined telescope/instrument effective area and detector quantum efficiency as a function of energy & \#response-function \cr
-{\bf bkgrate} & Background Rate & A dataset that models the rate of residual events that are not from the expected source type ({\em e.g.\/}, for gamma-ray instrument {\bf bkgrate} measures residual non-gamma-ray events coming from charged cosmic rays) & \#response-function \cr
-{\bf edisp} & Energy Dispersion & A dataset that records the probability density of detecting an event with an energy estimator (proxy) given the true energy of the event & \#response-function \cr
-{\bf psf} &\raggedright Point Spread Function & A dataset that records the probability density function of spatial/angular spreading of incident particles from a point source caused by the instrument (detector and/or mirror and/or analysis) & \#response-function \cr  \hline
-\multicolumn{4}{|r|}{\bf Added to \emph{analysis-product} vocabulary \url{https://github.com/ivoa-std/VEPs}} \\ \hline
-{\bf draws} & Draws & A dataset that records statistical draws computed from a probability distribution, for example Markov chain Monte Carlo (MCMC) draws used when computing the Bayesian marginal probability density function for a random variable & none \cr
+{\bf bkgrate} & Background Rate & A dataset that models the rate of residual events that are not from the expected source type ({\em e.g.\/}, for gamma-ray instruments {\bf bkgrate} measures residual non-gamma-ray events coming from charged cosmic rays) & \#response-function \cr
+{\bf edisp} & Energy Dispersion & A dataset that records the probability density of detecting an event with an energy estimator (proxy) given the true energy of the event & \#response-function, \#pdf \cr
+{\bf psf} &\raggedright Point Spread Function & A dataset that records the probability density function of spatial/angular spreading of incident particles from a point source caused by the instrument (detector and/or mirror and/or analysis) & \#response-function, \#pdf \cr
+\noalign{\vspace{8pt}}
+\hline
+\multicolumn{4}{|r|}{\bf Considered for addition to an IVOA Analysis Data Product Vocabulary\footnote{As noted in \S~\ref{sec:dataproduct_type}, we prefer the term ``Advanced Data Product'' rather than ``Analysis Data Product'' since the latter suggests that additional steps ({\em i.e.\/} some type of analysis) have taken place to construct these data products, which may not be the case.}$^,$\footnote{\url{https://github.com/ivoa-std/VEPs/pull/21/changes\#diff-25a867536b53bdb6848baeba09cfc4df1e4ad42da919d440902e57b917dd9abc}.}} \\ \hline
+\noalign{\vspace{2pt}}
+{\bf draws} & Draws & A dataset that records statistical draws computed from a probability distribution or a sample population, for example Markov chain Monte Carlo (MCMC) draws used when computing the Bayesian marginal probability density function for a random variable, or the DeltaTS associated with a quantity from a frequentist analysis & none \cr
 {\bf pdf} &\raggedright Probability Density Function & A dataset that records the probability density function of a quantity, for example the Bayesian marginal probability density function for a random variable & none \cr
 {\bf region} & Region & A dataset that encodes (one or more) regions of parameter space, for example a spatial region or a region of phase space covered by a dataset. The set of dimensions represented by the region can be arbitrary & none  \cr
 %\sptablerule
