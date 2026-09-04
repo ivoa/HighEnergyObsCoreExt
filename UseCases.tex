@@ -17,10 +17,10 @@ Three strategies have been considered in this note to organize data discovery ba
 
 \begin{itemize} 
 \item {\bf Proposal 1}: Serve all data products in the {\tt ivoa.obscore} table.  The attribute {\em dataproduct\_type\/} in {\tt ivoa.obscore} can contain any term from one of the three vocabularies  \textsl{product-type}, \textsl{advanced-product-type},  or \textsl{response-type}: 
-All products are distributed via the {\tt ivoa.obscore} table as in 
-Chandra use cases A.1.8, A.2.1, and A.2.3, CTAO use case A1.9 and A2.4, and SWGO use case A1.3.
+All products are distributed via the {\tt ivoa.obs\-core} table as in 
+Chandra use cases A.1.8, A.2.1, and A.2.3, CTAO use cases A1.9 and A2.4, and SWGO use case A1.3.
 
-This has the advantage that it is easy for the end-user to understand.  All data products are accessed from the same table and the user does not have to know details about which data products need to be queried from what table.
+This approach has the advantage that it is easy for the end-user to understand.  All data products are accessed from the same table and the user does not have to know details about which data products need to be queried from what table.
 
 A potential disadvantage is that the results of queries for multiple types of datasets will be harder to correlate, especially if the different data products types don't have a one-to-one cardinality relationship.  For example, if you search for  {\bf hea-event-list} or {\bf light-curve} in a sky region together with {\bf response-function} files, for instance {\bf psf}s, the query response may provide all datasets together mixing the various data product types together.  The user will therefore have to determine which {\bf psf}(s) are associated with each {\bf hea-event-list} or {\bf light-curve}.
 
@@ -28,20 +28,20 @@ The user could for example choose to use GROUP BY {\em obs\_id\/}, but still the
 
 In practice, many advanced data products of the same type may be associated with a single {\bf hea-event-list} and so archives that serve such products will generally provide adequate metadata to allow the correlations to be performed.  These metadata may not be directly accessible through the ObsCore TAP service however, which would place the onus on the end-user to perform these correlations after-the fact.
 
-\item {\bf Proposal 2}: Add new terms to the product-type vocabulary and distinguish among response types and advanced product types using {\em dataproduct\_subtype\/} in {\tt ivoa.obscore}. 
-The terms  pdf, draws, region, response-function are added to product-type vocabulary. 
+\item {\bf Proposal 2}: Add new terms to the product-type vocabulary and distinguish among response types and advanced product types using {\em data\-product\_subtype\/} in {\tt ivoa.obscore}. 
+The terms {\bf pdf}, {\bf draws}, {\bf region}, and {\bf response-function} are added to product-type vocabulary. 
 All products are distributed with the {\tt ivoa.obscore} table.
 See use cases A.1.10 and A.1.13 for KM3NeT and Chandra use case A.1.8.
 
-This approach is included largely for compatibility with the ObsCore Recommendation Version 1.1, which has a limited set of {\em dataproduct\_type\/}s and so requires the use of {\em dataproduct\_subtype\/} to discriminate between different data product types that share the same {\em dataproduct\_type\/}.  
+This approach is included largely for compatibility with the ObsCore Recommendation Version 1.1, which has a limited set of {\em dataproduct\_type\/}s and so requires the use of {\em dataproduct\_subtype\/} to discriminate between different data product types that share the same {\em data\-product\_type\/}.  
 
 A disadvantage of this approach is that queries on two ObsCore attributes are required to identify certain types of data products, for example different types of {\em response-function\/}s.  The interpretation  of the {\em dataproduct\_subtype\/} attribute may be ambiguous as the content could be ({\em e.g.\/}) a type of {\bf response-function}, or a category of image ({\em e.g.\/}, an excess map or significance map) or some specific description chosen by a specific archive.
 
-A standardized vocabulary for {\em dataproduct\_subtype\/} will be beneficial.  We have proposed standardized terms for various types of {\bf response-function}s in \S~5.  However, there are several types of images that are commonly used in \gls{HEA} that could, with some additional discussion, also be standardized.
+A standardized vocabulary for {\em dataproduct\_subtype\/} will be beneficial.  We have proposed standardized terms for various types of {\bf response-function}s in \S~5.  However, there are several types of {\bf image}s that are commonly used in \gls{HEA} that could, with some additional discussion, also be standardized.
 
-However, the ability for each individual archive to use {\em dataproduct\_subtype\/} ``to more precisely define the nature of the dataset'' (ObsCore Recommendation Version 1.1 \S~4.1) should not be discounted.  Each archive is likely to have many different types of data products that would otherwise have the same {\em dataproduct\_type\/} that will need to be discriminated to be useful.  Some data products may be unique to a particular observatory but nevertheless highly significant for end-users of that observatory's data.
+However, the ability for each individual archive to use {\em dataproduct\_sub\-type\/} ``to more precisely define the nature of the dataset'' (ObsCore Recommendation Version 1.1 \S~4.1) should not be discounted.  Each archive is likely to have many different types of data products that would otherwise have the same {\em dataproduct\_type\/} that will need to be discriminated to be discovered efficiently.  Some data products may be unique to a particular observatory but nevertheless highly significant for end-users of that observatory's data.
 
-\item {\bf Proposal 3}: Separate the three kinds of products defined in the three distinct vocabularies as proposed with Semantics WG.
+\item {\bf Proposal 3}: Separate the three kinds of products defined in the three distinct vocabularies as proposed with Semantics WG\null.
 Implement one table for each kind: 
 \begin{itemize}
 \item {\tt ivoa.obscore} uses {\em dataproduct\_type\/} from the \textsl{product-type} vocabulary;
@@ -49,12 +49,14 @@ Implement one table for each kind:
 \item {\tt ivoa.adp} uses {\em dataproduct\_type\/} from the \textsl{advanced-product-type} vocabulary.
 \end{itemize}
 
-The benefits lie in tracing clearly the connections between response files and/or advanced data products  to datasets from the  currently included in the \textsl{product-type} vocabulary.  This separation also addressed concerns that most {\bf response-function}s are not ``on-the-sky'' data products, despite their importance to \gls{HEA} data analysis.  (Advanced data products currently proposed for inclusion in ObsCore are all ``on-the-sky'' data, although the definitions of the products are sufficiently general that this is not necessarily the case.)
+The benefits lie in tracing clearly the connections between response files and/or advanced data products to primary datasets currently included in the \textsl{product-type} vocabulary.  This separation also addressed concerns that most {\bf response-function}s are not ``on-the-sky'' data products, despite their importance to \gls{HEA} data analysis.  (Advanced data products currently proposed for inclusion in ObsCore are all ``on-the-sky'' data, although the definitions of the products are sufficiently general that this is not required to be the case.)
 
 The disadvantage of this approach is that the end-user will need to know which vocabularies would need to be queried for which data product types and this may require a level of knowledge of IVOA implementation internals that would go beyond what is otherwise required of end-users.  This will be more important for end-users who prefer to write their own queries directly using ADQL (for example, using TOPCAT), and could be particularly troublesome if the end user needs to change the syntax of their {\em dataproduct\_type\/} query depending on which vocabulary is used.
 
 This strategy still needs to be investigated in detail.  Some hints for implementing this approach are provided in Appendix~\ref{sec:accessoptionsappendix}. 
-\end{itemize} 
+\end{itemize}
+
+\pagebreak
 
 \subsection{Event-List Data and Responses}
 
@@ -518,8 +520,8 @@ AND (CAST(obs_id AS INTEGER) <= 4379)
 
 
 \begin{verbatim}
-SELECT obs_publisher_did, dataproduct_type, calib_level, energy_min, energy_max, 
-t_min, t_max, access_url FROM ivoa.obscore
+SELECT obs_publisher_did, dataproduct_type, calib_level, energy_min,
+energy_max, t_min, t_max, access_url FROM ivoa.obscore
 NATURAL JOIN  ivoa.obscore_hea
 WHERE
 (CONTAINS(POINT(s_ra, s_dec), CIRCLE(10.6847, +41.2688, 1.5)) = 1)

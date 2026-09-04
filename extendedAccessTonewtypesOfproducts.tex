@@ -53,7 +53,7 @@ The simplest method to directly access any data product is to provide a direct l
 \hline
 {\em access\_estsize\/}&414720&216000\\
 \hline
-\caption{Excerpt of the ObsCore Response for {\bf hea-event-bundle}s (Inspired by the \gls{HESS} ObsTAP Prototype at Paris Observatory).}
+\caption{Excerpt of the ObsCore Response for {\bf hea-event-bundle}s (inspired by the \gls{HESS} ObsTAP Prototype at Paris Observatory).}
 \label{tab:bundle}
 \end{longtable}
 %\end{landscape}
@@ -154,8 +154,8 @@ SELECT * FROM ivoa.obscore
  JOIN datalink.response ON
  ivoa.obscore.obs_publisher_did = datalink.response.ID
  WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
- AND (dataproduct_type = `hea-event-list')
- AND semantics = `#this')
+ AND (dataproduct_type = ’hea-event-list')
+ AND semantics = ’#this')
 \end{verbatim}
 }
 
@@ -168,9 +168,9 @@ SELECT * FROM ivoa.obscore
  JOIN datalink.response ON 
  ivoa.obscore.obs_publisher_did = datalink.response.ID
  WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
- AND (dataproduct_type = `hea-event-list')
- AND (semantics = `#calibration')
- AND (content_qualifier = `psf')
+ AND (dataproduct_type = ’hea-event-list')
+ AND (semantics = ’#calibration')
+ AND (content_qualifier = ’psf')
 \end{verbatim}
 }
 
@@ -183,9 +183,9 @@ SELECT * FROM ivoa.obscore
  JOIN datalink.response ON 
  ivoa.obscore.obs_publisher_did = datalink.response.ID
  WHERE (INTERSECTS(s_region, CIRCLE(312.775, 30.683, 1.5)) = 6)
- AND (dataproduct_type = `hea-event-list')
+ AND (dataproduct_type = ’hea-event-list')
  AND (semantics = '#auxiliary')
- AND (content_qualifier = `bkgimage')
+ AND (content_qualifier = ’bkgimage')
 \end{verbatim}
 }
 

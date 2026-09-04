@@ -53,8 +53,8 @@ The {\tt ivoa.response} table uses a specific {\em resp\_dataproduct\_type\/} co
 When using the response table defined in Table \ref{tab:response_table}, we can join the {\tt ivoa.obscore} table with the {\tt ivoa.response} table on one of the two keys ({\em obs\_id\/} and {\em obs\_publisher\_did\/}), for example: 
 {\small
 \begin{verbatim}
-SELECT o.obs_publisher_did, o.obs_id, s_ra, s_dec, s_fov, t_min, t_max, 
-energy_min, energy_max, access_url, access_format, 
+SELECT o.obs_publisher_did, o.obs_id, s_ra, s_dec, s_fov, t_min,
+t_max, energy_min, energy_max, access_url, access_format, 
 resp_publisher_did, r.obs_publisher_did, r.obs_id, resp_access_url,
 resp_access_format, resp_energy_max, resp_energy_min
 FROM ivoa.obscore as o
@@ -67,18 +67,18 @@ AND (o.obs_id = '1527')
 AND (o.obs_collection = 'HESS')
 \end{verbatim}
 }
-If additional constraints are required, for instance on time, then we can add another set of columns  in {\tt ivoa.response} ({\em e.g.\/}) {\em resp\_t\_min\/} and {\em resp\_t\_max\/}, and constrain the time interval by adding a clause like:
+If additional constraints are required, for instance on time, then we can add another set of columns to the {\tt ivoa.response} table, ({\em e.g.\/}\null) {\em resp\_t\_min\/} and {\em resp\_t\_max\/}, and constrain the time interval by adding a clause like:
 {\small
 \begin{verbatim}
-AND (resp_t_min > 56000.0 and resp_t_max < 56001.5) 
+AND (resp_t_min > 56000.0 and resp_t_max < 56001.5)
 \end{verbatim}
 }
 
 \subsubsection*{Retrieve {\bf edisp} {\bf response-function}s for data sets constrained by {\em obs\_id} or position and by {\em scan\_mode}}
 {\small
 \begin{verbatim}
-SELECT o.obs_publisher_did, o.obs_id, s_ra, s_dec, s_fov, t_min, t_max, 
-energy_min, energy_max, access_url, access_format, scan_mode,
+SELECT o.obs_publisher_did, o.obs_id, s_ra, s_dec, s_fov, t_min,
+t_max, energy_min, energy_max, access_url, access_format, scan_mode,
 resp_publisher_did, resp.obs_id, resp_access_url, resp_access_format, 
 resp_energy_max, resp_energy_min, 
 FROM ( SELECT o.obs_publisher_did, o.obs_id, scan_mode 
